@@ -3,62 +3,181 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>올포원 브라운 상세페이지</title>
-<meta property="og:title" content="올포원 브라운 상세페이지">
-<meta property="og:description" content="AMAZONA 올포원 브라운 동결건조 큐브 상세페이지 미리보기">
-<meta property="og:image" content="images/001.jpg">
+<title>올포원 브라운 상세페이지 검토</title>
+<meta name="description" content="올포원 브라운 상세페이지의 기획 디렉션, 네이버 스마트스토어 PC·모바일 화면 미리보기">
+<meta property="og:title" content="올포원 브라운 상세페이지 검토">
+<meta property="og:description" content="디렉션 · PC버전 · 모바일버전 미리보기">
+<meta property="og:image" content="https://raior12345.github.io/ALLFORONEBROWN/assets/package.jpg">
+<meta name="theme-color" content="#2b1e17">
+<link rel="stylesheet" href="assets/base.css">
+<link rel="stylesheet" href="https://unpkg.com/@phosphor-icons/web@2.1.1/src/regular/style.css">
 <style>
-  * { box-sizing: border-box; margin: 0; padding: 0; }
-  html, body { background: #f2f2f2; }
-  body { font-family: -apple-system, BlinkMacSystemFont, "Apple SD Gothic Neo", "Malgun Gothic", sans-serif; color: #222; -webkit-text-size-adjust: 100%; }
-  .wrap { max-width: 480px; margin: 0 auto; background: #fff; min-height: 100vh; }
-  header { position: sticky; top: 0; z-index: 10; background: #fff; border-bottom: 1px solid #eee; }
-  .bar { height: 48px; display: flex; align-items: center; justify-content: center; font-size: 16px; font-weight: 700; }
-  .tabs { display: flex; border-top: 1px solid #f0f0f0; }
-  .tabs a { flex: 1; text-align: center; padding: 12px 0; font-size: 14px; color: #888; text-decoration: none; }
-  .tabs a.on { color: #222; font-weight: 700; box-shadow: inset 0 -2px 0 #222; }
-  .detail img { display: block; width: 100%; height: auto; }
-  footer { padding: 24px 16px 40px; text-align: center; font-size: 12px; color: #aaa; }
+  :root {
+    --bg: var(--oat);
+    --text: var(--espresso);
+    --sub: var(--muted);
+    --rule: var(--line);
+    --row-hover: var(--white);
+    --card: var(--white);
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --bg: #1f1611;
+      --text: #f1ece4;
+      --sub: #b9aa9b;
+      --rule: #3d2f26;
+      --row-hover: #2b1e17;
+      --card: #2b1e17;
+    }
+    .label { color: #c99a7c; }
+  }
+  body { background: var(--bg); color: var(--text); }
+
+  .topband { background: var(--espresso); color: #e9dfd2; }
+  .topband .in {
+    max-width: 1200px; margin: 0 auto; padding: 14px 24px;
+    display: flex; align-items: center; justify-content: space-between; gap: 16px;
+  }
+  .topband img { width: 72px; }
+  .topband .label { color: #d9cbbb; font-size: 11px; }
+
+  main {
+    max-width: 1200px; margin: 0 auto; padding: 72px 24px 96px;
+    display: grid; grid-template-columns: minmax(0, 1.05fr) minmax(0, 0.95fr);
+    gap: 72px; align-items: start;
+  }
+
+  h1 {
+    margin: 18px 0 0; font-size: clamp(40px, 5.2vw, 68px);
+    line-height: 1.12; letter-spacing: -0.03em; font-weight: 300;
+  }
+  h1 b { display: block; font-weight: 800; }
+  .lead { margin: 24px 0 0; max-width: 34ch; font-size: 18px; line-height: 1.65; color: var(--sub); }
+
+  .links { margin: 48px 0 0; padding: 0; list-style: none; border-top: 2px solid var(--text); }
+  .links li { border-bottom: 1px solid var(--rule); }
+  .links a {
+    display: grid; grid-template-columns: 48px minmax(0, 1fr) 32px; align-items: center; gap: 16px;
+    padding: 24px 12px 24px 4px; text-decoration: none;
+    transition: background-color .35s var(--ease), padding .35s var(--ease);
+  }
+  .links a:hover { background: var(--row-hover); padding-left: 16px; }
+  .links a:active { transform: scale(0.99); }
+  .links .ic { font-size: 30px; color: var(--cacao); }
+  .links .t { display: block; font-size: 22px; font-weight: 700; letter-spacing: -0.02em; }
+  .links .d { display: block; margin-top: 6px; font-size: 15px; line-height: 1.5; color: var(--sub); }
+  .links .go { font-size: 22px; transition: transform .35s var(--ease); }
+  .links a:hover .go { transform: translateX(4px); }
+
+  .visual .box { position: relative; }
+  .visual .card {
+    background: var(--card); border-radius: 28px; padding: 40px;
+    display: grid; place-items: center;
+  }
+  .visual .pack { width: min(100%, 380px); border-radius: 12px; box-shadow: 0 24px 48px rgb(43 30 23 / 0.18); }
+  .visual .cube {
+    position: absolute; right: -12px; bottom: -28px; width: 150px;
+    border-radius: 20px; background: var(--sand); padding: 14px;
+  }
+  .visual .cube img { border-radius: 10px; }
+  .visual figcaption { margin-top: 44px; font-size: 14px; color: var(--sub); }
+
+  .qr {
+    margin-top: 40px; display: grid; grid-template-columns: 96px minmax(0, 1fr); gap: 20px; align-items: center;
+    padding-top: 24px; border-top: 1px solid var(--rule);
+  }
+  .qr .code { background: #fff; padding: 10px; border-radius: 12px; }
+  .qr p { margin: 6px 0 0; font-size: 15px; line-height: 1.55; color: var(--sub); }
+  .qr strong { font-size: 16px; color: var(--text); }
+
+  footer {
+    max-width: 1200px; margin: 0 auto; padding: 24px 24px 40px;
+    border-top: 1px solid var(--rule); font-size: 13px; color: var(--sub);
+    display: flex; justify-content: space-between; gap: 16px; flex-wrap: wrap;
+  }
+
+  /* 등장 모션: 위계 순서대로 (라벨 → 헤드라인 → 링크) */
+  @media (prefers-reduced-motion: no-preference) {
+    .rise { opacity: 0; transform: translateY(18px); animation: rise .9s var(--ease) forwards; animation-delay: calc(var(--i, 0) * 90ms); }
+    @keyframes rise { to { opacity: 1; transform: none; } }
+  }
+
+  @media (max-width: 900px) {
+    main { grid-template-columns: minmax(0, 1fr); gap: 56px; padding: 40px 16px 72px; }
+    .topband .in, footer { padding-left: 16px; padding-right: 16px; }
+    .lead { font-size: 16px; }
+    .links { margin-top: 36px; }
+    .links a { grid-template-columns: 40px minmax(0, 1fr) 24px; padding: 20px 4px; }
+    .links a:hover { padding-left: 8px; }
+    .links .t { font-size: 19px; }
+    .links .d { font-size: 14px; }
+    .visual .card { padding: 28px; }
+    .visual .cube { width: 112px; right: 8px; bottom: -24px; padding: 10px; }
+    .qr { display: none; }
+  }
 </style>
 </head>
 <body>
-  <div class="wrap">
-    <header>
-      <div class="bar">아마조나 · 올포원 브라운</div>
-      <nav class="tabs"><a class="on">상세정보</a><a>리뷰</a><a>Q&amp;A</a></nav>
-    </header>
-    <main class="detail">
-      <img src="images/001.jpg" alt="" decoding="async">
-      <img src="images/002.jpg" alt="" decoding="async">
-      <img src="images/003.jpg" alt="" loading="lazy" decoding="async">
-      <img src="images/004.jpg" alt="" loading="lazy" decoding="async">
-      <img src="images/005.jpg" alt="" loading="lazy" decoding="async">
-      <img src="images/006.jpg" alt="" loading="lazy" decoding="async">
-      <img src="images/007.jpg" alt="" loading="lazy" decoding="async">
-      <img src="images/008.jpg" alt="" loading="lazy" decoding="async">
-      <img src="images/009.jpg" alt="" loading="lazy" decoding="async">
-      <img src="images/010.jpg" alt="" loading="lazy" decoding="async">
-      <img src="images/011.jpg" alt="" loading="lazy" decoding="async">
-      <img src="images/012.jpg" alt="" loading="lazy" decoding="async">
-      <img src="images/013.jpg" alt="" loading="lazy" decoding="async">
-      <img src="images/014.jpg" alt="" loading="lazy" decoding="async">
-      <img src="images/015.jpg" alt="" loading="lazy" decoding="async">
-      <img src="images/016.jpg" alt="" loading="lazy" decoding="async">
-      <img src="images/017.jpg" alt="" loading="lazy" decoding="async">
-      <img src="images/018.jpg" alt="" loading="lazy" decoding="async">
-      <img src="images/019.jpg" alt="" loading="lazy" decoding="async">
-      <img src="images/020.jpg" alt="" loading="lazy" decoding="async">
-      <img src="images/021.jpg" alt="" loading="lazy" decoding="async">
-      <img src="images/022.jpg" alt="" loading="lazy" decoding="async">
-      <img src="images/023.jpg" alt="" loading="lazy" decoding="async">
-      <img src="images/024.jpg" alt="" loading="lazy" decoding="async">
-      <img src="images/025.jpg" alt="" loading="lazy" decoding="async">
-      <img src="images/026.jpg" alt="" loading="lazy" decoding="async">
-      <img src="images/027.jpg" alt="" loading="lazy" decoding="async">
-      <img src="images/028.jpg" alt="" loading="lazy" decoding="async">
-      <img src="images/029.jpg" alt="" loading="lazy" decoding="async">
-    </main>
-    <footer>상세페이지 미리보기</footer>
+  <div class="topband">
+    <div class="in">
+      <img src="assets/logo.png" alt="AMAZONA">
+      <span class="label">Freeze-dried bird treat</span>
+    </div>
   </div>
+
+  <main>
+    <section>
+      <span class="label rise" style="--i:0">All for one brown</span>
+      <h1 class="rise" style="--i:1">올포원 브라운<b>상세페이지 검토</b></h1>
+      <p class="lead rise" style="--i:2">기획 디렉션과 네이버 스마트스토어에서 보이는 PC·모바일 화면을 한곳에서 확인하세요.</p>
+
+      <ul class="links">
+        <li class="rise" style="--i:3">
+          <a href="direction.html">
+            <i class="ph ph-compass-tool ic" aria-hidden="true"></i>
+            <span><span class="t">디렉션 보러가기</span><span class="d">디자인 규칙과 섹션별 카피·촬영 디렉션</span></span>
+            <i class="ph ph-arrow-right go" aria-hidden="true"></i>
+          </a>
+        </li>
+        <li class="rise" style="--i:4">
+          <a href="pc.html">
+            <i class="ph ph-desktop ic" aria-hidden="true"></i>
+            <span><span class="t">PC버전 보러가기</span><span class="d">스마트스토어 PC 화면, 상세 영역 860px</span></span>
+            <i class="ph ph-arrow-right go" aria-hidden="true"></i>
+          </a>
+        </li>
+        <li class="rise" style="--i:5">
+          <a href="mobile.html">
+            <i class="ph ph-device-mobile ic" aria-hidden="true"></i>
+            <span><span class="t">모바일버전 보러가기</span><span class="d">스마트스토어 모바일 화면, 휴대폰 폭에 맞춤</span></span>
+            <i class="ph ph-arrow-right go" aria-hidden="true"></i>
+          </a>
+        </li>
+      </ul>
+    </section>
+
+    <figure class="visual rise" style="--i:3; margin:0">
+      <div class="box">
+      <div class="card">
+        <img class="pack" src="assets/package.jpg" alt="올포원 브라운 패키지 시안" width="690" height="1060">
+      </div>
+      <div class="cube"><img src="assets/cube.jpg" alt="실제 큐브 형태" width="392" height="400"></div>
+      </div>
+      <figcaption>패키지 인쇄 시안과 실제 큐브</figcaption>
+
+      <div class="qr">
+        <img class="code" src="assets/qr-mobile.svg" alt="모바일버전 QR 코드" width="96" height="96">
+        <div>
+          <strong>휴대폰으로 바로 보기</strong>
+          <p>카메라로 찍으면 모바일버전이 열립니다.</p>
+        </div>
+      </div>
+    </figure>
+  </main>
+
+  <footer>
+    <span>AMAZONA 올포원 브라운</span>
+    <span>최종 업데이트 2026.10.07</span>
+  </footer>
 </body>
 </html>

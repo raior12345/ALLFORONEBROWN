@@ -1,0 +1,52 @@
+/* 올포원 브라운 디렉션의 컬러·타이포 토큰 (디렉션.pdf A. 공통 디자인 규칙) */
+@import url("https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css");
+@import url("https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@400;500;600;700&display=swap");
+
+:root {
+  --oat: #f1ece4;
+  --white: #fffefc;
+  --sand: #e3d9cb;
+  --line: #d8cdbf;
+  --cacao: #7a4a33;
+  --espresso: #2b1e17;
+  --muted: #6b5d53;
+
+  --font-ko: "Pretendard Variable", Pretendard, "Apple SD Gothic Neo", "Malgun Gothic", sans-serif;
+  --font-en: "Hanken Grotesk", var(--font-ko);
+  --ease: cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+*, *::before, *::after { box-sizing: border-box; }
+html { -webkit-text-size-adjust: 100%; }
+body { margin: 0; font-family: var(--font-ko); color: var(--espresso); background: var(--oat); word-break: keep-all; }
+img { display: block; max-width: 100%; height: auto; }
+a { color: inherit; }
+
+.label {
+  font-family: var(--font-en);
+  font-weight: 600;
+  font-size: 12px;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--cacao);
+}
+
+/* 검토용 페이지 공통: 메인으로 돌아가는 플로팅 버튼 */
+.back-home {
+  position: fixed; left: 16px; bottom: 16px; z-index: 100;
+  display: inline-flex; align-items: center; gap: 8px;
+  padding: 12px 18px 12px 14px; border-radius: 999px;
+  background: var(--espresso); color: var(--oat);
+  font-size: 14px; font-weight: 600; text-decoration: none;
+  box-shadow: 0 10px 30px rgb(43 30 23 / 0.25);
+  transition: transform .3s var(--ease);
+}
+.back-home:hover { transform: translateY(-2px); }
+.back-home:active { transform: scale(0.97); }
+.back-home i { font-size: 18px; }
+
+:focus-visible { outline: 2px solid var(--cacao); outline-offset: 3px; }
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { animation: none !important; transition: none !important; scroll-behavior: auto !important; }
+}

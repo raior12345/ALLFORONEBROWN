@@ -1,0 +1,180 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>모바일버전 미리보기</title>
+<meta name="description" content="네이버 스마트스토어 모바일 화면 기준 올포원 브라운 상세페이지 미리보기">
+<meta name="theme-color" content="#ffffff">
+<link rel="stylesheet" href="assets/base.css">
+<link rel="stylesheet" href="https://unpkg.com/@phosphor-icons/web@2.1.1/src/regular/style.css">
+<style>
+  /* 스마트스토어 모바일 상품 화면 구조를 본뜬 검토용 화면.
+     휴대폰: 화면 전체 폭 / PC: 가운데 휴대폰 프레임 안에서 스크롤 */
+  body { background: #fff; color: #222; font-size: 15px; }
+
+  .screen { background: #fff; }
+  .appbar {
+    position: sticky; top: 0; z-index: 20; background: #fff;
+    height: 52px; display: grid; grid-template-columns: 44px 1fr auto; align-items: center; padding: 0 8px;
+    border-bottom: 1px solid #f0f0f0;
+  }
+  .appbar a, .appbar i { font-size: 24px; color: #222; display: grid; place-items: center; text-decoration: none; }
+  .appbar strong { font-size: 16px; font-weight: 700; text-align: left; padding-left: 4px; }
+  .appbar .tools { display: flex; gap: 14px; padding-right: 8px; }
+
+  .hero-img { aspect-ratio: 1; background: #f6f6f6; display: grid; place-items: center; }
+  .hero-img img { height: 90%; width: auto; }
+
+  .info { padding: 18px 16px 22px; border-bottom: 8px solid #f4f4f4; }
+  .info .brand { font-size: 13px; color: #777; }
+  .info h1 { margin: 6px 0 0; font-size: 19px; line-height: 1.45; font-weight: 600; letter-spacing: -0.02em; }
+  .info .placeholder { margin-top: 14px; padding: 14px; border: 1px dashed #d0d0d0; border-radius: 6px; font-size: 13px; color: #777; line-height: 1.55; }
+
+  .tabs { position: sticky; top: 52px; z-index: 19; background: #fff; display: grid; grid-template-columns: repeat(3, 1fr); border-bottom: 1px solid #ececec; }
+  .tabs span { height: 46px; display: grid; place-items: center; font-size: 15px; color: #888; }
+  .tabs span.on { color: #111; font-weight: 700; box-shadow: inset 0 -2px 0 #111; }
+
+  .detail { position: relative; }
+  .detail img { width: 100%; height: auto; }
+  .detail.collapsed { max-height: 1500px; overflow: hidden; }
+  .detail.collapsed::after {
+    content: ""; position: absolute; left: 0; right: 0; bottom: 0; height: 160px;
+    background: linear-gradient(to bottom, rgb(255 255 255 / 0), #fff 85%);
+  }
+  .more-wrap { padding: 0 16px 8px; }
+  .more {
+    width: 100%; height: 52px; border: 1px solid #222; border-radius: 6px; background: #fff;
+    font: inherit; font-size: 15px; font-weight: 700; color: #111; cursor: pointer;
+    display: flex; align-items: center; justify-content: center; gap: 6px;
+  }
+  .more:active { transform: scale(0.98); }
+  .more[hidden], .more-wrap[hidden] { display: none; }
+
+  .after { padding: 28px 16px 120px; border-top: 8px solid #f4f4f4; color: #888; font-size: 14px; line-height: 1.6; }
+  .after h2 { margin: 0 0 6px; font-size: 16px; color: #222; }
+  .after section + section { margin-top: 24px; }
+
+  .side { display: none; }
+
+  /* PC에서 열었을 때: 휴대폰 프레임 */
+  @media (min-width: 768px) {
+    body { background: var(--oat); min-height: 100dvh; display: grid; place-items: center; padding: 32px 24px; }
+    .stage { display: grid; grid-template-columns: auto 280px; gap: 64px; align-items: center; }
+    .phone {
+      width: 402px; height: min(874px, calc(100dvh - 64px)); padding: 12px;
+      border-radius: 56px; background: var(--espresso);
+      box-shadow: 0 40px 80px rgb(43 30 23 / 0.25), inset 0 0 0 1px rgb(255 255 255 / 0.08);
+    }
+    .screen {
+      height: 100%; border-radius: 44px; overflow-y: auto; overscroll-behavior: contain;
+      scrollbar-width: none;
+    }
+    .screen::-webkit-scrollbar { display: none; }
+    .statusbar { height: 44px; background: #fff; position: sticky; top: 0; z-index: 21; display: flex; justify-content: space-between; align-items: center; padding: 0 28px; font-size: 14px; font-weight: 600; font-family: var(--font-en); }
+    .appbar { top: 44px; }
+    .tabs { top: 96px; }
+
+    .side { display: block; }
+    .side h1 { margin: 16px 0 0; font-size: 36px; line-height: 1.2; letter-spacing: -0.03em; font-weight: 300; }
+    .side h1 b { display: block; font-weight: 800; }
+    .side p { margin: 18px 0 0; color: var(--muted); line-height: 1.65; }
+    .side .qr { margin-top: 28px; width: 128px; background: #fff; padding: 12px; border-radius: 16px; }
+    .side .links { margin-top: 28px; display: grid; gap: 10px; }
+    .side .links a { font-weight: 600; text-decoration: none; display: inline-flex; gap: 6px; align-items: center; }
+    .side .links a:hover { color: var(--cacao); }
+    .back-home { display: none; }
+  }
+  @media (max-width: 767px) { .statusbar, .back-home { display: none; } }
+</style>
+</head>
+<body>
+<div class="stage">
+  <div class="phone">
+    <div class="screen" id="screen">
+      <div class="statusbar" aria-hidden="true"><span>9:41</span><span><i class="ph ph-cell-signal-full"></i> <i class="ph ph-wifi-high"></i> <i class="ph ph-battery-full"></i></span></div>
+      <header class="appbar">
+        <a href="index.html" aria-label="메인으로"><i class="ph ph-caret-left"></i></a>
+        <strong>아마조나</strong>
+        <span class="tools" aria-hidden="true"><i class="ph ph-magnifying-glass"></i><i class="ph ph-shopping-cart"></i></span>
+      </header>
+
+      <div class="hero-img"><img src="assets/package.jpg" alt="올포원 브라운 패키지"></div>
+      <div class="info">
+        <div class="brand">아마조나</div>
+        <h1>올포원 브라운 동결건조 큐브 앵무새 자연식</h1>
+        <div class="placeholder">가격·옵션·구매 버튼은 스마트스토어 등록 정보로 표시됩니다. 미리보기에서는 비워 두었습니다.</div>
+      </div>
+
+      <nav class="tabs" aria-label="상품 탭"><span class="on">상세정보</span><span>리뷰</span><span>Q&amp;A</span></nav>
+
+      <div class="detail collapsed" id="detail">
+        <img src="images/detail/001.jpg" width="1290" height="1500" alt="" decoding="async">
+        <img src="images/detail/002.jpg" width="1290" height="1500" alt="" decoding="async">
+        <img src="images/detail/003.jpg" width="1290" height="1046" alt="" loading="lazy" decoding="async">
+        <img src="images/detail/004.jpg" width="1290" height="1500" alt="" loading="lazy" decoding="async">
+        <img src="images/detail/005.jpg" width="1290" height="1500" alt="" loading="lazy" decoding="async">
+        <img src="images/detail/006.jpg" width="1290" height="1500" alt="" loading="lazy" decoding="async">
+        <img src="images/detail/007.jpg" width="1290" height="1500" alt="" loading="lazy" decoding="async">
+        <img src="images/detail/008.jpg" width="1290" height="1500" alt="" loading="lazy" decoding="async">
+        <img src="images/detail/009.jpg" width="1290" height="1308" alt="" loading="lazy" decoding="async">
+        <img src="images/detail/010.jpg" width="1290" height="1500" alt="" loading="lazy" decoding="async">
+        <img src="images/detail/011.jpg" width="1290" height="1500" alt="" loading="lazy" decoding="async">
+        <img src="images/detail/012.jpg" width="1290" height="1500" alt="" loading="lazy" decoding="async">
+        <img src="images/detail/013.jpg" width="1290" height="1500" alt="" loading="lazy" decoding="async">
+        <img src="images/detail/014.jpg" width="1290" height="1500" alt="" loading="lazy" decoding="async">
+        <img src="images/detail/015.jpg" width="1290" height="159" alt="" loading="lazy" decoding="async">
+        <img src="images/detail/016.jpg" width="1290" height="1500" alt="" loading="lazy" decoding="async">
+        <img src="images/detail/017.jpg" width="1290" height="1500" alt="" loading="lazy" decoding="async">
+        <img src="images/detail/018.jpg" width="1290" height="1500" alt="" loading="lazy" decoding="async">
+        <img src="images/detail/019.jpg" width="1290" height="1500" alt="" loading="lazy" decoding="async">
+        <img src="images/detail/020.jpg" width="1290" height="1500" alt="" loading="lazy" decoding="async">
+        <img src="images/detail/021.jpg" width="1290" height="1500" alt="" loading="lazy" decoding="async">
+        <img src="images/detail/022.jpg" width="1290" height="1500" alt="" loading="lazy" decoding="async">
+        <img src="images/detail/023.jpg" width="1290" height="1254" alt="" loading="lazy" decoding="async">
+        <img src="images/detail/024.jpg" width="1290" height="1500" alt="" loading="lazy" decoding="async">
+        <img src="images/detail/025.jpg" width="1290" height="1500" alt="" loading="lazy" decoding="async">
+        <img src="images/detail/026.jpg" width="1290" height="1388" alt="" loading="lazy" decoding="async">
+        <img src="images/detail/027.jpg" width="1290" height="1500" alt="" loading="lazy" decoding="async">
+        <img src="images/detail/028.jpg" width="1290" height="1500" alt="" loading="lazy" decoding="async">
+        <img src="images/detail/029.jpg" width="1290" height="1500" alt="" loading="lazy" decoding="async">
+        <img src="images/detail/030.jpg" width="1290" height="1500" alt="" loading="lazy" decoding="async">
+        <img src="images/detail/031.jpg" width="1290" height="1500" alt="" loading="lazy" decoding="async">
+        <img src="images/detail/032.jpg" width="1290" height="893" alt="" loading="lazy" decoding="async">
+      </div>
+      <div class="more-wrap" id="moreWrap">
+        <button class="more" id="more" type="button">상세정보 펼쳐보기 <i class="ph ph-caret-down" aria-hidden="true"></i></button>
+      </div>
+
+      <div class="after" aria-hidden="true">
+        <section><h2>리뷰</h2>스마트스토어에 등록된 리뷰가 표시되는 영역입니다.</section>
+        <section><h2>Q&amp;A</h2>상품 문의가 표시되는 영역입니다.</section>
+      </div>
+    </div>
+  </div>
+
+  <aside class="side">
+    <span class="label">Mobile preview</span>
+    <h1>모바일버전<b>미리보기</b></h1>
+    <p>스마트스토어 모바일 화면 기준입니다. 프레임 안에서 스크롤하거나, 휴대폰으로 QR을 찍어 실제 화면으로 확인하세요.</p>
+    <img class="qr" src="assets/qr-mobile.svg" alt="모바일버전 QR 코드" width="128" height="128">
+    <div class="links">
+      <a href="pc.html"><i class="ph ph-desktop" aria-hidden="true"></i>PC버전 보기</a>
+      <a href="direction.html"><i class="ph ph-compass-tool" aria-hidden="true"></i>디렉션 보기</a>
+      <a href="index.html"><i class="ph ph-arrow-left" aria-hidden="true"></i>메인으로</a>
+    </div>
+  </aside>
+</div>
+
+<a class="back-home" href="index.html"><i class="ph ph-arrow-left" aria-hidden="true"></i>메인</a>
+
+<script>
+  const detail = document.getElementById('detail');
+  const wrap = document.getElementById('moreWrap');
+  document.getElementById('more').addEventListener('click', () => {
+    detail.classList.remove('collapsed');
+    wrap.hidden = true;
+  });
+</script>
+</body>
+</html>

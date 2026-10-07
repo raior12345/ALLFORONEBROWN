@@ -1,0 +1,187 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>PC버전 미리보기</title>
+<meta name="description" content="네이버 스마트스토어 PC 화면 기준 올포원 브라운 상세페이지 미리보기">
+<link rel="stylesheet" href="assets/base.css">
+<link rel="stylesheet" href="https://unpkg.com/@phosphor-icons/web@2.1.1/src/regular/style.css">
+<style>
+  /* 스마트스토어 PC 상품 페이지 구조를 본뜬 검토용 화면 (상세 영역 860px) */
+  body { background: #fff; color: #222; font-size: 14px; min-width: 1100px; }
+  .notice { background: var(--espresso); color: #e9dfd2; font-size: 13px; text-align: left; }
+  .notice .in { width: 1080px; margin: 0 auto; padding: 9px 0; display: flex; justify-content: space-between; }
+  .notice a { color: #fff; font-weight: 600; text-decoration: none; }
+
+  .store-head { border-bottom: 1px solid #e5e5e5; }
+  .store-head .in { width: 1080px; margin: 0 auto; height: 76px; display: flex; align-items: center; gap: 14px; }
+  .store-head .mark { width: 44px; height: 44px; border-radius: 50%; background: var(--espresso); display: grid; place-items: center; overflow: hidden; }
+  .store-head .mark img { width: 40px; }
+  .store-head strong { font-size: 20px; font-weight: 700; letter-spacing: -0.02em; }
+  .store-head .tools { margin-left: auto; display: flex; gap: 20px; font-size: 22px; color: #555; }
+
+  .catnav { border-bottom: 1px solid #e5e5e5; }
+  .catnav .in { width: 1080px; margin: 0 auto; display: flex; gap: 28px; height: 48px; align-items: center; font-size: 15px; color: #444; }
+  .catnav .on { font-weight: 700; color: #111; }
+
+  .summary { width: 1080px; margin: 0 auto; padding: 32px 0 48px; display: grid; grid-template-columns: 520px 1fr; gap: 48px; }
+  .thumb { width: 520px; height: 520px; background: #f6f6f6; display: grid; place-items: center; border: 1px solid #eee; }
+  .thumb img { height: 470px; width: auto; }
+  .thumbs { display: flex; gap: 8px; margin-top: 10px; }
+  .thumbs span { width: 72px; height: 72px; border: 1px solid #e5e5e5; background: #f6f6f6 center/contain no-repeat; }
+  .thumbs span.on { border: 2px solid #111; }
+
+  .info .brand { font-size: 14px; color: #666; }
+  .info h1 { margin: 8px 0 0; font-size: 24px; line-height: 1.4; font-weight: 600; letter-spacing: -0.02em; }
+  .info .rating { margin-top: 12px; font-size: 14px; color: #666; display: flex; gap: 6px; align-items: center; }
+  .info .placeholder {
+    margin-top: 28px; padding: 22px 24px; border: 1px dashed #cfcfcf; border-radius: 4px;
+    color: #777; font-size: 14px; line-height: 1.6;
+  }
+  .info dl { margin: 28px 0 0; display: grid; grid-template-columns: 110px 1fr; row-gap: 14px; font-size: 14px; border-top: 1px solid #eee; padding-top: 24px; }
+  .info dt { color: #888; }
+  .info dd { margin: 0; color: #333; }
+
+  .tabs { position: sticky; top: 0; z-index: 20; background: #fff; border-top: 1px solid #222; border-bottom: 1px solid #e5e5e5; }
+  .tabs .in { width: 1080px; margin: 0 auto; display: grid; grid-template-columns: repeat(4, 1fr); }
+  .tabs span { height: 56px; display: grid; place-items: center; font-size: 16px; color: #777; border-left: 1px solid #eee; }
+  .tabs span:last-child { border-right: 1px solid #eee; }
+  .tabs span.on { color: #111; font-weight: 700; box-shadow: inset 0 -3px 0 #111; }
+
+  .detail-wrap { width: 1080px; margin: 0 auto; padding: 40px 0 80px; }
+  .detail { width: 860px; margin: 0 auto; position: relative; }
+  .detail img { width: 860px; height: auto; }
+  .detail.collapsed { max-height: 2400px; overflow: hidden; }
+  .detail.collapsed::after {
+    content: ""; position: absolute; left: 0; right: 0; bottom: 0; height: 220px;
+    background: linear-gradient(to bottom, rgb(255 255 255 / 0), #fff 85%);
+  }
+  .more {
+    display: flex; align-items: center; justify-content: center; gap: 8px;
+    width: 860px; height: 60px; margin: 0 auto; border: 1px solid #222; background: #fff;
+    font: inherit; font-size: 16px; font-weight: 700; color: #111; cursor: pointer;
+  }
+  .more:hover { background: #fafafa; }
+  .more:active { transform: scale(0.995); }
+  .more[hidden] { display: none; }
+
+  .after { width: 1080px; margin: 0 auto 120px; display: grid; grid-template-columns: 1fr 1fr; gap: 24px; }
+  .after section { border-top: 2px solid #111; padding-top: 18px; }
+  .after h2 { margin: 0; font-size: 18px; }
+  .after p { color: #888; margin: 12px 0 0; line-height: 1.6; }
+
+  /* 좁은 화면(태블릿·휴대폰)에서 열었을 때 안내 */
+  .narrow-hint { display: none; }
+  @media (max-width: 1099px) {
+    .narrow-hint {
+      display: block; position: sticky; top: 0; z-index: 30;
+      background: var(--cacao); color: #fff; padding: 10px 16px; font-size: 14px; line-height: 1.5;
+    }
+    .narrow-hint a { color: #fff; font-weight: 700; }
+  }
+</style>
+</head>
+<body>
+  <div class="narrow-hint">PC 화면 기준이라 좌우로 넓습니다. 휴대폰에서는 <a href="mobile.html">모바일버전</a>으로 보세요.</div>
+
+  <div class="notice">
+    <div class="in">
+      <span>검토용 미리보기 · 스마트스토어 PC 화면 기준</span>
+      <a href="index.html">메인으로</a>
+    </div>
+  </div>
+
+  <header class="store-head">
+    <div class="in">
+      <span class="mark"><img src="assets/logo.png" alt=""></span>
+      <strong>아마조나</strong>
+      <span class="tools" aria-hidden="true"><i class="ph ph-magnifying-glass"></i><i class="ph ph-heart"></i><i class="ph ph-shopping-cart"></i></span>
+    </div>
+  </header>
+  <nav class="catnav" aria-hidden="true">
+    <div class="in"><span>전체상품</span><span class="on">동결건조 간식</span><span>공지사항</span></div>
+  </nav>
+
+  <section class="summary">
+    <div>
+      <div class="thumb"><img src="assets/package.jpg" alt="올포원 브라운 패키지"></div>
+      <div class="thumbs" aria-hidden="true">
+        <span class="on" style="background-image:url(assets/package.jpg)"></span>
+        <span style="background-image:url(assets/cube.jpg)"></span>
+      </div>
+    </div>
+    <div class="info">
+      <div class="brand">아마조나</div>
+      <h1>올포원 브라운 동결건조 큐브 앵무새 자연식</h1>
+      <div class="rating"><i class="ph ph-star"></i>리뷰 영역</div>
+      <div class="placeholder">가격, 옵션, 배송비, 구매 버튼은 스마트스토어에 등록된 정보로 표시됩니다. 이 미리보기에서는 상세페이지 확인을 위해 비워 두었습니다.</div>
+      <dl>
+        <dt>원산지</dt><dd>국내 제조</dd>
+        <dt>제조원</dt><dd>(주)그루비테이블</dd>
+        <dt>구성</dt><dd>휴먼그레이드 원물 15가지 동결건조 큐브</dd>
+      </dl>
+    </div>
+  </section>
+
+  <nav class="tabs" aria-label="상품 탭">
+    <div class="in">
+      <span class="on">상세정보</span><span>리뷰</span><span>Q&amp;A</span><span>반품/교환정보</span>
+    </div>
+  </nav>
+
+  <div class="detail-wrap">
+    <div class="detail collapsed" id="detail">
+      <img src="images/detail/001.jpg" width="1290" height="1500" alt="" decoding="async">
+      <img src="images/detail/002.jpg" width="1290" height="1500" alt="" decoding="async">
+      <img src="images/detail/003.jpg" width="1290" height="1046" alt="" loading="lazy" decoding="async">
+      <img src="images/detail/004.jpg" width="1290" height="1500" alt="" loading="lazy" decoding="async">
+      <img src="images/detail/005.jpg" width="1290" height="1500" alt="" loading="lazy" decoding="async">
+      <img src="images/detail/006.jpg" width="1290" height="1500" alt="" loading="lazy" decoding="async">
+      <img src="images/detail/007.jpg" width="1290" height="1500" alt="" loading="lazy" decoding="async">
+      <img src="images/detail/008.jpg" width="1290" height="1500" alt="" loading="lazy" decoding="async">
+      <img src="images/detail/009.jpg" width="1290" height="1308" alt="" loading="lazy" decoding="async">
+      <img src="images/detail/010.jpg" width="1290" height="1500" alt="" loading="lazy" decoding="async">
+      <img src="images/detail/011.jpg" width="1290" height="1500" alt="" loading="lazy" decoding="async">
+      <img src="images/detail/012.jpg" width="1290" height="1500" alt="" loading="lazy" decoding="async">
+      <img src="images/detail/013.jpg" width="1290" height="1500" alt="" loading="lazy" decoding="async">
+      <img src="images/detail/014.jpg" width="1290" height="1500" alt="" loading="lazy" decoding="async">
+      <img src="images/detail/015.jpg" width="1290" height="159" alt="" loading="lazy" decoding="async">
+      <img src="images/detail/016.jpg" width="1290" height="1500" alt="" loading="lazy" decoding="async">
+      <img src="images/detail/017.jpg" width="1290" height="1500" alt="" loading="lazy" decoding="async">
+      <img src="images/detail/018.jpg" width="1290" height="1500" alt="" loading="lazy" decoding="async">
+      <img src="images/detail/019.jpg" width="1290" height="1500" alt="" loading="lazy" decoding="async">
+      <img src="images/detail/020.jpg" width="1290" height="1500" alt="" loading="lazy" decoding="async">
+      <img src="images/detail/021.jpg" width="1290" height="1500" alt="" loading="lazy" decoding="async">
+      <img src="images/detail/022.jpg" width="1290" height="1500" alt="" loading="lazy" decoding="async">
+      <img src="images/detail/023.jpg" width="1290" height="1254" alt="" loading="lazy" decoding="async">
+      <img src="images/detail/024.jpg" width="1290" height="1500" alt="" loading="lazy" decoding="async">
+      <img src="images/detail/025.jpg" width="1290" height="1500" alt="" loading="lazy" decoding="async">
+      <img src="images/detail/026.jpg" width="1290" height="1388" alt="" loading="lazy" decoding="async">
+      <img src="images/detail/027.jpg" width="1290" height="1500" alt="" loading="lazy" decoding="async">
+      <img src="images/detail/028.jpg" width="1290" height="1500" alt="" loading="lazy" decoding="async">
+      <img src="images/detail/029.jpg" width="1290" height="1500" alt="" loading="lazy" decoding="async">
+      <img src="images/detail/030.jpg" width="1290" height="1500" alt="" loading="lazy" decoding="async">
+      <img src="images/detail/031.jpg" width="1290" height="1500" alt="" loading="lazy" decoding="async">
+      <img src="images/detail/032.jpg" width="1290" height="893" alt="" loading="lazy" decoding="async">
+    </div>
+    <button class="more" id="more" type="button">상세정보 펼쳐보기 <i class="ph ph-caret-down" aria-hidden="true"></i></button>
+  </div>
+
+  <div class="after" aria-hidden="true">
+    <section><h2>리뷰</h2><p>스마트스토어에 등록된 리뷰가 표시되는 영역입니다.</p></section>
+    <section><h2>Q&amp;A</h2><p>상품 문의가 표시되는 영역입니다.</p></section>
+  </div>
+
+  <a class="back-home" href="index.html"><i class="ph ph-arrow-left" aria-hidden="true"></i>메인</a>
+
+<script>
+  const detail = document.getElementById('detail');
+  const more = document.getElementById('more');
+  more.addEventListener('click', () => {
+    detail.classList.remove('collapsed');
+    more.hidden = true;
+  });
+</script>
+</body>
+</html>
