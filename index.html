@@ -1296,7 +1296,6 @@ const PL_DETAILS = {
     { icon: "tree", t: "원목은 몇 달 동안 손질해요", d: "자작나무는 자연건조, 소독, 옹이 샌딩, 물세척, 고온건조까지 5단계 전처리를 거쳐요. 전처리에만 몇 달이 걸려요." },
     { icon: "flag", t: "K-앵무새 용품을 세계로", d: "K-앵무새 용품이 전 세계에서 사랑받는 게 목표예요. 2024년 싱가포르 Birdsprees와 유통 계약을 맺었어요." },
   ],
-  storyFrom: "앵무새연구소 인스타그램 게시물에서 옮겼어요.",
   priceNote: "가격과 구성은 부스에서 확인해 주세요.",
   cats: [
     {
@@ -2276,7 +2275,6 @@ const IMAGES = {
       <section class="pd-sec">
         <h3>${br(PL.storyTitle)}</h3>
         <ul class="why">${PL.story.map((p) => `<li>${icon(p.icon)}<div><b>${esc(p.t)}</b><span>${esc(p.d)}</span></div></li>`).join("")}</ul>
-        <p class="pd-cap">${esc(PL.storyFrom)}</p>
         <button type="button" class="btn grey press pd-next" data-goto="${next.id}">다음 · ${esc(next.name)}</button>
       </section>
     </div>`;
@@ -2439,7 +2437,6 @@ const IMAGES = {
       <section class="bs-sec" style="--acc:${PL_DETAILS.accent};--acc-weak:${PL_DETAILS.weak}">
         <h3>${br(PL_DETAILS.storyTitle)}</h3>
         <ul class="why">${PL_DETAILS.story.map((p) => `<li>${icon(p.icon)}<div><b>${esc(p.t)}</b><span>${esc(p.d)}</span></div></li>`).join("")}</ul>
-        <p class="note">${esc(PL_DETAILS.storyFrom)}</p>
       </section>`;
   }
 
