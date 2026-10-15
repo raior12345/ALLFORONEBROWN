@@ -192,7 +192,8 @@ a { color: inherit; text-decoration: none; }
   background: var(--blue); color: #FFF;
 }
 .banner:active { background: var(--blue-press); }
-.banner .ic { flex: none; width: 40px; height: 40px; border-radius: 50%; background: #FFF; color: var(--blue); display: grid; place-items: center; }
+.banner .ic, .zm { font-style: normal; }
+.ic { flex: none; width: 40px; height: 40px; border-radius: 50%; background: #FFF; color: var(--blue); display: grid; place-items: center; }
 .banner .ic svg { width: 20px; height: 20px; }
 .banner .tx { flex: 1; min-width: 0; }
 .banner strong { display: block; font-size: 18px; font-weight: 700; }
@@ -553,7 +554,7 @@ dialog.page[open] { animation: pushin .38s cubic-bezier(.32, .72, 0, 1) both; }
 .pd-next { margin-top: 20px; }
 
 /* 한눈에 비교 */
-.cmp { list-style: none; margin: 20px 0 0; padding: 0; display: grid; gap: 8px; }
+.cmp { list-style: none; margin: 12px 0 0; padding: 0; display: grid; gap: 8px; }
 .cmp button {
   width: 100%; text-align: left; padding: 16px; border-radius: 20px; background: var(--weak);
   display: grid; grid-template-columns: 56px minmax(0, 1fr) 20px; gap: 2px 14px; align-items: center;
@@ -569,6 +570,9 @@ dialog.page[open] { animation: pushin .38s cubic-bezier(.32, .72, 0, 1) both; }
 .cmp .meta strong { color: var(--ink); font-weight: 700; }
 .cmp .picks { grid-column: 1 / -1; display: flex; gap: 6px; margin-top: 10px; }
 .cmp .picks img { width: 44px; height: 44px; border-radius: 50%; object-fit: cover; background: #FFF; }
+.line + .line { margin-top: 28px; }
+.line-head { display: flex; flex-direction: column; gap: 2px; }
+.line-head p { margin: 0; font-size: 15px; color: var(--ink-3); }
 .reasons { list-style: none; margin: 16px 0 0; padding: 0; counter-reset: r; }
 .reasons li { counter-increment: r; display: grid; grid-template-columns: 36px minmax(0, 1fr); gap: 4px 12px; padding: 16px 0; border-top: 1px solid var(--bg); }
 .reasons li:first-child { border-top: 0; }
@@ -577,9 +581,75 @@ dialog.page[open] { animation: pushin .38s cubic-bezier(.32, .72, 0, 1) both; }
 .reasons span { font-size: 15px; color: var(--ink-3); line-height: 1.5; }
 .reasons .chip { margin-top: 4px; }
 
+.rot { margin-top: 16px; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 8px; }
+.rot div { padding: 14px 10px; border-radius: 16px; background: var(--weak); text-align: center; display: flex; flex-direction: column; align-items: center; gap: 6px; }
+.rot img { width: 44px; height: auto; border-radius: 6px; }
+.rot b { font-size: 17px; font-weight: 800; color: var(--accent); white-space: nowrap; }
+.rot span { font-size: 14px; color: var(--ink-3); word-break: keep-all; }
+
+/* 아이콘 */
+.ic { flex: none; width: 40px; height: 40px; border-radius: 12px; display: grid; place-items: center; background: var(--acc-weak, var(--bg)); color: var(--acc, var(--ink-2)); }
+.ic svg { width: 22px; height: 22px; }
+.m-head { display: flex; align-items: center; gap: 12px; }
+.pd-fig { margin: 18px 0 0; }
+.pd-fig img { aspect-ratio: 4 / 3; }
+.pd-fig figcaption { margin-top: 8px; font-size: 14px; color: var(--muted); }
+.tests .ic { width: 36px; height: 36px; border-radius: 50%; background: var(--green-weak); color: var(--green); }
+.certs { list-style: none; margin: 12px 0 0; padding: 0; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 8px; }
+.certs li { display: flex; flex-direction: column; gap: 2px; min-width: 0; }
+.cert { position: relative; display: block; width: 100%; aspect-ratio: 3 / 4; border-radius: 12px; overflow: hidden; background: var(--tone); box-shadow: 0 0 0 1px rgb(0 0 0 / 8%); margin-bottom: 6px; }
+.cert img { width: 100%; height: 100%; object-fit: cover; object-position: top; }
+.cert .zm { position: absolute; right: 6px; bottom: 6px; width: 30px; height: 30px; border-radius: 50%; display: grid; place-items: center; background: rgb(25 31 40 / 72%); color: #FFF; }
+.cert .zm svg { width: 18px; height: 18px; }
+.certs b { font-size: 14px; font-weight: 700; word-break: keep-all; }
+.certs span { font-size: 13px; color: var(--muted); word-break: keep-all; overflow-wrap: anywhere; }
+.haccp { margin-top: 14px; display: flex; align-items: center; gap: 14px; padding: 14px 16px; border-radius: 16px; background: var(--tone); }
+.haccp img { flex: none; width: 56px; height: 56px; }
+.haccp p { margin: 0; font-size: 15px; line-height: 1.55; color: var(--ink-2); }
+.why li { display: flex; gap: 14px; align-items: flex-start; }
+.why li > div { min-width: 0; }
+.checks div .ic { margin-bottom: 10px; width: 36px; height: 36px; }
+.checks div .ic svg { width: 20px; height: 20px; }
+.quick { margin-top: 16px; display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+.quick div { padding: 14px 16px; border-radius: 16px; background: var(--tone); display: grid; grid-template-columns: auto minmax(0, 1fr); grid-template-rows: auto auto; column-gap: 12px; align-items: center; }
+.quick .ic { grid-row: span 2; width: 36px; height: 36px; }
+.quick .ic svg { width: 20px; height: 20px; }
+.quick span { font-size: 13px; color: var(--muted); }
+.quick b { font-size: 15px; font-weight: 700; line-height: 1.35; word-break: keep-all; }
+.nutr { list-style: none; margin: 12px 0 0; padding: 0; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 8px; }
+.nutr li { padding: 12px 10px; border-radius: 14px; background: var(--acc-weak); display: flex; flex-direction: column; align-items: center; gap: 2px; text-align: center; }
+.nutr span { font-size: 13px; font-weight: 600; color: var(--ink-3); }
+.nutr b { font-size: 20px; font-weight: 800; letter-spacing: -0.02em; color: var(--acc); font-variant-numeric: tabular-nums; }
+.nutr small { font-size: 12px; font-weight: 700; padding: 1px 8px; border-radius: 10px; background: var(--surface); color: var(--ink-3); }
+.maker { list-style: none; margin: 20px 0 0; padding: 0; display: grid; gap: 8px; }
+.maker li { display: flex; align-items: center; gap: 12px; padding: 12px 16px; border-radius: 16px; background: var(--tone); }
+.maker li > div { min-width: 0; display: flex; flex-direction: column; }
+.maker span { font-size: 13px; color: var(--muted); }
+.maker b { font-size: 15px; font-weight: 600; line-height: 1.45; word-break: keep-all; }
+.maker a { font-size: 17px; font-weight: 700; color: var(--blue); min-height: 32px; display: inline-flex; align-items: center; }
+.maker .ic { width: 36px; height: 36px; }
+.maker .ic svg { width: 20px; height: 20px; }
+
+/* 크게 보기 */
+dialog.zoom { width: 100%; max-width: 100%; height: 100%; max-height: 100%; margin: 0; padding: 0; border: 0; background: var(--ink); color: #FFF; }
+dialog.zoom::backdrop { background: var(--ink); }
+dialog.zoom[open] { display: flex; flex-direction: column; animation: fadein .2s ease both; }
+.zbar { flex: none; display: flex; align-items: center; gap: 8px; padding: calc(6px + env(safe-area-inset-top, 0px)) 8px 6px 20px; }
+.zbar h2 { flex: 1; min-width: 0; margin: 0; font-size: 17px; font-weight: 700; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.zbar button { width: 44px; height: 44px; border-radius: 50%; display: grid; place-items: center; color: #FFF; }
+.zbar button svg { width: 22px; height: 22px; }
+.zimg { flex: 1; overflow: auto; display: grid; place-items: center; padding: 8px 12px calc(16px + env(safe-area-inset-bottom, 0px)); }
+.zimg img { max-width: 100%; height: auto; border-radius: 8px; background: #FFF; }
+
+@keyframes fadein {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
 @media (max-width: 359px) {
   .ing-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); }
   .checks { grid-template-columns: 1fr; }
+  .quick { grid-template-columns: 1fr; }
   .spec div { grid-template-columns: 84px minmax(0, 1fr); }
   .pd-hero h3 { font-size: 26px; }
 }
@@ -762,6 +832,15 @@ dialog.page[open] { animation: pushin .38s cubic-bezier(.32, .72, 0, 1) both; }
   </div>
 </dialog>
 
+<!-- 인증서 크게 보기 -->
+<dialog class="zoom" id="zoom" aria-labelledby="zoomTitle">
+  <div class="zbar">
+    <h2 id="zoomTitle">크게 보기</h2>
+    <button type="button" data-close aria-label="닫기"><svg viewBox="0 0 20 20" aria-hidden="true"><path d="M5 5l10 10M15 5 5 15" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></button>
+  </div>
+  <div class="zimg" id="zoomImg"></div>
+</dialog>
+
 <!-- 완료 시트 (스크린샷용) -->
 <dialog class="sheet" id="doneModal" aria-labelledby="doneTitle">
   <button type="button" class="sheet-close" data-close aria-label="닫기"><svg viewBox="0 0 20 20" aria-hidden="true"><path d="M5 5l10 10M15 5 5 15" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></button>
@@ -936,6 +1015,8 @@ const DETAILS = {
         { name: "대장균", en: "Escherichia coli", result: "음성" },
       ],
       haccp: "HACCP 인증 시설에서 만들어요. 공정마다 위험 요소를 확인하고 관리하는 식품안전관리 제도예요.",
+      photo: "safe-baby", photoAlt: "아마조나 브리더의 손 위에 누운 아기 앵무새",
+      photoCap: "아마조나 브리더가 직접 찍은 실제 사진이에요.",
     },
     process: {
       title: "얼린 그대로,\n수분만 날려 보내요",
@@ -946,16 +1027,16 @@ const DETAILS = {
         { t: "건조", d: "물기는 떠나고 색과 향이 남아요" },
       ],
       why: [
-        { t: "화학 첨가물 없이 오래 보존해요", d: "세균과 곰팡이는 수분이 있어야 자라요. 수분을 날려서 보존료 없이도 오래 둘 수 있어요." },
-        { t: "원물의 영양을 덜 잃어요", d: "높은 열을 쓰지 않아 열에 약한 영양의 손실이 적어요." },
-        { t: "가볍고 보관이 쉬워요", d: "수분이 빠져 가볍고, 밀봉해서 실온에 둘 수 있어요." },
+        { icon: "noadd", t: "화학 첨가물 없이 오래 보존해요", d: "세균과 곰팡이는 수분이 있어야 자라요. 수분을 날려서 보존료 없이도 오래 둘 수 있어요." },
+        { icon: "leaf", t: "원물의 영양을 덜 잃어요", d: "높은 열을 쓰지 않아 열에 약한 영양의 손실이 적어요." },
+        { icon: "box", t: "가볍고 보관이 쉬워요", d: "수분이 빠져 가볍고, 밀봉해서 실온에 둘 수 있어요." },
       ],
     },
     before: [
-      { t: "보관 방법", d: "직사광선을 피해 밀봉한 뒤 실온이나 냉장에 보관해 주세요." },
-      { t: "부서짐", d: "제품 특성상 마찰 때문에 부서질 수 있어요." },
-      { t: "습기 제거제", d: "함께 든 습기 제거제를 먹지 않게 주의해 주세요." },
-      { t: "동물 전용 사료", d: "영·유아나 성인이 먹지 않게 주의해 주세요." },
+      { icon: "sun", t: "보관 방법", d: "직사광선을 피해 밀봉한 뒤 실온이나 냉장에 보관해 주세요." },
+      { icon: "crack", t: "부서짐", d: "제품 특성상 마찰 때문에 부서질 수 있어요." },
+      { icon: "packet", t: "습기 제거제", d: "함께 든 습기 제거제를 먹지 않게 주의해 주세요." },
+      { icon: "warn", t: "동물 전용 사료", d: "영·유아나 성인이 먹지 않게 주의해 주세요." },
     ],
     info: [
       ["사료의 종류", "단미사료/혼합성-혼합제/혼합성 단미사료"],
@@ -975,6 +1056,10 @@ const DETAILS = {
   compare: {
     title: "어떤 맛이 다를까?\n한눈에 비교해요",
     lead: "5종 모두 휴먼그레이드 원물, 무첨가, 살모넬라·대장균 검사, HACCP 시설 국내 제조예요.",
+    lines: [
+      { name: "동결건조 믹스", desc: "잘게 썬 원물을 섞었어요 · 50g, 200g", ids: ["green", "tropical", "berry"] },
+      { name: "올포원 큐브", desc: "한 조각에 담은 편식 예방 보조펠렛 · 100g", ids: ["brown", "violet"] },
+    ],
     reasonsTitle: "아마조나 동결건조가\n특별한 5가지 이유",
     reasons: [
       { t: "HACCP 인증 시설, 국내 제조", d: "위생적인 국내 시설에서 직접 만들어요", tag: "정식 사료 성분등록" },
@@ -983,10 +1068,18 @@ const DETAILS = {
       { t: "화학 첨가물·보존료·설탕 없이", d: "수분만 날려서 실온에 보관해요", tag: "무방부제·무색소·무설탕" },
       { t: "영하 동결건조 공법", d: "영양·색·향을 지키고, 부리로 바삭 부서져요", tag: "동결 → 승화 → 건조" },
     ],
+    rotationTitle: "요일마다 번갈아 주면\n질리지 않아요",
+    rotation: [
+      { id: "green", days: "화·목·금" },
+      { id: "tropical", days: "월·수" },
+      { id: "berry", days: "토·일" },
+    ],
+    rotationNote: "예시 식단이에요. 반려조에게 맞게 꾸려 주세요.",
   },
 
   products: {
     green: {
+      certs: [["cert-green-1", "사료검정증명서", "5대 성분 · 살모넬라"], ["cert-green-2", "검사성적서", "대장균"], ["cert-green-3", "사료 성분등록증", "AAHKY0086"]],
       name: "그린일레븐", en: "Green Eleven", kind: "chop",
       accent: "#4C6B33", weak: "#ECF0E6",
       type: "동결건조 찹 믹스", tagline: "채소 듬뿍 기본식",
@@ -1014,6 +1107,7 @@ const DETAILS = {
         ["등록 성분량", "조단백질 8.5% 이상, 조지방 0.7% 이상, 조섬유 5% 이하, 조회분 6% 이하, 수분 11% 이하"]],
     },
     tropical: {
+      certs: [["cert-tropical-1", "사료검정증명서", "5대 성분 · 살모넬라"], ["cert-tropical-2", "검사성적서", "대장균"], ["cert-tropical-3", "사료 성분등록증", "AAHKY0093"]],
       name: "트로피칼나인", en: "Tropical Nine", kind: "chop",
       accent: "#8F5210", weak: "#F5EEDD",
       type: "동결건조 찹 믹스", tagline: "달콤한 열대과일",
@@ -1041,6 +1135,7 @@ const DETAILS = {
         ["등록 성분량", "조단백질 9% 이상, 조지방 1% 이상, 조섬유 7.5% 이하, 조회분 6% 이하, 수분 11% 이하"]],
     },
     berry: {
+      certs: [["cert-berry-1", "사료검정증명서", "5대 성분 · 살모넬라"], ["cert-berry-2", "검사성적서", "대장균"], ["cert-berry-3", "사료 성분등록증", "AAHKY0088"]],
       name: "베리베리텐", en: "Veryberry Ten", kind: "chop",
       accent: "#8C3350", weak: "#F3EAEC",
       type: "동결건조 찹 믹스", tagline: "새콤달콤 베리 3종",
@@ -1068,6 +1163,7 @@ const DETAILS = {
         ["등록 성분량", "조단백질 8% 이상, 조지방 0.5% 이상, 조섬유 5% 이하, 조회분 7% 이하, 수분 10% 이하"]],
     },
     brown: {
+      certs: [["cert-brown-1", "검사성적서", "대장균군 · 살모넬라"], ["cert-brown-2", "사료 성분등록증", "AAHKY0128"]],
       name: "올포원 브라운", en: "All for One Brown", kind: "cube",
       accent: "#7A4A33", weak: "#F1ECE4",
       type: "포레징 큐브", tagline: "씨앗 3종 품은 큐브",
@@ -1102,6 +1198,7 @@ const DETAILS = {
         ["등록 성분량", "조단백질 7% 이상, 조지방 6% 이하, 조섬유 14% 이하, 조회분 4% 이하, 수분 8% 이하"]],
     },
     violet: {
+      certs: [["cert-violet-1", "검사성적서", "대장균"], ["cert-violet-2", "사료 성분등록증", "AAHKY0104"]],
       name: "올포원 바이올렛", en: "All for One Violet", kind: "cube",
       accent: "#6B4A8C", weak: "#EFEBF2",
       type: "포레징 큐브", tagline: "보랏빛 자색고구마 큐브",
@@ -1146,9 +1243,9 @@ const DETAILS = {
   feed: {
     chop: {
       methods: [
-        { t: "펠렛과 함께", d: "평소 먹는 펠렛에 섞어 주세요. 펠렛에 부족한 채소와 과일을 채워요.", ratio: true },
-        { t: "봉지에서 꺼내 그대로", d: "채소와 과일의 자연 그대로를 간식으로 주세요." },
-        { t: "미온수에 적셔서", d: "미온수에 30초쯤 불려 부드럽게 주세요. 먹고 나면 그릇을 바로 치워 주세요." },
+        { icon: "bowl", t: "펠렛과 함께", d: "평소 먹는 펠렛에 섞어 주세요. 펠렛에 부족한 채소와 과일을 채워요.", ratio: true },
+        { icon: "bag", t: "봉지에서 꺼내 그대로", d: "채소와 과일의 자연 그대로를 간식으로 주세요." },
+        { icon: "drop", t: "미온수에 적셔서", d: "미온수에 30초쯤 불려 부드럽게 주세요. 먹고 나면 그릇을 바로 치워 주세요." },
       ],
       example: "체중 50g인 앵무새라면 하루 5g, 펠렛 3.5g + {name} 1.5g이에요.",
       note: { t: "한두 번 남기더라도 꾸준히 주세요", d: "편식은 하루 이틀에 고쳐지지 않아요. 처음엔 낯설어서 남길 수 있어요.", rec: "5~6개월 동안 아침마다 펠렛과 함께 주세요." },
@@ -1157,9 +1254,9 @@ const DETAILS = {
     },
     cube: {
       methods: [
-        { t: "펠렛과 함께", d: "평소 먹는 펠렛에 {name}을 섞어 주세요.", ratio: true },
-        { t: "다른 동결건조와 섞어서", d: "아마조나의 다른 동결건조 과일·채소와 섞어 한 그릇으로 주세요." },
-        { t: "큐브 그대로", d: "그 자체로 충분해요. 씨앗을 찾으며 채소와 과일을 함께 먹어요." },
+        { icon: "bowl", t: "펠렛과 함께", d: "평소 먹는 펠렛에 {name}을 섞어 주세요.", ratio: true },
+        { icon: "mix", t: "다른 동결건조와 섞어서", d: "아마조나의 다른 동결건조 과일·채소와 섞어 한 그릇으로 주세요." },
+        { icon: "cube", t: "큐브 그대로", d: "그 자체로 충분해요. 씨앗을 찾으며 채소와 과일을 함께 먹어요." },
       ],
       note: { t: "알곡과는 따로 주세요", d: "알곡과 함께 주면 지방이 많은 알곡부터 먹어서 편식이 이어질 수 있어요.", rec: "아침 첫 끼에 펠렛 + 올포원, 또는 올포원만 주세요." },
     },
@@ -1477,6 +1574,81 @@ const IMAGES = {
     "src": "img/sz-violet-bowl.webp",
     "w": 640,
     "h": 640
+  },
+  "cert-green-1": {
+    "src": "img/cert-green-1.webp",
+    "w": 453,
+    "h": 640
+  },
+  "cert-green-2": {
+    "src": "img/cert-green-2.webp",
+    "w": 452,
+    "h": 640
+  },
+  "cert-green-3": {
+    "src": "img/cert-green-3.webp",
+    "w": 453,
+    "h": 640
+  },
+  "cert-tropical-1": {
+    "src": "img/cert-tropical-1.webp",
+    "w": 453,
+    "h": 640
+  },
+  "cert-tropical-2": {
+    "src": "img/cert-tropical-2.webp",
+    "w": 452,
+    "h": 640
+  },
+  "cert-tropical-3": {
+    "src": "img/cert-tropical-3.webp",
+    "w": 480,
+    "h": 640
+  },
+  "cert-berry-1": {
+    "src": "img/cert-berry-1.webp",
+    "w": 453,
+    "h": 640
+  },
+  "cert-berry-2": {
+    "src": "img/cert-berry-2.webp",
+    "w": 452,
+    "h": 640
+  },
+  "cert-berry-3": {
+    "src": "img/cert-berry-3.webp",
+    "w": 453,
+    "h": 640
+  },
+  "cert-brown-1": {
+    "src": "img/cert-brown-1.webp",
+    "w": 500,
+    "h": 640
+  },
+  "cert-brown-2": {
+    "src": "img/cert-brown-2.webp",
+    "w": 450,
+    "h": 640
+  },
+  "cert-violet-1": {
+    "src": "img/cert-violet-1.webp",
+    "w": 453,
+    "h": 640
+  },
+  "cert-violet-2": {
+    "src": "img/cert-violet-2.webp",
+    "w": 448,
+    "h": 640
+  },
+  "haccp-mark": {
+    "src": "img/haccp-mark.webp",
+    "w": 200,
+    "h": 198
+  },
+  "safe-baby": {
+    "src": "img/safe-baby.webp",
+    "w": 900,
+    "h": 675
   }
 };
 
@@ -1676,6 +1848,30 @@ const IMAGES = {
   const CHEV_R = '<svg class="chev" viewBox="0 0 20 20" aria-hidden="true"><path d="M7.5 4.5 13 10l-5.5 5.5" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>';
   const CHEV_D = '<svg viewBox="0 0 20 20" aria-hidden="true"><path d="M5 7.5 10 13l5-5.5" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>';
   const fill = (s, p) => s.replace(/\{name\}/g, p.name);
+  // 선 아이콘 (24px, 1.8 stroke)
+  const ICONS = {
+    bowl: "M3 11h18a9 9 0 0 1-18 0Z M8 8h.01 M12 6.5h.01 M16 8h.01 M10 20h4",
+    bag: "M6 7h12l1 14H5L6 7Z M9 7a3 3 0 0 1 6 0 M9 12h6",
+    drop: "M12 3c4 5 6 8 6 11a6 6 0 0 1-12 0c0-3 2-6 6-11Z M9.5 14.5a2.5 2.5 0 0 0 2.5 2.5",
+    mix: "M3 13h10a5 5 0 0 1-10 0Z M11 9h10a5 5 0 0 1-10 0Z",
+    cube: "M12 3l8 4.5v9L12 21l-8-4.5v-9Z M12 12l8-4.5 M12 12v9 M12 12 4 7.5",
+    noadd: "M12 3a9 9 0 1 1 0 18 9 9 0 0 1 0-18Z M5.6 5.6l12.8 12.8",
+    leaf: "M5 19C5 11 11 5 19 5c0 8-6 14-14 14Z M5 19l7-7",
+    box: "M3 7.5 12 3l9 4.5v9L12 21l-9-4.5v-9Z M3 7.5 12 12l9-4.5 M12 12v9 M7.5 5.3l9 4.5",
+    sun: "M12 8a4 4 0 1 1 0 8 4 4 0 0 1 0-8Z M12 2v2 M12 20v2 M4.9 4.9l1.4 1.4 M17.7 17.7l1.4 1.4 M2 12h2 M20 12h2 M4.9 19.1l1.4-1.4 M17.7 6.3l1.4-1.4",
+    crack: "M4 4h16v16H4Z M13 4l-3 6 4 3-3 7",
+    packet: "M7 3h10v18H7Z M10 7h4 M10 11h4 M10 15h4",
+    warn: "M12 3 22 20H2L12 3Z M12 10v4 M12 17h.01",
+    shield: "M12 3l7 3v6c0 4.5-3 7.6-7 9-4-1.4-7-4.5-7-9V6l7-3Z M9 12l2 2 4-4",
+    scale: "M6 8h12l2 12H4L6 8Z M9 8a3 3 0 0 1 6 0",
+    flag: "M5 21V4 M5 4h12l-2 4 2 4H5",
+    calendar: "M4 6h16v14H4Z M4 10h16 M8 3v4 M16 3v4",
+    factory: "M3 21V10l6 3v-3l6 3V5h6v16H3Z M7 17h2 M12 17h2",
+    store: "M4 9l1-5h14l1 5 M4 9v11h16V9 M4 9h16 M10 20v-5h4v5",
+    phone: "M5 4h4l2 5-2.5 1.5a11 11 0 0 0 5 5L15 13l5 2v4a1 1 0 0 1-1 1A16 16 0 0 1 4 5a1 1 0 0 1 1-1Z",
+    zoom: "M11 4a7 7 0 1 1 0 14 7 7 0 0 1 0-14Z M20 20l-4-4 M11 8v6 M8 11h6",
+  };
+  const icon = (name, cls = "ic") => `<i class="${cls}" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="${ICONS[name]}" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></i>`;
   const saleOf = (id) => C.brands.amazona.products.find((x) => x.id === id);
   const countOf = (p) => p.groups.reduce((n, g) => n + g.items.length, 0);
   const accVars = (p) => `--acc:${p.accent};--acc-weak:${p.weak}`;
@@ -1749,7 +1945,7 @@ const IMAGES = {
   function feedHTML(p) {
     const F = D.feed[p.kind];
     const methods = F.methods.map((m) => `
-      <div class="method"><b>${esc(m.t)}</b><p>${esc(fill(m.d, p))}</p>
+      <div class="method"><div class="m-head">${icon(m.icon)}<b>${esc(m.t)}</b></div><p>${esc(fill(m.d, p))}</p>
         ${m.ratio ? `<div class="ratio" aria-hidden="true"><span class="a">7</span><span class="b">3</span></div><p class="legend"><span>펠렛 7</span><span>${esc(p.name)} 3</span></p>` : ""}
         ${m.ratio && F.example ? `<p class="ex">${esc(fill(F.example, p))}</p>` : ""}
         ${m.ratio && p.bowl ? img(p.bowl.img, p.bowl.alt, { cls: "ph", lazy: true }) : ""}
@@ -1773,20 +1969,24 @@ const IMAGES = {
       </section>`;
   }
 
-  function safetyHTML() {
+  function safetyHTML(p) {
     const S = D.common.safety, P = D.common.process;
     return `
       <section class="pd-sec">
         <h3>${br(S.title)}</h3>
         <p class="pd-lead">${esc(S.lead)}</p>
+        <figure class="pd-fig">${img(S.photo, S.photoAlt, { cls: "ph", lazy: true })}<figcaption>${esc(S.photoCap)}</figcaption></figure>
         <div class="tests">${S.tests.map((x) => `
-          <div><p>${esc(x.name)}<small>${esc(x.en)}</small></p><span class="chip ok">${esc(x.result)}</span></div>`).join("")}
+          <div>${icon("shield")}<p>${esc(x.name)}<small>${esc(x.en)}</small></p><span class="chip ok">${esc(x.result)}</span></div>`).join("")}
         </div>
-        <p class="pd-cap">${esc(S.haccp)}</p>
+        <ul class="certs">${p.certs.map(([k, t1, t2]) => `
+          <li><button type="button" class="cert" data-zoom="${k}" data-zoom-title="${esc(p.name)} ${esc(t1)}" aria-label="${esc(p.name)} ${esc(t1)} 크게 보기">${img(k, "", { lazy: true })}${icon("zoom", "zm")}</button><b>${esc(t1)}</b><span>${esc(t2)}</span></li>`).join("")}
+        </ul>
+        <div class="haccp">${img("haccp-mark", "HACCP 안전관리인증 마크", { lazy: true })}<p>${esc(S.haccp)}</p></div>
         <div class="pd-sub"><h3>${br(P.title)}</h3>
         <p class="pd-lead">${esc(P.lead)}</p>
         <ol class="steps">${P.steps.map((s) => `<li><b>${esc(s.t)}</b><span>${esc(s.d)}</span></li>`).join("")}</ol>
-        <ul class="why">${P.why.map((w) => `<li><b>${esc(w.t)}</b><span>${esc(w.d)}</span></li>`).join("")}</ul></div>
+        <ul class="why">${P.why.map((w) => `<li>${icon(w.icon)}<div><b>${esc(w.t)}</b><span>${esc(w.d)}</span></div></li>`).join("")}</ul></div>
       </section>`;
   }
 
@@ -1803,14 +2003,35 @@ const IMAGES = {
   }
 
   function infoHTML(p, id) {
+    const info = Object.fromEntries(p.info.concat(D.common.info));
     const rows = p.info.concat(D.common.info);
     const next = PIDS[(PIDS.indexOf(id) + 1) % PIDS.length];
+    // 등록 성분량: "조단백질 8.5% 이상" → 이름 / 값 / 이상·이하
+    const nutr = info["등록 성분량"].split(", ").map((s) => s.match(/^(\S+) ([\d.]+%) (이상|이하)$/)).filter(Boolean);
+    const quick = [
+      ["scale", "중량", info["중량"]],
+      ["cube", "형태", info["사료의 형태"]],
+      ["flag", "제조국", info["제조국가"]],
+      ["calendar", "유통기한", "제조일로부터 24개월"],
+    ];
+    const tel = info["소비자 상담실"];
     return `
       <section class="pd-sec">
         <h3>먹이기 전에 확인해 주세요</h3>
-        <div class="checks">${D.common.before.map((c) => `<div><b>${esc(c.t)}</b><span>${esc(c.d)}</span></div>`).join("")}</div>
+        <div class="checks">${D.common.before.map((c) => `<div>${icon(c.icon)}<b>${esc(c.t)}</b><span>${esc(c.d)}</span></div>`).join("")}</div>
+      </section>
+      <section class="pd-sec">
+        <h3>제품 정보</h3>
+        <div class="quick">${quick.map(([ic, k, v]) => `<div>${icon(ic)}<span>${esc(k)}</span><b>${esc(v)}</b></div>`).join("")}</div>
+        <div class="pd-sub"><h4>등록 성분량</h4>
+        <ul class="nutr">${nutr.map(([, n, v, c]) => `<li><span>${esc(n)}</span><b>${esc(v)}</b><small class="${c === "이상" ? "up" : "dn"}">${esc(c)}</small></li>`).join("")}</ul></div>
+        <ul class="maker">
+          <li>${icon("factory")}<div><span>제조원</span><b>${esc(info["제조원"])}</b></div></li>
+          <li>${icon("store")}<div><span>판매원</span><b>${esc(info["판매원"])}</b></div></li>
+          <li>${icon("phone")}<div><span>소비자 상담실</span><a href="tel:${tel.replace(/-/g, "")}">${esc(tel)}</a></div></li>
+        </ul>
         <div class="acc">
-          <h4><button type="button" class="acc-btn" aria-expanded="false" aria-controls="spec-${id}" id="specBtn-${id}">제품 정보 ${CHEV_D}</button></h4>
+          <h4><button type="button" class="acc-btn" aria-expanded="false" aria-controls="spec-${id}" id="specBtn-${id}">전체 제품 정보 ${CHEV_D}</button></h4>
           <div class="acc-panel" id="spec-${id}" role="region" aria-labelledby="specBtn-${id}" hidden>
             <dl class="spec">${rows.map(([k, v]) => `<div><dt>${esc(k)}</dt><dd>${esc(v)}</dd></div>`).join("")}</dl>
           </div>
@@ -1821,7 +2042,7 @@ const IMAGES = {
 
   function productHTML(id) {
     const p = D.products[id];
-    return `<div style="${accVars(p)}">${heroHTML(p)}${dealHTML(id)}${storyHTML(p)}${ingHTML(p)}${feedHTML(p)}${safetyHTML()}${reviewsHTML(p)}${infoHTML(p, id)}</div>`;
+    return `<div style="${accVars(p)}">${heroHTML(p)}${dealHTML(id)}${storyHTML(p)}${ingHTML(p)}${feedHTML(p)}${safetyHTML(p)}${reviewsHTML(p)}${infoHTML(p, id)}</div>`;
   }
 
   function compareHTML() {
@@ -1838,16 +2059,28 @@ const IMAGES = {
         <span class="picks">${p.pick.map((k) => img(k, "", { lazy: true })).join("")}</span>
       </button></li>`;
     };
+    const rot = X.rotation.map((r) => {
+      const p = D.products[r.id];
+      return `<div style="--accent:${p.accent};--weak:${p.weak}">${img(p.pkg, "", { lazy: true })}<b>${esc(r.days)}</b><span>${esc(p.name)}과 펠렛</span></div>`;
+    }).join("");
     return `
       <section class="pd-sec">
         <h3>${br(X.title)}</h3>
         <p class="pd-lead">${esc(X.lead)}</p>
-        <ul class="cmp">${PIDS.map(card).join("")}</ul>
+        <div class="pd-sub">${X.lines.map((l) => `
+          <div class="line"><div class="line-head"><h4>${esc(l.name)}</h4><p>${esc(l.desc)}</p></div>
+          <ul class="cmp">${l.ids.map(card).join("")}</ul></div>`).join("")}
+        </div>
         <p class="pd-cap">${esc(C.brands.amazona.productsNote)} 원물 사진은 대표 원료 일부예요.</p>
       </section>
       <section class="pd-sec">
         <h3>${br(X.reasonsTitle)}</h3>
         <ol class="reasons">${X.reasons.map((r) => `<li><b>${esc(r.t)}</b><span>${esc(r.d)}</span><span class="chip ok">${esc(r.tag)}</span></li>`).join("")}</ol>
+      </section>
+      <section class="pd-sec">
+        <h3>${br(X.rotationTitle)}</h3>
+        <div class="rot">${rot}</div>
+        <p class="pd-cap">${esc(X.rotationNote)}</p>
       </section>`;
   }
 
@@ -1893,6 +2126,14 @@ const IMAGES = {
       acc.setAttribute("aria-expanded", String(!open));
       $("#" + acc.getAttribute("aria-controls")).hidden = open;
     }
+  });
+  // 인증서 크게 보기
+  $("#pdBody").addEventListener("click", (e) => {
+    const z = e.target.closest("[data-zoom]");
+    if (!z) return;
+    $("#zoomTitle").textContent = z.dataset.zoomTitle;
+    $("#zoomImg").innerHTML = img(z.dataset.zoom, z.dataset.zoomTitle);
+    openDialog($("#zoom"));
   });
   function openDetail(id) {
     openDialog($("#pd"));
