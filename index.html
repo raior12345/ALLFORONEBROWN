@@ -43,6 +43,30 @@
 
   color-scheme: only light;
 }
+/* 일부 브라우저(삼성 인터넷·인앱 브라우저)는 다크 모드용 스타일이 없는 사이트를 강제로 어둡게 바꿔요.
+   다크 모드에서도 같은 밝은 값을 선언해 그 변환을 막아요. */
+@media (prefers-color-scheme: dark) {
+  :root {
+    --bg: #F2F4F6;
+    --surface: #FFF;
+    --tone: #F7F8FA;
+    --ink: #191F28;
+    --ink-2: #333D4B;
+    --ink-3: #4E5968;
+    --muted: #5E6976;
+    --line: #D1D6DB;
+    --blue: #1B64DA;
+    --blue-press: #1957C2;
+    --blue-weak: #E8F3FF;
+    --green: #027A48;
+    --green-weak: #E5F8EF;
+    --red: #D22030;
+    --kakao: #FEE500;
+    --kakao-ink: #191600;
+
+    color-scheme: only light;
+  }
+}
 
 * { box-sizing: border-box; }
 
@@ -101,13 +125,13 @@ a { color: inherit; text-decoration: none; }
 
 /* 히어로 */
 .hero { padding-block: 6px 6px; }
-.hero h1 { margin: 0; font-size: 28px; line-height: 1.32; font-weight: 700; letter-spacing: -0.03em; text-wrap: balance; }
+.hero h1 { margin: 0; font-size: 26px; line-height: 1.35; font-weight: 700; letter-spacing: -0.03em; text-wrap: balance; }
 .hero p { margin: 8px 0 0; font-size: 16px; line-height: 1.5; color: var(--ink-2); text-wrap: balance; }
 
 /* 카드 */
 .card { background: var(--surface); border-radius: var(--r-card); margin-inline: 12px; }
 .card-head { display: flex; align-items: baseline; justify-content: space-between; gap: 8px; padding: 20px 20px 0; }
-.card-head h2 { margin: 0; font-size: 20px; line-height: 1.3; font-weight: 700; letter-spacing: -0.02em; }
+.card-head h2 { margin: 0; font-size: 18px; line-height: 1.4; font-weight: 700; letter-spacing: -0.02em; }
 .card-head .sub { font-size: 15px; font-weight: 600; color: var(--muted); }
 
 /* 스탬프판 */
@@ -292,7 +316,7 @@ dialog.sheet[open] { animation: up .42s var(--ease) both; }
 .pager button svg { width: 20px; height: 20px; }
 .pager .num { min-width: 52px; text-align: center; font-size: 15px; color: var(--muted); font-weight: 600; font-variant-numeric: tabular-nums; }
 .bs-sec { padding: 24px 20px 0; }
-.bs-sec h3 { margin: 0 0 12px; font-size: 19px; font-weight: 700; letter-spacing: -0.02em; }
+.bs-sec h3 { margin: 0 0 12px; font-size: 18px; line-height: 1.4; font-weight: 700; letter-spacing: -0.02em; }
 .bs-sec .lead { margin: -4px 0 14px; font-size: 16px; color: var(--ink-2); line-height: 1.6; }
 .chips { display: flex; flex-wrap: wrap; gap: 8px; }
 .chips span { height: 38px; padding: 0 14px; border-radius: 19px; display: inline-flex; align-items: center; gap: 6px; background: var(--bg); font-size: 15px; font-weight: 600; color: var(--ink-2); }
@@ -312,8 +336,8 @@ dialog.sheet[open] { animation: up .42s var(--ease) both; }
 .ticket b { display: block; font-size: 16px; font-weight: 700; }
 .ticket small { display: block; font-size: 14px; color: var(--ink-3); margin-top: 2px; }
 .ticket .pr { text-align: right; font-variant-numeric: tabular-nums; }
-.ticket .pr s { display: block; font-size: 14px; color: var(--muted); }
-.ticket .pr em { font-style: normal; font-size: 19px; font-weight: 700; color: var(--ink); }
+.ticket .pr s { display: block; margin-top: 2px; font-size: 14px; color: var(--muted); }
+.ticket .pr em { font-style: normal; font-size: 18px; font-weight: 700; color: var(--ink); }
 .ticket .pr .off { font-size: 15px; font-weight: 700; color: var(--red); margin-right: 4px; }
 .sp { height: 24px; }
 
@@ -325,7 +349,7 @@ dialog.sheet[open] { animation: up .42s var(--ease) both; }
 
 /* 제품 리스트 */
 .prods { list-style: none; margin: 0 -20px; padding: 0; display: flex; flex-direction: column; }
-.prod { width: 100%; display: flex; align-items: center; gap: 14px; padding: 12px 20px; text-align: left; }
+.prod { width: 100%; display: flex; align-items: center; gap: 14px; padding: 16px 20px; text-align: left; }
 .prod:active { background: var(--tone); }
 .prod .pkg { flex: none; width: 56px; height: auto; border-radius: 8px; }
 .prod .tx { flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 2px; }
@@ -334,10 +358,11 @@ dialog.sheet[open] { animation: up .42s var(--ease) both; }
 .prod .chev { flex: none; width: 20px; height: 20px; color: var(--muted); }
 .flag { flex: none; font-size: 12px; font-weight: 700; padding: 2px 6px; border-radius: 6px; color: #FFF; background: var(--red); }
 .flag.best { background: var(--ink-2); }
-.prices { margin: 4px 0 0; padding: 0; list-style: none; display: flex; flex-direction: column; gap: 2px; font-variant-numeric: tabular-nums; }
-.prices .pl { display: flex; align-items: baseline; gap: 6px; flex-wrap: wrap; font-size: 15px; }
+.prices { margin: 6px 0 0; padding: 0; list-style: none; display: flex; flex-direction: column; gap: 2px; font-variant-numeric: tabular-nums; }
+.prices .pl { display: flex; align-items: baseline; gap: 6px; flex-wrap: wrap; font-size: 15px; line-height: 1.5; }
 .prices .sz { min-width: 44px; font-weight: 600; color: var(--ink-3); }
 .prices s { color: var(--muted); font-size: 14px; }
+.prices b { font-size: 17px; }
 .prices .off { font-weight: 700; color: var(--red); }
 .prices b { font-weight: 700; color: var(--ink); }
 .benefit { margin: 12px 0 0; padding: 14px 16px; border-radius: 16px; background: var(--blue-weak); color: var(--ink-2); font-size: 15px; line-height: 1.5; }
@@ -609,7 +634,7 @@ const SITE_CONFIG = {
       kakaoUrl: "https://pf.kakao.com/_NtIxjG",
       logo: "logo-amazona",
       title: "앵무새가 먼저 알아보는\n동결건조 자연식",
-      lead: "앵무새 전용 동결건조 간식을 만들어요. 채소·과일·콩을 그대로 얼려 말려서 색과 식감이 살아 있고, HACCP 인증 시설에서 국내 생산해요.",
+      lead: "앵무새 전용 동결건조 간식을 만들어요. 채소·과일·콩의 색과 식감을 그대로 살렸고, HACCP 인증 시설에서 국내 생산해요.",
       gallery: ["am-1", "am-2", "am-3", "am-4", "am-5", "am-6", "am-7", "am-8"],
       galleryAlt: [
         "올포원 브라운 큐브를 먹는 아마존 앵무새",
@@ -641,28 +666,28 @@ const SITE_CONFIG = {
           prices: [{ size: "1팩", was: 18500, now: 14800 }],
           posters: ["p-allforone", "p-price-allforone"] },
       ],
-      productsNote: "앵페스타 현장 구매 시 적용돼요",
-      benefit: "아마조나 제품을 5만 원 이상 사면 <b>네이버 스토어 3,000원 할인 쿠폰</b>을 드려요. 수량이 한정돼 있어요.",
+      productsNote: "앵페스타 현장에서만 이 가격이에요.",
+      benefit: "5만 원 이상 사면 <b>네이버 스토어 3,000원 쿠폰</b>을 드려요. 한정 수량이에요.",
       places: {
         title: "아마조나 패럿 라운지, 가평",
-        lead: "앵무새와 보호자가 함께 쉬어 가는 곳이에요. 통창 카페에서 쉬고, 야외 활공장에서 앵무새가 안전하게 마음껏 날아요.",
-        notice: { text: "10.16(금)–10.19(월) 임시 휴무, 10.20(화)부터 정상 운영해요.", poster: "p-closed" },
+        lead: "",
+        notice: { text: "10.16(금)–10.19(월)은 쉬어요. 10.20(화)부터 문을 열어요.", poster: "p-closed" },
         items: [
-          { img: "lounge-cafe", name: "카페", desc: "산과 잔디 마당이 내다보이는 통창 라운지예요. 긴 테이블에서 앵무새와 함께 쉬어 갈 수 있어요." },
-          { img: "lounge-aviary", name: "활공장", desc: "앵무새들이 안전하게 날며 놀 수 있는 야외 활공장이에요. 잔디와 나무 사이를 자유롭게 날아다녀요." },
+          { img: "lounge-cafe", name: "카페", desc: "산과 잔디 마당이 보이는 통창 라운지예요. 앵무새와 함께 쉬어 갈 수 있어요." },
+          { img: "lounge-aviary", name: "활공장", desc: "앵무새가 안전하게 날며 노는 야외 활공장이에요." },
         ],
         info: [
           ["주소", "경기도 가평군 청평면 말래골길 59"],
           ["운영", "10:00 – 18:00"],
         ],
         ticketTitle: "앵페스타 한정 입장권 특가",
-        ticketLead: "가평 아마조나 패럿 라운지 입장권을 앵페스타 현장에서만 최대 60% 싸게 살 수 있어요.",
+        ticketLead: "가평 라운지 입장권을 앵페스타 현장에서 최대 60% 할인해요.",
         ticketPoster: "p-tickets",
         tickets: [
           { name: "앵페스타 한정 티켓", who: "성인 1 + 앵무새 1마리", was: 15000, now: 12000 },
           { name: "그린 티켓", who: "성인 1 + 앵무새 8마리", was: 50000, now: 20000 },
         ],
-        ticketNote: "앵페스타 현장에서 살 때만 적용돼요. 그린 티켓은 1인 10장까지 살 수 있어요.",
+        ticketNote: "그린 티켓은 한 사람당 10장까지 살 수 있어요.",
       },
     },
 
@@ -671,7 +696,7 @@ const SITE_CONFIG = {
       kakaoUrl: "https://pf.kakao.com/_jVCmb",
       logo: "logo-parrotlab",
       title: "부수고 뜯고 노는,\n앵무새 장난감",
-      lead: "앵무새의 놀이 본능에 맞춘 장난감을 만들어요. 부리로 쪼고 뜯기 좋은 발사 나무 칩부터 여러 장난감을 담은 샘플팩, 넉넉한 벌크팩까지 준비했어요.",
+      lead: "앵무새 놀이 본능에 맞춘 장난감을 만들어요. 쪼고 뜯기 좋은 발사 나무 칩, 여러 장난감을 담은 샘플팩, 넉넉한 벌크팩을 준비했어요.",
       gallery: ["pl-2", "pl-1", "pl-3"],
       galleryAlt: [
         "여러 종류의 앵무새 장난감이 담긴 상자",
@@ -1049,7 +1074,7 @@ const IMAGES = {
           <span class="t">${esc(p.name)}${p.flag ? `<span class="flag${p.flag === "NEW" ? "" : " best"}">${esc(p.flag)}</span>` : ""}</span>
           <span class="d">${esc(p.desc)}</span>
           <span class="prices">${p.prices.map((pr) => `
-            <span class="pl"><span class="sz">${esc(pr.size)}</span> <s>${won(pr.was)}</s> <span class="off">${discountRate(pr.was, pr.now)}%</span> <b>${won(pr.now)}</b></span>`).join("")}
+            <span class="pl"><span class="sz">${esc(pr.size)}</span> <span class="off">${discountRate(pr.was, pr.now)}%</span> <b>${won(pr.now)}</b> <s><span class="sr-only">정가 </span>${won(pr.was)}</s></span>`).join("")}
           </span>
         </span>
         ${NEXT.replace("<svg ", '<svg class="chev" ')}
@@ -1070,7 +1095,7 @@ const IMAGES = {
     return `
       <section class="bs-sec">
         <h3>${esc(P.title)}</h3>
-        <p class="lead">${esc(P.lead)}</p>
+        ${P.lead ? `<p class="lead">${esc(P.lead)}</p>` : ""}
         <p class="alert"><span>${esc(P.notice.text)}</span><button type="button" class="textbtn" ${posterAttrs(C.posters[P.notice.poster], [P.notice.poster])}>안내 보기</button></p>
         <div class="places">${P.items.map((it) => `
           <div class="place">${img(it.img, "", { lazy: true })}<strong>${esc(it.name)}</strong><p>${esc(it.desc)}</p></div>`).join("")}
@@ -1091,7 +1116,7 @@ const IMAGES = {
         <p class="lead">${esc(P.ticketLead)}</p>
         <div class="tickets">${P.tickets.map((t) => `
           <div class="ticket"><div class="tx"><b>${esc(t.name)}</b><small>${esc(t.who)}</small></div>
-          <div class="pr"><s>${won(t.was)}</s><span class="off">${discountRate(t.was, t.now)}%</span><em>${won(t.now)}</em></div></div>`).join("")}
+          <div class="pr"><span class="off">${discountRate(t.was, t.now)}%</span><em>${won(t.now)}</em><s><span class="sr-only">정가 </span>${won(t.was)}</s></div></div>`).join("")}
         </div>
         <p class="note">${esc(P.ticketNote)}</p>
       </section>`;
