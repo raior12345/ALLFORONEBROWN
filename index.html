@@ -1,183 +1,915 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="ko">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>올포원 브라운 상세페이지 검토</title>
-<meta name="description" content="올포원 브라운 상세페이지의 기획 디렉션, 네이버 스마트스토어 PC·모바일 화면 미리보기">
-<meta property="og:title" content="올포원 브라운 상세페이지 검토">
-<meta property="og:description" content="디렉션 · PC버전 · 모바일버전 미리보기">
-<meta property="og:image" content="https://raior12345.github.io/ALLFORONEBROWN/assets/package.jpg">
-<meta name="theme-color" content="#2b1e17">
-<link rel="stylesheet" href="assets/base.css">
-<link rel="stylesheet" href="https://unpkg.com/@phosphor-icons/web@2.1.1/src/regular/style.css">
+<title>앵페스타 플친 스탬프</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<meta name="description" content="앵페스타 아마조나 × 앵무새연구소 합동 부스 카카오 플친 스탬프 이벤트">
+<meta property="og:title" content="앵페스타 플친 스탬프">
+<meta property="og:description" content="아마조나·앵무새연구소 카카오 채널을 추가하고 스탬프를 모아 돌림판에 참여하세요.">
+<meta property="og:image" content="img/am-1.webp">
+<meta name="theme-color" content="#F2F4F6">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Ccircle cx='32' cy='32' r='32' fill='%231B64DA'/%3E%3Cpath d='M18 33l9 9 19-20' fill='none' stroke='white' stroke-width='7' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E">
+<link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css">
+<link rel="preload" as="image" href="img/logo-parrotlab.webp">
+<link rel="preload" as="image" href="img/logo-amazona.webp">
 <style>
-  :root {
-    --bg: var(--oat);
-    --text: var(--espresso);
-    --sub: var(--muted);
-    --rule: var(--line);
-    --row-hover: var(--white);
-    --card: var(--white);
-  }
-  @media (prefers-color-scheme: dark) {
-    :root {
-      --bg: #1f1611;
-      --text: #f1ece4;
-      --sub: #b9aa9b;
-      --rule: #3d2f26;
-      --row-hover: #2b1e17;
-      --card: #2b1e17;
-    }
-    .label { color: #c99a7c; }
-  }
-  body { background: var(--bg); color: var(--text); }
+/* 레이아웃: 회색 바탕 + 흰 카드 섹션, 폰 폭 1열(최대 480px). 첫 화면에 스탬프판과 첫 행동 버튼. 소개·완료는 바텀시트 */
+:root {
+  --bg: #F2F4F6;
+  --surface: #FFF;
+  --tone: #F7F8FA;
+  --ink: #191F28;
+  --ink-2: #333D4B;
+  --ink-3: #4E5968;
+  --muted: #5E6976;
+  --line: #D1D6DB;
+  --blue: #1B64DA;
+  --blue-press: #1957C2;
+  --blue-weak: #E8F3FF;
+  --green: #027A48;
+  --green-weak: #E5F8EF;
+  --red: #D22030;
+  --kakao: #FEE500;
+  --kakao-ink: #191600;
+  --font: "Pretendard Variable", pretendard, -apple-system, blinkmacsystemfont, "Apple SD Gothic Neo", "Malgun Gothic", "Noto Sans KR", sans-serif;
+  --ease: cubic-bezier(.22, 1, .36, 1);
+  --r-card: 24px;
+  --r-inner: 16px;
 
-  .topband { background: var(--espresso); color: #e9dfd2; }
-  .topband .in {
-    max-width: 1200px; margin: 0 auto; padding: 14px 24px;
-    display: flex; align-items: center; justify-content: space-between; gap: 16px;
-  }
-  .topband img { width: 72px; }
-  .topband .label { color: #d9cbbb; font-size: 11px; }
+  color-scheme: light;
+}
 
-  main {
-    max-width: 1200px; margin: 0 auto; padding: 72px 24px 96px;
-    display: grid; grid-template-columns: minmax(0, 1.05fr) minmax(0, 0.95fr);
-    gap: 72px; align-items: start;
-  }
+* { box-sizing: border-box; }
 
-  h1 {
-    margin: 18px 0 0; font-size: clamp(40px, 5.2vw, 68px);
-    line-height: 1.12; letter-spacing: -0.03em; font-weight: 300;
-  }
-  h1 b { display: block; font-weight: 800; }
-  .lead { margin: 24px 0 0; max-width: 34ch; font-size: 18px; line-height: 1.65; color: var(--sub); }
+[hidden] { display: none !important; }
 
-  .links { margin: 48px 0 0; padding: 0; list-style: none; border-top: 2px solid var(--text); }
-  .links li { border-bottom: 1px solid var(--rule); }
-  .links a {
-    display: grid; grid-template-columns: 48px minmax(0, 1fr) 32px; align-items: center; gap: 16px;
-    padding: 24px 12px 24px 4px; text-decoration: none;
-    transition: background-color .35s var(--ease), padding .35s var(--ease);
-  }
-  .links a:hover { background: var(--row-hover); padding-left: 16px; }
-  .links a:active { transform: scale(0.99); }
-  .links .ic { font-size: 30px; color: var(--cacao); }
-  .links .t { display: block; font-size: 22px; font-weight: 700; letter-spacing: -0.02em; }
-  .links .d { display: block; margin-top: 6px; font-size: 15px; line-height: 1.5; color: var(--sub); }
-  .links .go { font-size: 22px; transition: transform .35s var(--ease); }
-  .links a:hover .go { transform: translateX(4px); }
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
 
-  .visual .box { position: relative; }
-  .visual .card {
-    background: var(--card); border-radius: 28px; padding: 40px;
-    display: grid; place-items: center;
-  }
-  .visual .pack { width: min(100%, 380px); border-radius: 12px; box-shadow: 0 24px 48px rgb(43 30 23 / 0.18); }
-  .visual .cube {
-    position: absolute; right: -12px; bottom: -28px; width: 150px;
-    border-radius: 20px; background: var(--sand); padding: 14px;
-  }
-  .visual .cube img { border-radius: 10px; }
-  .visual figcaption { margin-top: 44px; font-size: 14px; color: var(--sub); }
+html { text-size-adjust: 100%; }
 
-  .qr {
-    margin-top: 40px; display: grid; grid-template-columns: 96px minmax(0, 1fr); gap: 20px; align-items: center;
-    padding-top: 24px; border-top: 1px solid var(--rule);
-  }
-  .qr .code { background: #fff; padding: 10px; border-radius: 12px; }
-  .qr p { margin: 6px 0 0; font-size: 15px; line-height: 1.55; color: var(--sub); }
-  .qr strong { font-size: 16px; color: var(--text); }
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--ink);
+  font-family: var(--font);
+  font-size: 16px;
+  line-height: 1.55;
+  letter-spacing: -0.01em;
+  word-break: keep-all;
+  -webkit-font-smoothing: antialiased;
+  -webkit-tap-highlight-color: transparent;
+}
 
-  footer {
-    max-width: 1200px; margin: 0 auto; padding: 24px 24px 40px;
-    border-top: 1px solid var(--rule); font-size: 13px; color: var(--sub);
-    display: flex; justify-content: space-between; gap: 16px; flex-wrap: wrap;
-  }
+img { max-width: 100%; height: auto; display: block; }
 
-  /* 등장 모션: 위계 순서대로 (라벨 → 헤드라인 → 링크) */
-  @media (prefers-reduced-motion: no-preference) {
-    .rise { opacity: 0; transform: translateY(18px); animation: rise .9s var(--ease) forwards; animation-delay: calc(var(--i, 0) * 90ms); }
-    @keyframes rise { to { opacity: 1; transform: none; } }
-  }
+button { font: inherit; color: inherit; background: none; border: 0; padding: 0; cursor: pointer; }
 
-  @media (max-width: 900px) {
-    main { grid-template-columns: minmax(0, 1fr); gap: 56px; padding: 40px 16px 72px; }
-    .topband .in, footer { padding-left: 16px; padding-right: 16px; }
-    .lead { font-size: 16px; }
-    .links { margin-top: 36px; }
-    .links a { grid-template-columns: 40px minmax(0, 1fr) 24px; padding: 20px 4px; }
-    .links a:hover { padding-left: 8px; }
-    .links .t { font-size: 19px; }
-    .links .d { font-size: 14px; }
-    .visual .card { padding: 28px; }
-    .visual .cube { width: 112px; right: 8px; bottom: -24px; padding: 10px; }
-    .qr { display: none; }
-  }
+a { color: inherit; text-decoration: none; }
+
+:focus-visible { outline: 3px solid var(--blue); outline-offset: 2px; border-radius: 12px; }
+
+.press { transition: transform .18s var(--ease), background-color .18s; }
+.press:active { transform: scale(.97); }
+
+.app { max-width: 480px; margin: 0 auto; display: flex; flex-direction: column; gap: 12px; padding-bottom: 28px; }
+.pad { padding-left: max(20px, env(safe-area-inset-left, 0px)); padding-right: max(20px, env(safe-area-inset-right, 0px)); }
+
+/* 상단 바 */
+.topbar {
+  position: sticky; top: env(safe-area-inset-top, 0); z-index: 5;
+  height: 52px; display: flex; align-items: center; gap: 10px;
+  background: var(--bg);
+}
+.topbar .pl { height: 28px; width: auto; }
+.topbar .am { height: 20px; width: auto; }
+.topbar .x { width: 10px; height: 10px; color: var(--muted); }
+
+/* 히어로 */
+.hero { padding-block: 6px 6px; }
+.hero h1 { margin: 0; font-size: 28px; line-height: 1.32; font-weight: 700; letter-spacing: -0.03em; text-wrap: balance; }
+.hero p { margin: 8px 0 0; font-size: 16px; line-height: 1.5; color: var(--ink-2); text-wrap: balance; }
+
+/* 카드 */
+.card { background: var(--surface); border-radius: var(--r-card); margin-inline: 12px; }
+.card-head { display: flex; align-items: baseline; justify-content: space-between; gap: 8px; padding: 20px 20px 0; }
+.card-head h2 { margin: 0; font-size: 20px; line-height: 1.3; font-weight: 700; letter-spacing: -0.02em; }
+.card-head .sub { font-size: 15px; font-weight: 600; color: var(--muted); }
+
+/* 스탬프판 */
+.stack { display: flex; flex-direction: column; gap: 12px; }
+.progress { margin: 0; font-variant-numeric: tabular-nums; font-size: 16px; font-weight: 600; color: var(--muted); }
+.progress b { font-size: 20px; font-weight: 700; color: var(--blue); }
+.bar { margin: 12px 20px 0; height: 8px; border-radius: 4px; background: var(--bg); overflow: hidden; }
+.bar i { display: block; height: 100%; width: 0; border-radius: 4px; background: var(--blue); transition: width .6s var(--ease); }
+.slots { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 8px; padding: 14px 20px 0; }
+.slot {
+  border-radius: 18px; background: var(--tone);
+  padding: 16px 8px 14px; display: flex; flex-direction: column; align-items: center; gap: 8px; text-align: center;
+  transition: background-color .4s var(--ease);
+}
+.badge {
+  position: relative; width: 68px; height: 68px; border-radius: 50%;
+  background: var(--surface); border: 2px solid var(--line);
+  display: grid; place-items: center;
+  transition: border-color .4s var(--ease);
+}
+.badge img { width: 50px; opacity: .4; filter: grayscale(1); transition: opacity .4s, filter .4s; }
+.badge .ck {
+  position: absolute; right: -4px; bottom: -4px; width: 26px; height: 26px; border-radius: 50%;
+  background: var(--blue); color: #FFF; border: 3px solid var(--surface);
+  display: grid; place-items: center;
+  opacity: 0; transform: scale(.6); transition: opacity .3s, transform .45s var(--ease) .1s;
+}
+.badge .ck svg { width: 13px; height: 13px; }
+.lbl { display: flex; flex-direction: column; align-items: center; gap: 2px; min-width: 0; }
+.slot .nm { font-size: 16px; font-weight: 700; color: var(--ink-2); line-height: 1.3; }
+.slot .st { font-size: 14px; font-weight: 500; color: var(--muted); font-variant-numeric: tabular-nums; line-height: 1.3; }
+.slot.done { background: var(--blue-weak); }
+.slot.done .badge { border: 2px solid var(--blue); }
+.slot.done .badge img { opacity: 1; filter: none; }
+.slot.done .badge .ck { opacity: 1; transform: scale(1); }
+.slot.done .nm { color: var(--ink); }
+.slot.done .st { color: var(--blue); font-weight: 600; }
+.slot.just .badge { animation: bump .6s var(--ease); }
+
+@keyframes bump {
+  0% { transform: scale(.7); }
+  55% { transform: scale(1.08); }
+  100% { transform: scale(1); }
+}
+
+.notice {
+  margin: 10px 20px 20px; padding: 12px 14px; border-radius: var(--r-inner); background: var(--tone);
+  display: flex; gap: 10px; align-items: flex-start;
+  font-size: 15px; line-height: 1.5; color: var(--ink-2); font-weight: 500;
+}
+.notice svg { flex: none; width: 20px; height: 20px; margin-top: 1px; color: var(--ink-3); }
+
+/* 완료 배너 */
+.banner {
+  margin-inline: 12px; width: calc(100% - 24px); text-align: left;
+  display: flex; align-items: center; gap: 14px;
+  padding: 18px 20px; border-radius: var(--r-card);
+  background: var(--blue); color: #FFF;
+}
+.banner:active { background: var(--blue-press); }
+.banner .ic { flex: none; width: 40px; height: 40px; border-radius: 50%; background: #FFF; color: var(--blue); display: grid; place-items: center; }
+.banner .ic svg { width: 20px; height: 20px; }
+.banner .tx { flex: 1; min-width: 0; }
+.banner strong { display: block; font-size: 18px; font-weight: 700; }
+.banner .s { display: block; font-size: 15px; margin-top: 2px; }
+.banner .chev { width: 20px; height: 20px; flex: none; }
+.banner:not([hidden]) { animation: rise .5s var(--ease) both; }
+
+@keyframes rise {
+  from { opacity: 0; transform: translateY(12px); }
+  to { opacity: 1; transform: none; }
+}
+
+/* 리스트 버튼 4개 */
+.list { list-style: none; margin: 0; padding: 6px 0 8px; display: flex; flex-direction: column; gap: 4px; }
+.row {
+  width: 100%; display: flex; align-items: center; gap: 14px;
+  padding: 12px 20px; min-height: 72px; text-align: left;
+}
+.row:active { background: var(--tone); }
+.row .ic { flex: none; width: 48px; height: 48px; border-radius: 14px; display: grid; place-items: center; overflow: hidden; }
+.row .ic.kakao { background: var(--kakao); color: var(--kakao-ink); }
+.row .ic.kakao svg { width: 24px; height: 24px; }
+.row .ic.thumb { background: var(--bg); }
+.row .ic.thumb img { width: 100%; height: 100%; object-fit: cover; }
+.row .tx { flex: 1; min-width: 0; }
+.row .t { display: block; font-size: 17px; font-weight: 600; color: var(--ink); line-height: 1.35; }
+.row .d { display: block; font-size: 15px; color: var(--muted); margin-top: 2px; line-height: 1.4; }
+.row .act {
+  flex: none; height: 36px; padding: 0 14px; border-radius: 10px;
+  display: inline-flex; align-items: center; gap: 4px;
+  font-size: 15px; font-weight: 600;
+  background: var(--blue-weak); color: var(--blue);
+}
+.row .act svg { width: 15px; height: 15px; }
+.row.is-done .act { background: var(--bg); color: var(--ink-3); }
+.row .chev { flex: none; width: 20px; height: 20px; color: var(--muted); }
+
+/* 혜택 */
+.events { display: flex; flex-direction: column; gap: 8px; padding: 14px 12px 12px; }
+.ev { padding: 16px; border-radius: 18px; background: var(--tone); }
+.ev .tag { display: inline-block; font-size: 13px; font-weight: 700; padding: 3px 8px; border-radius: 6px; background: var(--blue-weak); color: var(--blue); }
+.ev.e2 .tag { background: var(--green-weak); color: var(--green); }
+.ev h3 { margin: 10px 0 4px; font-size: 18px; font-weight: 700; letter-spacing: -0.02em; line-height: 1.4; }
+.ev p { margin: 0; font-size: 16px; color: var(--ink-2); line-height: 1.55; }
+.prizes { margin-top: 12px; display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+.prizes span {
+  padding: 12px 10px; border-radius: 12px; background: var(--surface);
+  font-size: 15px; font-weight: 600; color: var(--ink-2); text-align: center; line-height: 1.35;
+}
+.prizes span.hid { background: var(--ink); color: #FFE08A; }
+.prizes span.hid::before { content: "히든"; display: block; font-size: 13px; font-weight: 700; color: #E5D3A1; margin-bottom: 2px; }
+
+/* 푸터 */
+.foot { padding-block: 12px 4px; display: flex; flex-direction: column; align-items: center; gap: 2px; font-size: 14px; color: var(--muted); text-align: center; }
+.linkish { padding: 10px 12px; font-size: 14px; color: var(--muted); text-decoration: underline; text-underline-offset: 3px; min-height: 44px; }
+.confirm { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; justify-content: center; padding-top: 6px; font-weight: 600; color: var(--ink-3); }
+.confirm button { height: 44px; padding: 0 16px; border-radius: 10px; font-size: 15px; font-weight: 600; }
+.confirm .yes { background: var(--ink); color: #FFF; }
+.confirm .no { background: var(--line); color: var(--ink-2); }
+
+/* 바텀시트 */
+dialog.sheet {
+  width: 100%; max-width: 480px; max-height: 92dvh;
+  margin: auto auto 0; padding: 0; border: 0;
+  border-radius: 28px 28px 0 0;
+  background: var(--surface); color: var(--ink);
+  overflow: hidden;
+}
+dialog.sheet::backdrop { background: rgb(0 0 0 / 50%); }
+dialog.sheet[open] { animation: up .42s var(--ease) both; }
+
+@keyframes up {
+  from { transform: translateY(100%); }
+  to { transform: none; }
+}
+
+.sheet-in { max-height: 92dvh; overflow-y: auto; overscroll-behavior: contain; display: flex; flex-direction: column; }
+.sheet-in > * { flex-shrink: 0; }
+.handle { width: 40px; height: 5px; border-radius: 3px; background: var(--line); margin: 10px auto 4px; }
+.sheet-close {
+  position: absolute; top: 12px; right: max(12px, env(safe-area-inset-right, 0px)); z-index: 3;
+  width: 44px; height: 44px; border-radius: 50%; display: grid; place-items: center; color: var(--ink-3);
+  background: var(--surface);
+}
+.sheet-close:active { background: var(--bg); }
+.sheet-close svg { width: 20px; height: 20px; }
+.cta {
+  position: sticky; bottom: 0; margin-top: auto;
+  padding: 12px max(20px, env(safe-area-inset-right, 0px)) calc(16px + env(safe-area-inset-bottom, 0px)) max(20px, env(safe-area-inset-left, 0px));
+  background: var(--surface);
+}
+.btn {
+  width: 100%; height: 56px; border-radius: 16px;
+  display: flex; align-items: center; justify-content: center; gap: 8px;
+  font-size: 17px; font-weight: 600;
+}
+.btn.primary { background: var(--blue); color: #FFF; }
+.btn.primary:active { background: var(--blue-press); }
+.btn.kakao { background: var(--kakao); color: var(--kakao-ink); }
+.btn.kakao svg { width: 20px; height: 20px; }
+.btn.grey { background: var(--bg); color: var(--ink-2); }
+
+/* 브랜드 시트 */
+.bs-head { padding: 12px 20px 0; display: flex; flex-direction: column; gap: 10px; }
+.bs-head .logo { height: 32px; width: auto; align-self: flex-start; }
+.bs-head h2 { margin: 4px 0 0; font-size: 24px; line-height: 1.38; font-weight: 700; letter-spacing: -0.03em; }
+.bs-head p { margin: 0; font-size: 16px; line-height: 1.65; color: var(--ink-2); }
+.carousel {
+  display: flex; gap: 10px; overflow-x: auto; scroll-snap-type: x mandatory; scroll-behavior: smooth;
+  padding: 20px 20px 4px; scroll-padding-inline: 20px; scrollbar-width: none;
+}
+.carousel::-webkit-scrollbar { display: none; }
+.carousel figure { flex: 0 0 82%; margin: 0; scroll-snap-align: start; aspect-ratio: 1 / 0.85; border-radius: 18px; overflow: hidden; background: var(--bg); max-width: 100%; }
+.carousel img { width: 100%; height: 100%; object-fit: cover; }
+.pager { display: flex; align-items: center; justify-content: center; gap: 8px; padding-top: 6px; }
+.pager button { width: 44px; height: 44px; border-radius: 50%; display: grid; place-items: center; color: var(--ink-3); }
+.pager button:active { background: var(--bg); }
+.pager button:disabled { color: var(--line); cursor: default; }
+.pager button svg { width: 20px; height: 20px; }
+.pager .num { min-width: 52px; text-align: center; font-size: 15px; color: var(--muted); font-weight: 600; font-variant-numeric: tabular-nums; }
+.bs-sec { padding: 24px 20px 0; }
+.bs-sec h3 { margin: 0 0 12px; font-size: 19px; font-weight: 700; letter-spacing: -0.02em; }
+.bs-sec .lead { margin: -4px 0 14px; font-size: 16px; color: var(--ink-2); line-height: 1.6; }
+.chips { display: flex; flex-wrap: wrap; gap: 8px; }
+.chips span { height: 38px; padding: 0 14px; border-radius: 19px; display: inline-flex; align-items: center; gap: 6px; background: var(--bg); font-size: 15px; font-weight: 600; color: var(--ink-2); }
+.chips span.new::after { content: "NEW"; font-size: 12px; font-weight: 700; color: #FFF; background: var(--red); padding: 2px 5px; border-radius: 5px; }
+.note { margin: 10px 0 0; font-size: 14px; color: var(--muted); }
+.places { display: grid; gap: 18px; }
+.place img { width: 100%; aspect-ratio: 16 / 10; object-fit: cover; border-radius: 18px; }
+.place strong { display: block; margin-top: 12px; font-size: 17px; font-weight: 700; }
+.place p { margin: 4px 0 0; font-size: 16px; color: var(--ink-2); line-height: 1.6; }
+.kv { margin: 0; border-radius: 18px; background: var(--tone); padding: 4px 18px; display: flex; flex-direction: column; }
+.kv div { display: flex; justify-content: space-between; gap: 16px; padding: 12px 0; font-size: 16px; }
+.kv dt { color: var(--muted); flex: none; }
+.kv dd { margin: 0; font-weight: 600; text-align: right; min-width: 0; }
+.tickets { display: grid; gap: 8px; }
+.ticket { display: flex; align-items: center; gap: 12px; padding: 16px 18px; border-radius: 18px; background: var(--tone); }
+.ticket .tx { flex: 1; min-width: 0; }
+.ticket b { display: block; font-size: 16px; font-weight: 700; }
+.ticket small { display: block; font-size: 14px; color: var(--ink-3); margin-top: 2px; }
+.ticket .pr { text-align: right; font-variant-numeric: tabular-nums; }
+.ticket .pr s { display: block; font-size: 14px; color: var(--muted); }
+.ticket .pr em { font-style: normal; font-size: 19px; font-weight: 700; color: var(--ink); }
+.ticket .pr .off { font-size: 15px; font-weight: 700; color: var(--red); margin-right: 4px; }
+.sp { height: 24px; }
+
+/* 완료 시트 */
+.done-hero { padding: 24px 20px 0; display: flex; flex-direction: column; align-items: center; text-align: center; }
+.check-big { width: 76px; height: 76px; }
+.check-big circle { fill: var(--blue); transform-origin: center; animation: grow .45s var(--ease) both; }
+.check-big path { fill: none; stroke: #FFF; stroke-width: 6; stroke-linecap: round; stroke-linejoin: round; stroke-dasharray: 60; stroke-dashoffset: 60; animation: draw .4s var(--ease) .3s forwards; }
+
+@keyframes grow {
+  from { transform: scale(.5); opacity: 0; }
+  to { transform: scale(1); opacity: 1; }
+}
+
+@keyframes draw { to { stroke-dashoffset: 0; } }
+
+.done-hero h2 { margin: 16px 0 0; font-size: 24px; font-weight: 700; letter-spacing: -0.03em; line-height: 1.38; }
+.done-pair { margin: 20px 20px 0; display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+.big-badge { width: 80px; height: 80px; }
+.big-badge img { width: 58px; }
+.done-kv { margin: 12px 20px 0; }
+.done-kv .live { color: var(--blue); }
+.done-msg { margin: 12px 20px 0; padding: 16px 18px; border-radius: 18px; background: #FFF4CC; color: #4D3800; font-size: 16px; line-height: 1.6; font-weight: 600; }
+
+/* 키 작은 폰(iPhone SE 등): 스탬프 칸을 가로형으로 줄여 첫 화면에 '추가하기'가 보이게 */
+@media (max-height: 720px) {
+  .hero h1 { font-size: 24px; }
+  .hero p { margin-top: 4px; font-size: 15px; }
+  .card-head { padding-top: 16px; }
+  .slots { padding-top: 12px; }
+  .notice { margin-top: 8px; margin-bottom: 14px; padding: 10px 12px; font-size: 14px; }
+}
+
+/* 가로형 칸은 폭이 충분할 때만 (320px 폭에서는 세로형 유지) */
+@media (max-height: 720px) and (min-width: 360px) {
+  .slots .slot { flex-direction: row; align-items: center; text-align: left; gap: 8px; padding: 10px 8px; }
+  .slots .badge { width: 40px; height: 40px; flex: none; }
+  .slots .badge img { width: 30px; }
+  .slots .badge .ck { width: 20px; height: 20px; right: -5px; bottom: -5px; border-width: 2px; }
+  .slots .slot .nm { font-size: 15px; }
+  .slots .slot .st { font-size: 13px; }
+  .slots .lbl { align-items: flex-start; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { animation-duration: .01ms !important; animation-delay: 0s !important; transition-duration: .01ms !important; scroll-behavior: auto !important; }
+
+  .check-big path { stroke-dashoffset: 0; }
+}
 </style>
 </head>
 <body>
-  <div class="topband">
-    <div class="in">
-      <img src="assets/logo.png" alt="AMAZONA">
-      <span class="label">Freeze-dried bird treat</span>
-    </div>
-  </div>
+<div class="app">
 
-  <main>
-    <section>
-      <span class="label rise" style="--i:0">All for one brown</span>
-      <h1 class="rise" style="--i:1">올포원 브라운<b>상세페이지 검토</b></h1>
-      <p class="lead rise" style="--i:2">기획 디렉션과 네이버 스마트스토어에서 보이는 PC·모바일 화면을 한곳에서 확인하세요.</p>
+  <header class="topbar pad">
+    <img class="pl" src="img/logo-parrotlab.webp" width="360" height="141" alt="앵무새연구소">
+    <svg class="x" viewBox="0 0 20 20" aria-hidden="true"><path d="M4 4 16 16M16 4 4 16" stroke="currentColor" stroke-width="3" stroke-linecap="round"/></svg>
+    <img class="am" src="img/logo-amazona.webp" width="360" height="117" alt="아마조나">
+  </header>
 
-      <ul class="links">
-        <li class="rise" style="--i:3">
-          <a href="direction.html">
-            <i class="ph ph-compass-tool ic" aria-hidden="true"></i>
-            <span><span class="t">디렉션 보러가기</span><span class="d">디자인 규칙과 섹션별 카피·촬영 디렉션</span></span>
-            <i class="ph ph-arrow-right go" aria-hidden="true"></i>
-          </a>
-        </li>
-        <li class="rise" style="--i:4">
-          <a href="pc.html">
-            <i class="ph ph-desktop ic" aria-hidden="true"></i>
-            <span><span class="t">PC버전 보러가기</span><span class="d">스마트스토어 PC 화면, 상세 영역 860px</span></span>
-            <i class="ph ph-arrow-right go" aria-hidden="true"></i>
-          </a>
-        </li>
-        <li class="rise" style="--i:5">
-          <a href="mobile.html">
-            <i class="ph ph-device-mobile ic" aria-hidden="true"></i>
-            <span><span class="t">모바일버전 보러가기</span><span class="d">스마트스토어 모바일 화면, 휴대폰 폭에 맞춤</span></span>
-            <i class="ph ph-arrow-right go" aria-hidden="true"></i>
-          </a>
-        </li>
+  <main class="stack">
+    <section class="hero pad">
+      <h1>카카오 채널 2곳 추가하고<br>스탬프를 모아보세요</h1>
+      <p id="heroSub">앵페스타 10월 17–18일, 서울 문래 올댓마인드 합동 부스</p>
+    </section>
+
+    <!-- 1. 스탬프 현황판 -->
+    <section class="card" aria-labelledby="stampTitle">
+      <div class="card-head">
+        <h2 id="stampTitle">내 플친 스탬프</h2>
+        <p class="progress"><span class="sr-only">2개 중 </span><b id="stampN">0</b>/2</p>
+      </div>
+      <div class="bar" aria-hidden="true"><i id="barFill"></i></div>
+      <div class="slots">
+        <div class="slot" id="slot-amazona">
+          <div class="badge"><img src="img/logo-amazona.webp" width="360" height="117" alt=""><span class="ck"><svg viewBox="0 0 20 20" aria-hidden="true"><path d="M4.5 10.5 8.5 14.5 15.5 6.5" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg></span></div>
+          <span class="lbl"><span class="nm">아마조나</span><span class="st" data-st="amazona">아직 안 받았어요</span></span>
+        </div>
+        <div class="slot" id="slot-parrotlab">
+          <div class="badge"><img src="img/logo-parrotlab.webp" width="360" height="141" alt=""><span class="ck"><svg viewBox="0 0 20 20" aria-hidden="true"><path d="M4.5 10.5 8.5 14.5 15.5 6.5" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg></span></div>
+          <span class="lbl"><span class="nm">앵무새연구소</span><span class="st" data-st="parrotlab">아직 안 받았어요</span></span>
+        </div>
+      </div>
+      <p class="notice">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="6" width="18" height="14" rx="3"/><circle cx="12" cy="13" r="3.5"/><path d="M8 6l1.5-2h5L16 6"/></svg>
+        <span id="boardNote">여기 뜨는 스탬프를 스크린샷 찍어두고 직원에게 보여주시면 이벤트 참여를 도와드립니다!</span>
+      </p>
+      <p id="liveMsg" class="sr-only" aria-live="polite"></p>
+    </section>
+
+    <!-- 2. 완료 배너 -->
+    <button type="button" class="banner press" id="doneBanner" hidden>
+      <span class="ic" aria-hidden="true"><svg viewBox="0 0 20 20"><path d="M4.5 10.5 8.5 14.5 15.5 6.5" fill="none" stroke="currentColor" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+      <span class="tx"><strong>🎉 두 브랜드 플친 완료!</strong><!-- taste-skill-ignore: 요청 원문 --><span class="s">완료 화면을 직원에게 보여주세요</span></span>
+      <svg class="chev" viewBox="0 0 20 20" aria-hidden="true"><path d="M7.5 4.5 13 10l-5.5 5.5" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    </button>
+
+    <!-- 3. 버튼 4개 -->
+    <section class="card" aria-labelledby="getTitle">
+      <div class="card-head"><h2 id="getTitle">스탬프 받기</h2><span class="sub">2곳</span></div>
+      <ul class="list">
+        <li><a class="row press" id="btn-amazona" href="https://pf.kakao.com/_NtIxjG" target="_blank" rel="noopener">
+          <span class="ic kakao" aria-hidden="true"><svg viewBox="0 0 40 40"><path d="M20 7C11.2 7 5 12.6 5 19.2c0 4.1 2.6 7.6 6.6 9.7L10.3 34l5.9-3.9c1.2.3 2.5.4 3.8.4 8.8 0 15-5.4 15-11.5C35 12.6 28.8 7 20 7Z" fill="currentColor"/></svg></span>
+          <span class="tx"><span class="t">아마조나 카카오 플친하러가기</span><span class="d">동결건조 간식 브랜드</span></span>
+          <span class="act">추가하기</span>
+        </a></li>
+        <li><a class="row press" id="btn-parrotlab" href="https://pf.kakao.com/_jVCmb" target="_blank" rel="noopener">
+          <span class="ic kakao" aria-hidden="true"><svg viewBox="0 0 40 40"><path d="M20 7C11.2 7 5 12.6 5 19.2c0 4.1 2.6 7.6 6.6 9.7L10.3 34l5.9-3.9c1.2.3 2.5.4 3.8.4 8.8 0 15-5.4 15-11.5C35 12.6 28.8 7 20 7Z" fill="currentColor"/></svg></span>
+          <span class="tx"><span class="t">앵무새연구소 카카오 플친하러가기</span><span class="d">앵무새 장난감 브랜드</span></span>
+          <span class="act">추가하기</span>
+        </a></li>
       </ul>
     </section>
 
-    <figure class="visual rise" style="--i:3; margin:0">
-      <div class="box">
-      <div class="card">
-        <img class="pack" src="assets/package.jpg" alt="올포원 브라운 패키지 시안" width="690" height="1060">
-      </div>
-      <div class="cube"><img src="assets/cube.jpg" alt="실제 큐브 형태" width="392" height="400"></div>
-      </div>
-      <figcaption>패키지 인쇄 시안과 실제 큐브</figcaption>
+    <section class="card" aria-labelledby="aboutTitle">
+      <div class="card-head"><h2 id="aboutTitle">브랜드 알아보기</h2></div>
+      <ul class="list">
+        <li><button type="button" class="row press" data-open="amazona">
+          <span class="ic thumb"><img src="img/thumb-am.webp" width="120" height="120" alt=""></span>
+          <span class="tx"><span class="t">아마조나에 대해 보러가기</span><span class="d">동결건조 간식, 가평 카페와 활공장</span></span>
+          <svg class="chev" viewBox="0 0 20 20" aria-hidden="true"><path d="M7.5 4.5 13 10l-5.5 5.5" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </button></li>
+        <li><button type="button" class="row press" data-open="parrotlab">
+          <span class="ic thumb"><img src="img/thumb-pl.webp" width="120" height="120" alt=""></span>
+          <span class="tx"><span class="t">앵무새연구소에 대해 보러가기</span><span class="d">장난감 샘플팩과 벌크팩</span></span>
+          <svg class="chev" viewBox="0 0 20 20" aria-hidden="true"><path d="M7.5 4.5 13 10l-5.5 5.5" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </button></li>
+      </ul>
+    </section>
 
-      <div class="qr">
-        <img class="code" src="assets/qr-mobile.svg" alt="모바일버전 QR 코드" width="96" height="96">
-        <div>
-          <strong>휴대폰으로 바로 보기</strong>
-          <p>카메라로 찍으면 모바일버전이 열립니다.</p>
-        </div>
-      </div>
-    </figure>
+    <!-- 부스 혜택 -->
+    <section class="card" aria-labelledby="evTitle">
+      <div class="card-head"><h2 id="evTitle">부스 혜택</h2></div>
+      <div class="events" id="events"></div>
+    </section>
   </main>
 
-  <footer>
-    <span>AMAZONA 올포원 브라운</span>
-    <span>최종 업데이트 2026.10.07</span>
+  <footer class="foot pad">
+    <span id="footText"></span>
+    <div id="resetArea"><button type="button" class="linkish" id="resetAsk">스탬프 처음부터 다시 받기</button></div>
   </footer>
+</div>
+
+<!-- 브랜드 소개 시트 -->
+<dialog class="sheet" id="brandModal" aria-labelledby="bmTitle">
+  <button type="button" class="sheet-close" data-close aria-label="닫기"><svg viewBox="0 0 20 20" aria-hidden="true"><path d="M5 5l10 10M15 5 5 15" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></button>
+  <div class="sheet-in" id="bmInner"></div>
+</dialog>
+
+<!-- 완료 시트 (스크린샷용) -->
+<dialog class="sheet" id="doneModal" aria-labelledby="doneTitle">
+  <button type="button" class="sheet-close" data-close aria-label="닫기"><svg viewBox="0 0 20 20" aria-hidden="true"><path d="M5 5l10 10M15 5 5 15" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></button>
+  <div class="sheet-in">
+    <div class="handle" aria-hidden="true"></div>
+    <div class="done-hero">
+      <svg class="check-big" viewBox="0 0 76 76" aria-hidden="true"><circle cx="38" cy="38" r="38"/><path d="M23 39.5 33.5 50 54 28"/></svg>
+      <h2 id="doneTitle">🎉 두 브랜드 플친 완료!</h2><!-- taste-skill-ignore: 요청 원문 -->
+    </div>
+    <div class="done-pair">
+      <div class="slot done">
+        <div class="badge big-badge"><img src="img/logo-amazona.webp" width="360" height="117" alt=""><span class="ck"><svg viewBox="0 0 20 20" aria-hidden="true"><path d="M4.5 10.5 8.5 14.5 15.5 6.5" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg></span></div>
+        <span class="nm">아마조나</span><span class="st" data-st="amazona"></span>
+      </div>
+      <div class="slot done">
+        <div class="badge big-badge"><img src="img/logo-parrotlab.webp" width="360" height="141" alt=""><span class="ck"><svg viewBox="0 0 20 20" aria-hidden="true"><path d="M4.5 10.5 8.5 14.5 15.5 6.5" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg></span></div>
+        <span class="nm">앵무새연구소</span><span class="st" data-st="parrotlab"></span>
+      </div>
+    </div>
+    <dl class="kv done-kv">
+      <div><dt>완료 시각</dt><dd id="doneAt"></dd></div>
+      <div><dt>지금 시각</dt><dd class="live" id="nowAt"></dd></div>
+    </dl>
+    <p class="done-msg" id="doneMsg"></p>
+    <div class="cta"><button type="button" class="btn primary press" data-close>확인</button></div>
+  </div>
+</dialog>
+
+<script>
+/* =========================================================
+   SITE_CONFIG — 링크·문구는 여기만 고치면 됩니다
+   ========================================================= */
+const SITE_CONFIG = {
+  event: {
+    name: "앵페스타",
+    dates: "10월 17–18일",
+    place: "서울 문래 올댓마인드",
+  },
+  // 저장 키: 행사 회차가 바뀌면 이름을 바꾸면 모든 방문객 스탬프가 새로 시작됩니다
+  storageKey: "aengfesta-2026-stamp",
+
+  messages: {
+    boardNote: "여기 뜨는 스탬프를 스크린샷 찍어두고 직원에게 보여주시면 이벤트 참여를 도와드립니다!",
+    doneModal: "🎉 두 브랜드 플친 스탬프가 모두 찍혔습니다! 여기 뜨는 스탬프 화면을 스크린샷(캡처) 찍어두고 현장 직원에게 보여주시면 이벤트 참여를 도와드립니다!", // taste-skill-ignore: 요청 원문
+    footer: "앵무새연구소 × 아마조나 앵페스타 합동 부스",
+  },
+
+  brands: {
+    amazona: {
+      name: "아마조나",
+      kakaoUrl: "https://pf.kakao.com/_NtIxjG",
+      logo: "logo-amazona",
+      title: "앵무새가 먼저 알아보는\n동결건조 자연식",
+      lead: "아마조나는 앵무새 전용 동결건조 간식을 만드는 브랜드입니다. 채소·과일·곡물을 동결건조해 원재료의 색과 식감을 그대로 살렸고, HACCP 인증 시설에서 국내 생산합니다.",
+      gallery: ["am-1", "am-2", "am-3", "am-4", "am-5", "am-6", "am-7", "am-8"],
+      galleryAlt: [
+        "올포원 브라운 큐브를 먹는 아마존 앵무새",
+        "과일과 채소 사이에서 동결건조 간식을 먹는 앵무새",
+        "보라색 올포원 바이올렛 큐브를 먹는 앵무새",
+        "베리가 섞인 동결건조 간식을 먹는 코카투",
+        "곡물 동결건조 간식을 먹는 앵무새",
+        "채소 동결건조 간식을 먹는 코카투",
+        "올포원 브라운 큐브 클로즈업",
+        "올포원 바이올렛 큐브 클로즈업",
+      ],
+      lineupTitle: "제품 라인업",
+      lineup: [
+        { name: "그린일레븐" },
+        { name: "트로피칼나인" },
+        { name: "베리베리텐" },
+        { name: "올포원 브라운", isNew: true },
+        { name: "올포원 바이올렛" },
+      ],
+      lineupNote: "동결건조 자연식 50g, 200g과 올포원 큐브 라인",
+      places: {
+        title: "아마조나 패럿 라운지, 가평",
+        lead: "앵무새와 보호자가 함께 쉬어 가는 공간입니다. 통창 카페에서 쉬고, 유리 온실 활공장에서 앵무새가 마음껏 날아요.",
+        items: [
+          { img: "lounge-cafe", name: "카페", desc: "산과 잔디 마당이 내다보이는 통창 라운지. 긴 테이블에서 앵무새와 함께 쉬어 갈 수 있어요." },
+          { img: "lounge-aviary", name: "활공장", desc: "천장까지 유리로 덮인 온실형 활공장. 잔디와 나무 사이를 앵무새가 자유롭게 날 수 있어요." },
+        ],
+        info: [
+          ["주소", "경기도 가평군 청평면 말래골길 59"],
+          ["운영", "10:00 – 18:00"],
+        ],
+        ticketTitle: "앵페스타 현장 특가 입장권",
+        tickets: [
+          { name: "앵페스타 한정 티켓", who: "성인 1 + 앵무새 1마리", was: "15,000원", off: "20%", price: "12,000원" },
+          { name: "그린 티켓", who: "성인 1 + 앵무새 8마리", was: "50,000원", off: "60%", price: "20,000원" },
+        ],
+        ticketNote: "앵페스타 현장 구매 시 적용, 그린 티켓은 1인 10장까지",
+      },
+    },
+
+    parrotlab: {
+      name: "앵무새연구소",
+      kakaoUrl: "https://pf.kakao.com/_jVCmb",
+      logo: "logo-parrotlab",
+      title: "부수고 뜯고 노는,\n앵무새 장난감",
+      lead: "앵무새연구소는 앵무새의 놀이 본능에 맞춘 장난감을 만드는 브랜드입니다. 부리로 쪼고 뜯기 좋은 발사 나무 칩부터 여러 장난감을 담은 샘플팩, 넉넉한 벌크팩까지 준비했어요.",
+      gallery: ["pl-2", "pl-1", "pl-3"],
+      galleryAlt: [
+        "여러 종류의 앵무새 장난감이 담긴 상자",
+        "구멍 뚫린 발사 나무 칩",
+        "발사 나무 칩 더미",
+      ],
+      lineupTitle: "부스에서 만나는 제품",
+      lineup: [
+        { name: "장난감 샘플팩" },
+        { name: "앵무새연구소 벌크팩" },
+        { name: "발사 나무 칩" },
+      ],
+      lineupNote: "",
+      places: null,
+    },
+  },
+
+  // 부스 혜택 요약
+  events: [
+    {
+      tag: "EVENT 01",
+      title: "입장 돌림판 100% 당첨 쿠폰",
+      desc: "두 브랜드 카톡 채널을 모두 친구 추가하고 이 화면을 보여주시면 돌림판 1회 참여!",
+      prizes: [
+        { label: "1,000원 당일 할인" },
+        { label: "3,000원 당일 할인" },
+        { label: "올포원 브라운", hidden: true },
+        { label: "앵무새연구소 벌크팩", hidden: true },
+      ],
+    },
+    {
+      tag: "EVENT 02",
+      title: "5만원 이상 구매 시 베스트 샘플 2종 세트",
+      desc: "두 브랜드 합산 결제 1건당 1세트, 선착순 200개 한정 (아마조나 동결건조 샘플 + 앵무새연구소 장난감 샘플팩)",
+      prizes: [],
+    },
+  ],
+};
+
+/* 이미지 경로와 크기 (img 폴더) — 사진을 바꾸려면 같은 이름의 파일을 교체하세요 */
+const IMAGES = {
+  "logo-amazona": {
+    "src": "img/logo-amazona.webp",
+    "w": 360,
+    "h": 117
+  },
+  "logo-parrotlab": {
+    "src": "img/logo-parrotlab.webp",
+    "w": 360,
+    "h": 141
+  },
+  "am-1": {
+    "src": "img/am-1.webp",
+    "w": 720,
+    "h": 720
+  },
+  "am-2": {
+    "src": "img/am-2.webp",
+    "w": 720,
+    "h": 720
+  },
+  "am-3": {
+    "src": "img/am-3.webp",
+    "w": 720,
+    "h": 720
+  },
+  "am-4": {
+    "src": "img/am-4.webp",
+    "w": 720,
+    "h": 720
+  },
+  "am-5": {
+    "src": "img/am-5.webp",
+    "w": 720,
+    "h": 720
+  },
+  "am-6": {
+    "src": "img/am-6.webp",
+    "w": 720,
+    "h": 720
+  },
+  "am-7": {
+    "src": "img/am-7.webp",
+    "w": 720,
+    "h": 500
+  },
+  "am-8": {
+    "src": "img/am-8.webp",
+    "w": 720,
+    "h": 539
+  },
+  "lounge-cafe": {
+    "src": "img/lounge-cafe.webp",
+    "w": 860,
+    "h": 645
+  },
+  "lounge-aviary": {
+    "src": "img/lounge-aviary.webp",
+    "w": 860,
+    "h": 645
+  },
+  "pl-1": {
+    "src": "img/pl-1.webp",
+    "w": 713,
+    "h": 720
+  },
+  "pl-2": {
+    "src": "img/pl-2.webp",
+    "w": 720,
+    "h": 678
+  },
+  "pl-3": {
+    "src": "img/pl-3.webp",
+    "w": 720,
+    "h": 720
+  },
+  "thumb-am": {
+    "src": "img/thumb-am.webp",
+    "w": 120,
+    "h": 120
+  },
+  "thumb-pl": {
+    "src": "img/thumb-pl.webp",
+    "w": 120,
+    "h": 120
+  }
+};
+
+/* ========================================================= */
+(function () {
+  const C = SITE_CONFIG;
+  const BRAND_IDS = ["amazona", "parrotlab"];
+  const $ = (s, r = document) => r.querySelector(s);
+  const $$ = (s, r = document) => Array.from(r.querySelectorAll(s));
+  const esc = (s) => String(s).replace(/[&<>"']/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]));
+  const br = (s) => esc(s).replace(/\n/g, "<br>");
+  const img = (key, alt, lazy) => {
+    const m = IMAGES[key] || { src: "", w: 1, h: 1 };
+    return `<img src="${m.src}" width="${m.w}" height="${m.h}" alt="${esc(alt)}"${lazy ? ' loading="lazy" decoding="async"' : ""}>`;
+  };
+
+  /* ---------- 저장 ---------- */
+  const empty = () => ({ amazona: null, parrotlab: null, completedAt: null, modalShown: false });
+  function load() {
+    try {
+      const raw = localStorage.getItem(C.storageKey);
+      return raw ? Object.assign(empty(), JSON.parse(raw)) : empty();
+    } catch {
+      return empty(); // 저장소를 쓸 수 없는 환경(사생활 보호 모드 등)
+    }
+  }
+  function save() {
+    try {
+      localStorage.setItem(C.storageKey, JSON.stringify(state));
+    } catch {
+      // 저장 불가 환경: 이번 화면에서만 유지
+    }
+  }
+  let state = load();
+
+  /* ---------- 시간 ---------- */
+  const DAYS = ["일", "월", "화", "수", "목", "금", "토"];
+  const pad = (n) => String(n).padStart(2, "0");
+  const fmtFull = (ts) => { const d = new Date(ts); return `${d.getFullYear()}.${pad(d.getMonth() + 1)}.${pad(d.getDate())} (${DAYS[d.getDay()]}) ${pad(d.getHours())}:${pad(d.getMinutes())}`; };
+  const fmtShort = (ts) => { const d = new Date(ts); return `${pad(d.getMonth() + 1)}.${pad(d.getDate())} ${pad(d.getHours())}:${pad(d.getMinutes())} 완료`; };
+  const fmtNow = () => { const d = new Date(); return `${pad(d.getMonth() + 1)}.${pad(d.getDate())} ${pad(d.getHours())}:${pad(d.getMinutes())}:${pad(d.getSeconds())}`; };
+
+  /* ---------- 설정값을 화면에 반영 ---------- */
+  $("#heroSub").textContent = `${C.event.name} ${C.event.dates}, ${C.event.place} 합동 부스`;
+  $("#boardNote").textContent = C.messages.boardNote;
+  $("#doneMsg").textContent = C.messages.doneModal;
+  $("#footText").textContent = C.messages.footer;
+  BRAND_IDS.forEach((id) => { $("#btn-" + id).href = C.brands[id].kakaoUrl; });
+  $("#events").innerHTML = C.events.map((ev, i) => `
+    <article class="ev e${i + 1}">
+      <span class="tag">${esc(ev.tag)}</span>
+      <h3>${esc(ev.title)}</h3>
+      <p>${esc(ev.desc)}</p>
+      ${ev.prizes && ev.prizes.length ? `<div class="prizes">${ev.prizes.map((p) => `<span class="${p.hidden ? "hid" : ""}">${esc(p.label)}</span>`).join("")}</div>` : ""}
+    </article>`).join("");
+
+  /* ---------- 화면 반영 ---------- */
+  const CHECK = '<svg viewBox="0 0 20 20" aria-hidden="true"><path d="M4.5 10.5 8.5 14.5 15.5 6.5" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/></svg>';
+  function render(justId) {
+    let n = 0;
+    BRAND_IDS.forEach((id) => {
+      const done = !!state[id];
+      if (done) n++;
+      const slot = $("#slot-" + id);
+      slot.classList.toggle("done", done);
+      slot.classList.toggle("just", justId === id);
+      $$(`[data-st="${id}"]`).forEach((el) => { el.textContent = done ? fmtShort(state[id]) : "아직 안 받았어요"; });
+      const row = $("#btn-" + id);
+      row.classList.toggle("is-done", done);
+      $(".act", row).innerHTML = done ? `${CHECK}완료` : "추가하기";
+    });
+    $("#stampN").textContent = n;
+    $("#barFill").style.width = (n / 2) * 100 + "%";
+    const all = n === 2;
+    $("#doneBanner").hidden = !all;
+    $("#doneAt").textContent = state.completedAt ? fmtFull(state.completedAt) : "";
+    return all;
+  }
+
+  /* ---------- 스탬프 ---------- */
+  let pending = null;
+  function giveStamp(id) {
+    if (state[id]) return;
+    state[id] = Date.now();
+    if (BRAND_IDS.every((b) => state[b])) state.completedAt = Math.max(state.amazona, state.parrotlab);
+    save();
+    pending = id;
+    // 카톡으로 넘어갔다면 돌아왔을 때, 같은 화면이면 잠시 뒤에 반영
+    if (document.visibilityState === "visible") setTimeout(flushPending, 900);
+  }
+  function flushPending() {
+    if (!pending) return;
+    const id = pending; pending = null;
+    const all = render(id);
+    $("#liveMsg").textContent = `${C.brands[id].name} 플친 스탬프를 받았어요.`;
+    if (navigator.vibrate) navigator.vibrate(30);
+    if (all && !state.modalShown) {
+      state.modalShown = true; save();
+      setTimeout(openDone, 700);
+    }
+  }
+  document.addEventListener("visibilitychange", () => { if (document.visibilityState === "visible") setTimeout(flushPending, 250); });
+  window.addEventListener("pageshow", () => { state = load(); render(); });
+  BRAND_IDS.forEach((id) => { $("#btn-" + id).addEventListener("click", () => giveStamp(id)); });
+
+  /* ---------- 시트 ---------- */
+  function openDialog(dlg) {
+    if (typeof dlg.showModal === "function") dlg.showModal(); else dlg.setAttribute("open", "");
+    const inner = $(".sheet-in", dlg); if (inner) inner.scrollTop = 0;
+  }
+  function closeDialog(dlg) { if (typeof dlg.close === "function") dlg.close(); else dlg.removeAttribute("open"); }
+  $$("dialog").forEach((dlg) => {
+    dlg.addEventListener("click", (e) => {
+      if (e.target.closest("[data-close]") || e.target === dlg) closeDialog(dlg);
+    });
+  });
+
+  let clock = null;
+  function openDone() {
+    render();
+    $("#nowAt").textContent = fmtNow();
+    clearInterval(clock);
+    clock = setInterval(() => { $("#nowAt").textContent = fmtNow(); }, 1000);
+    openDialog($("#doneModal"));
+  }
+  $("#doneModal").addEventListener("close", () => clearInterval(clock));
+  $("#doneBanner").addEventListener("click", openDone);
+
+  const KAKAO = '<svg viewBox="0 0 40 40" aria-hidden="true"><path d="M20 7C11.2 7 5 12.6 5 19.2c0 4.1 2.6 7.6 6.6 9.7L10.3 34l5.9-3.9c1.2.3 2.5.4 3.8.4 8.8 0 15-5.4 15-11.5C35 12.6 28.8 7 20 7Z" fill="currentColor"/></svg>';
+  const PREV = '<svg viewBox="0 0 20 20" aria-hidden="true"><path d="M12.5 4.5 7 10l5.5 5.5" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>';
+  const NEXT = '<svg viewBox="0 0 20 20" aria-hidden="true"><path d="M7.5 4.5 13 10l-5.5 5.5" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>';
+  function brandHTML(id) {
+    const b = C.brands[id];
+    const imgs = b.gallery.map((k, i) => `<figure>${img(k, b.galleryAlt[i] || b.name, i > 0)}</figure>`).join("");
+    const lineup = b.lineup.map((p) => `<span class="${p.isNew ? "new" : ""}">${esc(p.name)}</span>`).join("");
+    let places = "";
+    if (b.places) {
+      const P = b.places;
+      places = `
+        <section class="bs-sec">
+          <h3>${esc(P.title)}</h3>
+          <p class="lead">${esc(P.lead)}</p>
+          <div class="places">${P.items.map((it) => `
+            <div class="place">${img(it.img, "아마조나 " + it.name, true)}<strong>${esc(it.name)}</strong><p>${esc(it.desc)}</p></div>`).join("")}
+          </div>
+        </section>
+        <section class="bs-sec">
+          <dl class="kv">${P.info.map(([k, v]) => `<div><dt>${esc(k)}</dt><dd>${esc(v)}</dd></div>`).join("")}</dl>
+        </section>
+        <section class="bs-sec">
+          <h3>${esc(P.ticketTitle)}</h3>
+          <div class="tickets">${P.tickets.map((t) => `
+            <div class="ticket"><div class="tx"><b>${esc(t.name)}</b><small>${esc(t.who)}</small></div>
+            <div class="pr"><s>${esc(t.was)}</s><span class="off">${esc(t.off)}</span><em>${esc(t.price)}</em></div></div>`).join("")}
+          </div>
+          <p class="note">${esc(P.ticketNote)}</p>
+        </section>`;
+    }
+    return `
+      <div class="handle" aria-hidden="true"></div>
+      <div class="bs-head">
+        ${img(b.logo, b.name, false).replace("<img ", '<img class="logo" ')}
+        <h2 id="bmTitle">${br(b.title)}</h2>
+        <p>${esc(b.lead)}</p>
+      </div>
+      <div class="carousel" tabindex="0" role="region" aria-label="${esc(b.name)} 사진 ${b.gallery.length}장">${imgs}</div>
+      <div class="pager">
+        <button type="button" class="prev" aria-label="이전 사진">${PREV}</button>
+        <span class="num" aria-live="polite"><span class="cur">1</span> / ${b.gallery.length}</span>
+        <button type="button" class="next" aria-label="다음 사진">${NEXT}</button>
+      </div>
+      <section class="bs-sec">
+        <h3>${esc(b.lineupTitle)}</h3>
+        <div class="chips">${lineup}</div>
+        ${b.lineupNote ? `<p class="note">${esc(b.lineupNote)}</p>` : ""}
+      </section>
+      ${places}
+      <div class="sp"></div>
+      <div class="cta">
+        ${state[id]
+          ? `<button type="button" class="btn grey press" data-close>닫기</button>`
+          : `<a class="btn kakao press" href="${esc(b.kakaoUrl)}" target="_blank" rel="noopener" data-stamp="${id}">${KAKAO}${esc(b.name)} 채널 추가하기</a>`}
+      </div>`;
+  }
+
+  $$("[data-open]").forEach((btn) => {
+    btn.addEventListener("click", () => {
+      const id = btn.dataset.open;
+      const dlg = $("#brandModal");
+      $("#bmInner").innerHTML = brandHTML(id);
+      const g = $(".carousel", dlg);
+      const figs = $$("figure", g);
+      const cur = $(".pager .cur", dlg);
+      const prev = $(".pager .prev", dlg);
+      const next = $(".pager .next", dlg);
+      const step = () => (figs[1] ? figs[1].offsetLeft - figs[0].offsetLeft : g.clientWidth) || 1;
+      const index = () => Math.max(0, Math.min(figs.length - 1, Math.round(g.scrollLeft / step())));
+      const sync = () => {
+        const i = index();
+        cur.textContent = i + 1;
+        prev.disabled = i === 0;
+        next.disabled = i === figs.length - 1;
+      };
+      const go = (d) => { g.scrollTo({ left: (index() + d) * step() }); };
+      g.addEventListener("scroll", sync, { passive: true });
+      prev.addEventListener("click", () => go(-1));
+      next.addEventListener("click", () => go(1));
+      const s = $("[data-stamp]", dlg);
+      if (s) s.addEventListener("click", () => { giveStamp(s.dataset.stamp); closeDialog(dlg); });
+      openDialog(dlg);
+      sync(); // 시트가 열려 레이아웃이 잡힌 뒤에 계산
+    });
+  });
+
+  /* ---------- 초기화 ---------- */
+  const resetArea = $("#resetArea");
+  const resetHTML = resetArea.innerHTML;
+  resetArea.addEventListener("click", (e) => {
+    if (e.target.id === "resetAsk") {
+      resetArea.innerHTML = `<div class="confirm"><span>스탬프를 모두 지울까요?</span><button type="button" class="yes" id="resetYes">지우기</button><button type="button" class="no" id="resetNo">취소</button></div>`;
+    } else if (e.target.id === "resetYes") {
+      state = empty(); save(); render(); resetArea.innerHTML = resetHTML;
+    } else if (e.target.id === "resetNo") {
+      resetArea.innerHTML = resetHTML;
+    }
+  });
+
+  render();
+})();
+</script>
 </body>
 </html>
