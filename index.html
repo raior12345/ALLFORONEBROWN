@@ -78,6 +78,9 @@ a { color: inherit; text-decoration: none; }
 
 :focus-visible { outline: 3px solid var(--blue); outline-offset: 2px; border-radius: 12px; }
 
+/* 시트가 열릴 때 포커스를 받는 제목은 테두리 없이 (캡처 화면이 깔끔하도록) */
+[tabindex="-1"]:focus { outline: none; }
+
 .press { transition: transform .18s var(--ease), background-color .18s; }
 .press:active { transform: scale(.97); }
 
@@ -242,7 +245,9 @@ dialog.sheet[open] { animation: up .42s var(--ease) both; }
 
 .sheet-in { max-height: 92dvh; overflow-y: auto; overscroll-behavior: contain; display: flex; flex-direction: column; }
 .sheet-in > * { flex-shrink: 0; }
-.handle { width: 40px; height: 5px; border-radius: 3px; background: var(--line); margin: 10px auto 4px; }
+/* 시트 머리: 스크롤해도 위에 붙어 있어서 내용이 닫기 버튼 밑으로 지나가지 않아요 */
+.sheet-top { position: sticky; top: 0; z-index: 2; height: 64px; background: var(--surface); }
+.handle { width: 40px; height: 5px; border-radius: 3px; background: var(--line); margin: 10px auto 0; }
 .sheet-close {
   position: absolute; top: 12px; right: max(12px, env(safe-area-inset-right, 0px)); z-index: 3;
   width: 44px; height: 44px; border-radius: 50%; display: grid; place-items: center; color: var(--ink-3);
@@ -267,7 +272,7 @@ dialog.sheet[open] { animation: up .42s var(--ease) both; }
 .btn.grey { background: var(--bg); color: var(--ink-2); }
 
 /* 브랜드 시트 */
-.bs-head { padding: 12px 20px 0; display: flex; flex-direction: column; gap: 10px; }
+.bs-head { padding: 0 20px; display: flex; flex-direction: column; gap: 10px; }
 .bs-head .logo { height: 32px; width: auto; align-self: flex-start; }
 .bs-head h2 { margin: 4px 0 0; font-size: 24px; line-height: 1.38; font-weight: 700; letter-spacing: -0.03em; }
 .bs-head p { margin: 0; font-size: 16px; line-height: 1.65; color: var(--ink-2); }
@@ -375,7 +380,7 @@ dialog.viewer[open] { display: flex; flex-direction: column; animation: fadein .
 .row.is-waiting .act { background: var(--bg); color: var(--ink-3); }
 
 /* 완료 시트 */
-.done-hero { padding: 24px 20px 0; display: flex; flex-direction: column; align-items: center; text-align: center; }
+.done-hero { padding: 0 20px; display: flex; flex-direction: column; align-items: center; text-align: center; }
 .check-big { width: 76px; height: 76px; }
 .check-big circle { fill: var(--blue); transform-origin: center; animation: grow .45s var(--ease) both; }
 .check-big path { fill: none; stroke: #FFF; stroke-width: 6; stroke-linecap: round; stroke-linejoin: round; stroke-dasharray: 60; stroke-dashoffset: 60; animation: draw .4s var(--ease) .3s forwards; }
@@ -534,10 +539,10 @@ dialog.viewer[open] { display: flex; flex-direction: column; animation: fadein .
 <dialog class="sheet" id="doneModal" aria-labelledby="doneTitle">
   <button type="button" class="sheet-close" data-close aria-label="닫기"><svg viewBox="0 0 20 20" aria-hidden="true"><path d="M5 5l10 10M15 5 5 15" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></button>
   <div class="sheet-in">
-    <div class="handle" aria-hidden="true"></div>
+    <div class="sheet-top"><div class="handle" aria-hidden="true"></div></div>
     <div class="done-hero">
       <svg class="check-big" viewBox="0 0 76 76" aria-hidden="true"><circle cx="38" cy="38" r="38"/><path d="M23 39.5 33.5 50 54 28"/></svg>
-      <h2 id="doneTitle">🎉 두 브랜드 플친 완료!</h2><!-- taste-skill-ignore: 요청 원문 -->
+      <h2 id="doneTitle" tabindex="-1" autofocus>🎉 두 브랜드 플친 완료!</h2><!-- taste-skill-ignore: 요청 원문 -->
     </div>
     <div class="done-pair">
       <div class="slot done">
@@ -648,7 +653,8 @@ const SITE_CONFIG = {
           ["주소", "경기도 가평군 청평면 말래골길 59"],
           ["운영", "10:00 – 18:00"],
         ],
-        ticketTitle: "앵페스타 현장 특가 입장권",
+        ticketTitle: "앵페스타 한정 입장권 특가",
+        ticketLead: "가평 아마조나 패럿 라운지 입장권을 앵페스타 현장에서만 최대 60% 싸게 살 수 있어요.",
         ticketPoster: "p-tickets",
         tickets: [
           { name: "앵페스타 한정 티켓", who: "성인 1 + 앵무새 1마리", was: 15000, now: 12000 },
@@ -1080,12 +1086,17 @@ const IMAGES = {
       </section>
       <section class="bs-sec">
         <dl class="kv">${P.info.map(([k, v]) => `<div><dt>${esc(k)}</dt><dd>${esc(v)}</dd></div>`).join("")}</dl>
-      </section>
+      </section>`;
+  }
+
+  function ticketsHTML(P) {
+    return `
       <section class="bs-sec">
         <div class="sec-head">
           <h3>${esc(P.ticketTitle)}</h3>
           <button type="button" class="textbtn" ${posterAttrs(C.posters[P.ticketPoster], [P.ticketPoster])}>이미지 보기${NEXT}</button>
         </div>
+        <p class="lead">${esc(P.ticketLead)}</p>
         <div class="tickets">${P.tickets.map((t) => `
           <div class="ticket"><div class="tx"><b>${esc(t.name)}</b><small>${esc(t.who)}</small></div>
           <div class="pr"><s>${won(t.was)}</s><span class="off">${discountRate(t.was, t.now)}%</span><em>${won(t.now)}</em></div></div>`).join("")}
@@ -1112,10 +1123,10 @@ const IMAGES = {
     const b = C.brands[id];
     const imgs = b.gallery.map((k, i) => `<figure>${img(k, b.galleryAlt[i] || b.name, { lazy: i > 0 })}</figure>`).join("");
     return `
-      <div class="handle" aria-hidden="true"></div>
+      <div class="sheet-top"><div class="handle" aria-hidden="true"></div></div>
       <div class="bs-head">
         ${img(b.logo, b.name, { cls: "logo" })}
-        <h2 id="bmTitle">${br(b.title)}</h2>
+        <h2 id="bmTitle" tabindex="-1" autofocus>${br(b.title)}</h2>
         <p>${esc(b.lead)}</p>
       </div>
       <section class="carousel" tabindex="0" aria-label="${esc(b.name)} 사진 ${b.gallery.length}장">${imgs}</section>
@@ -1125,6 +1136,7 @@ const IMAGES = {
         <button type="button" class="next" aria-label="다음 사진">${NEXT}</button>
       </div>
       ${b.products ? productsHTML(b) : chipsHTML(b)}
+      ${b.places ? ticketsHTML(b.places) : ""}
       ${b.places ? placesHTML(b.places) : ""}
       <div class="sp"></div>
       <div class="cta">${sheetCtaHTML(id, b)}</div>`;
