@@ -343,8 +343,8 @@ dialog.sheet[open] { animation: up .42s var(--ease) both; }
 
 /* 섹션 제목 옆 텍스트 버튼 (TDS 텍스트 버튼처럼) */
 .sec-head { display: flex; align-items: center; justify-content: space-between; gap: 8px; margin: 0 0 8px; }
-.sec-head h3 { margin: 0; }
-.textbtn { display: inline-flex; align-items: center; gap: 2px; min-height: 44px; padding: 0 4px; font-size: 15px; font-weight: 600; color: var(--blue); }
+.sec-head h3 { margin: 0; min-width: 0; text-wrap: balance; }
+.textbtn { flex: none; white-space: nowrap; display: inline-flex; align-items: center; gap: 2px; min-height: 44px; padding: 0 4px; font-size: 15px; font-weight: 600; color: var(--blue); }
 .textbtn svg { width: 16px; height: 16px; }
 
 /* 제품 리스트 */
@@ -680,8 +680,8 @@ const SITE_CONFIG = {
           ["주소", "경기도 가평군 청평면 말래골길 59"],
           ["운영", "10:00 – 18:00"],
         ],
-        ticketTitle: "앵페스타 한정 입장권 특가",
-        ticketLead: "가평 라운지 입장권을 앵페스타 현장에서 최대 60% 할인해요.",
+        ticketTitle: "앵페스타 한정 아마조나 입장권 특가",
+        ticketLead: "아마조나 입장권을 앵페스타 현장에서 최대 60% 할인해요.",
         ticketPoster: "p-tickets",
         tickets: [
           { name: "앵페스타 한정 티켓", who: "성인 1 + 앵무새 1마리", was: 15000, now: 12000 },
