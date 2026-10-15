@@ -1059,15 +1059,38 @@ const IMAGES = {
   BRAND_IDS.forEach((id) => { $("#btn-" + id).addEventListener("click", () => requestStamp(id)); });
 
   /* ---------- 시트·뷰어 공통 ---------- */
+  // 시트를 열 때마다 방문 기록을 하나 쌓아요. 뒤로 가기(갤럭시 스와이프 포함)를 하면
+  // 페이지를 떠나지 않고 맨 위 시트만 닫혀요. X·바깥 탭·Esc로 닫으면 쌓은 기록을 되돌려요.
+  const openStack = [];
+  let skipPop = 0;
   function openDialog(dlg) {
+    if (dlg.open) return;
     if (typeof dlg.showModal === "function") dlg.showModal(); else dlg.setAttribute("open", "");
     const inner = $(".sheet-in", dlg); if (inner) inner.scrollTop = 0;
+    openStack.push(dlg);
+    history.pushState({ sheet: dlg.id }, "");
   }
-  function closeDialog(dlg) { if (typeof dlg.close === "function") dlg.close(); else dlg.removeAttribute("open"); }
+  function closeDialog(dlg) {
+    if (!dlg.open) return;
+    if (typeof dlg.close === "function") dlg.close();
+    else { dlg.removeAttribute("open"); dlg.dispatchEvent(new Event("close")); }
+  }
   $$("dialog").forEach((dlg) => {
     dlg.addEventListener("click", (e) => {
       if (e.target.closest("[data-close]") || e.target === dlg) closeDialog(dlg);
     });
+    dlg.addEventListener("close", () => {
+      const i = openStack.indexOf(dlg);
+      if (i < 0) return; // 뒤로 가기로 닫힌 경우: 기록은 이미 빠졌어요
+      openStack.splice(i, 1);
+      skipPop++;
+      history.back();
+    });
+  });
+  window.addEventListener("popstate", () => {
+    if (skipPop > 0) { skipPop--; return; }
+    const top = openStack.pop();
+    if (top) closeDialog(top);
   });
 
   let clock = null;
