@@ -553,10 +553,7 @@ dialog.page[open] { animation: pushin .38s cubic-bezier(.32, .72, 0, 1) both; }
 .pd-next { margin-top: 20px; }
 
 /* 한눈에 비교 */
-.line + .line { margin-top: 28px; }
-.line-head { display: flex; flex-direction: column; gap: 2px; }
-.line-head p { margin: 0; font-size: 15px; color: var(--ink-3); }
-.cmp { list-style: none; margin: 12px 0 0; padding: 0; display: grid; gap: 8px; }
+.cmp { list-style: none; margin: 20px 0 0; padding: 0; display: grid; gap: 8px; }
 .cmp button {
   width: 100%; text-align: left; padding: 16px; border-radius: 20px; background: var(--weak);
   display: grid; grid-template-columns: 56px minmax(0, 1fr) 20px; gap: 2px 14px; align-items: center;
@@ -579,11 +576,6 @@ dialog.page[open] { animation: pushin .38s cubic-bezier(.32, .72, 0, 1) both; }
 .reasons b { font-size: 17px; font-weight: 700; }
 .reasons span { font-size: 15px; color: var(--ink-3); line-height: 1.5; }
 .reasons .chip { margin-top: 4px; }
-.rot { margin-top: 16px; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 8px; }
-.rot div { padding: 14px 10px; border-radius: 16px; background: var(--weak); text-align: center; display: flex; flex-direction: column; align-items: center; gap: 6px; }
-.rot img { width: 44px; height: auto; border-radius: 6px; }
-.rot b { font-size: 17px; font-weight: 800; color: var(--accent); white-space: nowrap; }
-.rot span { font-size: 14px; color: var(--ink-3); word-break: keep-all; }
 
 @media (max-width: 359px) {
   .ing-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); }
@@ -853,10 +845,10 @@ const SITE_CONFIG = {
           prices: [{ size: "50g", was: 12500, now: 10000 }, { size: "200g", was: 37500, now: 30000 }],
           id: "berry" },
         { name: "올포원 브라운", flag: "NEW", desc: "씨앗 3종 품은 큐브, 원물 15가지", pkg: "pkg-brown",
-          prices: [{ size: "1팩", was: 18500, now: 14800 }],
+          prices: [{ size: "100g", was: 18500, now: 14800 }],
           id: "brown" },
         { name: "올포원 바이올렛", flag: "베스트", desc: "자색고구마 보랏빛 큐브, 원물 12가지", pkg: "pkg-violet",
-          prices: [{ size: "1팩", was: 18500, now: 14800 }],
+          prices: [{ size: "100g", was: 18500, now: 14800 }],
           id: "violet" },
       ],
       productsNote: "앵페스타 현장에서만 이 가격이에요.",
@@ -983,10 +975,6 @@ const DETAILS = {
   compare: {
     title: "어떤 맛이 다를까?\n한눈에 비교해요",
     lead: "5종 모두 휴먼그레이드 원물, 무첨가, 살모넬라·대장균 검사, HACCP 시설 국내 제조예요.",
-    lines: [
-      { name: "동결건조 믹스", desc: "잘게 썬 원물을 섞었어요 · 50g, 200g", ids: ["green", "tropical", "berry"] },
-      { name: "올포원 큐브", desc: "한 조각에 담은 편식 예방 보조펠렛", ids: ["brown", "violet"] },
-    ],
     reasonsTitle: "아마조나 동결건조가\n특별한 5가지 이유",
     reasons: [
       { t: "HACCP 인증 시설, 국내 제조", d: "위생적인 국내 시설에서 직접 만들어요", tag: "정식 사료 성분등록" },
@@ -995,13 +983,6 @@ const DETAILS = {
       { t: "화학 첨가물·보존료·설탕 없이", d: "수분만 날려서 실온에 보관해요", tag: "무방부제·무색소·무설탕" },
       { t: "영하 동결건조 공법", d: "영양·색·향을 지키고, 부리로 바삭 부서져요", tag: "동결 → 승화 → 건조" },
     ],
-    rotationTitle: "요일마다 번갈아 주면\n질리지 않아요",
-    rotation: [
-      { id: "green", days: "화·목·금" },
-      { id: "tropical", days: "월·수" },
-      { id: "berry", days: "토·일" },
-    ],
-    rotationNote: "예시 식단이에요. 반려조에게 맞게 꾸려 주세요.",
   },
 
   products: {
@@ -1857,28 +1838,16 @@ const IMAGES = {
         <span class="picks">${p.pick.map((k) => img(k, "", { lazy: true })).join("")}</span>
       </button></li>`;
     };
-    const rot = X.rotation.map((r) => {
-      const p = D.products[r.id];
-      return `<div style="--accent:${p.accent};--weak:${p.weak}">${img(p.pkg, "", { lazy: true })}<b>${esc(r.days)}</b><span>${esc(p.name)}과 펠렛</span></div>`;
-    }).join("");
     return `
       <section class="pd-sec">
         <h3>${br(X.title)}</h3>
         <p class="pd-lead">${esc(X.lead)}</p>
-        <div class="pd-sub">${X.lines.map((l) => `
-          <div class="line"><div class="line-head"><h4>${esc(l.name)}</h4><p>${esc(l.desc)}</p></div>
-          <ul class="cmp">${l.ids.map(card).join("")}</ul></div>`).join("")}
-        </div>
+        <ul class="cmp">${PIDS.map(card).join("")}</ul>
         <p class="pd-cap">${esc(C.brands.amazona.productsNote)} 원물 사진은 대표 원료 일부예요.</p>
       </section>
       <section class="pd-sec">
         <h3>${br(X.reasonsTitle)}</h3>
         <ol class="reasons">${X.reasons.map((r) => `<li><b>${esc(r.t)}</b><span>${esc(r.d)}</span><span class="chip ok">${esc(r.tag)}</span></li>`).join("")}</ol>
-      </section>
-      <section class="pd-sec">
-        <h3>${br(X.rotationTitle)}</h3>
-        <div class="rot">${rot}</div>
-        <p class="pd-cap">${esc(X.rotationNote)}</p>
       </section>`;
   }
 
