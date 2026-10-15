@@ -310,6 +310,70 @@ dialog.sheet[open] { animation: up .42s var(--ease) both; }
 .ticket .pr .off { font-size: 15px; font-weight: 700; color: var(--red); margin-right: 4px; }
 .sp { height: 24px; }
 
+/* 섹션 제목 옆 텍스트 버튼 (TDS 텍스트 버튼처럼) */
+.sec-head { display: flex; align-items: center; justify-content: space-between; gap: 8px; margin: 0 0 8px; }
+.sec-head h3 { margin: 0; }
+.textbtn { display: inline-flex; align-items: center; gap: 2px; min-height: 44px; padding: 0 4px; font-size: 15px; font-weight: 600; color: var(--blue); }
+.textbtn svg { width: 16px; height: 16px; }
+
+/* 제품 리스트 */
+.prods { list-style: none; margin: 0 -20px; padding: 0; display: flex; flex-direction: column; }
+.prod { width: 100%; display: flex; align-items: center; gap: 14px; padding: 12px 20px; text-align: left; }
+.prod:active { background: var(--tone); }
+.prod .pkg { flex: none; width: 56px; height: auto; border-radius: 8px; }
+.prod .tx { flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 2px; }
+.prod .t { display: flex; align-items: center; gap: 6px; font-size: 17px; font-weight: 700; line-height: 1.35; }
+.prod .d { font-size: 14px; color: var(--muted); line-height: 1.4; }
+.prod .chev { flex: none; width: 20px; height: 20px; color: var(--muted); }
+.flag { flex: none; font-size: 12px; font-weight: 700; padding: 2px 6px; border-radius: 6px; color: #FFF; background: var(--red); }
+.flag.best { background: var(--ink-2); }
+.prices { margin: 4px 0 0; padding: 0; list-style: none; display: flex; flex-direction: column; gap: 2px; font-variant-numeric: tabular-nums; }
+.prices .pl { display: flex; align-items: baseline; gap: 6px; flex-wrap: wrap; font-size: 15px; }
+.prices .sz { min-width: 44px; font-weight: 600; color: var(--ink-3); }
+.prices s { color: var(--muted); font-size: 14px; }
+.prices .off { font-weight: 700; color: var(--red); }
+.prices b { font-weight: 700; color: var(--ink); }
+.benefit { margin: 12px 0 0; padding: 14px 16px; border-radius: 16px; background: var(--blue-weak); color: var(--ink-2); font-size: 15px; line-height: 1.5; }
+.benefit b { color: var(--blue); }
+.alert { margin: 0 0 12px; padding: 14px 16px; border-radius: 16px; background: #FFF4CC; color: #4D3800; font-size: 15px; line-height: 1.5; display: flex; align-items: center; gap: 10px; }
+.alert span { flex: 1; min-width: 0; }
+.alert .textbtn { color: #4D3800; text-decoration: underline; text-underline-offset: 3px; }
+
+/* 포스터 뷰어 (전체 화면) */
+dialog.viewer {
+  width: 100%; max-width: 100%; height: 100%; max-height: 100%;
+  margin: 0; padding: 0; border: 0; background: var(--ink); color: #FFF;
+}
+dialog.viewer::backdrop { background: var(--ink); }
+dialog.viewer[open] { display: flex; flex-direction: column; animation: fadein .25s ease both; }
+
+@keyframes fadein {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+.vbar {
+  flex: none; display: flex; align-items: center; gap: 8px;
+  padding: calc(6px + env(safe-area-inset-top, 0px)) max(8px, env(safe-area-inset-right, 0px)) 6px max(20px, env(safe-area-inset-left, 0px));
+}
+.vbar h2 { flex: 1; min-width: 0; margin: 0; font-size: 17px; font-weight: 700; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.vbar button { width: 44px; height: 44px; border-radius: 50%; display: grid; place-items: center; color: #FFF; }
+.vbar button svg { width: 22px; height: 22px; }
+.vlist { flex: 1; overflow-y: auto; overscroll-behavior: contain; padding: 0 0 calc(24px + env(safe-area-inset-bottom, 0px)); display: flex; flex-direction: column; gap: 12px; }
+.vlist figure { margin: 0 auto; width: 100%; max-width: 560px; }
+.vlist img { width: 100%; height: auto; background: #2B323C; }
+.vlist figcaption { padding: 12px max(20px, env(safe-area-inset-left, 0px)) 8px; font-size: 15px; font-weight: 600; color: #E5E8EB; }
+
+/* 도장 확인 대기 상태 */
+.spin { width: 16px; height: 16px; border-radius: 50%; border: 2px solid currentcolor; border-right-color: transparent; animation: rot .8s linear infinite; flex: none; }
+
+@keyframes rot { to { transform: rotate(360deg); } }
+
+.slot.waiting .badge { border-color: var(--blue); }
+.slot.waiting .badge::after { content: ""; position: absolute; inset: -6px; border-radius: 50%; border: 2px solid var(--blue); border-right-color: transparent; animation: rot 1s linear infinite; }
+.slot.waiting .st { color: var(--blue); font-weight: 600; }
+.row.is-waiting .act { background: var(--bg); color: var(--ink-3); }
+
 /* 완료 시트 */
 .done-hero { padding: 24px 20px 0; display: flex; flex-direction: column; align-items: center; text-align: center; }
 .check-big { width: 76px; height: 76px; }
@@ -381,11 +445,11 @@ dialog.sheet[open] { animation: up .42s var(--ease) both; }
       </div>
       <div class="bar" aria-hidden="true"><i id="barFill"></i></div>
       <div class="slots">
-        <div class="slot" id="slot-amazona">
+        <div class="slot" id="slot-amazona" aria-live="polite">
           <div class="badge"><img src="img/logo-amazona.webp" width="360" height="117" alt=""><span class="ck"><svg viewBox="0 0 20 20" aria-hidden="true"><path d="M4.5 10.5 8.5 14.5 15.5 6.5" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg></span></div>
           <span class="lbl"><span class="nm">아마조나</span><span class="st" data-st="amazona">아직 안 받았어요</span></span>
         </div>
-        <div class="slot" id="slot-parrotlab">
+        <div class="slot" id="slot-parrotlab" aria-live="polite">
           <div class="badge"><img src="img/logo-parrotlab.webp" width="360" height="141" alt=""><span class="ck"><svg viewBox="0 0 20 20" aria-hidden="true"><path d="M4.5 10.5 8.5 14.5 15.5 6.5" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg></span></div>
           <span class="lbl"><span class="nm">앵무새연구소</span><span class="st" data-st="parrotlab">아직 안 받았어요</span></span>
         </div>
@@ -398,7 +462,7 @@ dialog.sheet[open] { animation: up .42s var(--ease) both; }
     </section>
 
     <!-- 2. 완료 배너 -->
-    <button type="button" class="banner press" id="doneBanner" hidden>
+    <button type="button" class="banner press" id="doneBanner" aria-haspopup="dialog" hidden>
       <span class="ic" aria-hidden="true"><svg viewBox="0 0 20 20"><path d="M4.5 10.5 8.5 14.5 15.5 6.5" fill="none" stroke="currentColor" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
       <span class="tx"><strong>🎉 두 브랜드 플친 완료!</strong><!-- taste-skill-ignore: 요청 원문 --><span class="s">완료 화면을 직원에게 보여주세요</span></span>
       <svg class="chev" viewBox="0 0 20 20" aria-hidden="true"><path d="M7.5 4.5 13 10l-5.5 5.5" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
@@ -424,12 +488,12 @@ dialog.sheet[open] { animation: up .42s var(--ease) both; }
     <section class="card" aria-labelledby="aboutTitle">
       <div class="card-head"><h2 id="aboutTitle">브랜드 알아보기</h2></div>
       <ul class="list">
-        <li><button type="button" class="row press" data-open="amazona">
+        <li><button type="button" class="row press" data-open="amazona" aria-haspopup="dialog">
           <span class="ic thumb"><img src="img/thumb-am.webp" width="120" height="120" alt=""></span>
           <span class="tx"><span class="t">아마조나에 대해 보러가기</span><span class="d">동결건조 간식, 가평 카페와 활공장</span></span>
           <svg class="chev" viewBox="0 0 20 20" aria-hidden="true"><path d="M7.5 4.5 13 10l-5.5 5.5" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
         </button></li>
-        <li><button type="button" class="row press" data-open="parrotlab">
+        <li><button type="button" class="row press" data-open="parrotlab" aria-haspopup="dialog">
           <span class="ic thumb"><img src="img/thumb-pl.webp" width="120" height="120" alt=""></span>
           <span class="tx"><span class="t">앵무새연구소에 대해 보러가기</span><span class="d">장난감 샘플팩과 벌크팩</span></span>
           <svg class="chev" viewBox="0 0 20 20" aria-hidden="true"><path d="M7.5 4.5 13 10l-5.5 5.5" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
@@ -446,6 +510,7 @@ dialog.sheet[open] { animation: up .42s var(--ease) both; }
 
   <footer class="foot pad">
     <span id="footText"></span>
+    <span id="footInfo"></span>
     <div id="resetArea"><button type="button" class="linkish" id="resetAsk">스탬프 처음부터 다시 받기</button></div>
   </footer>
 </div>
@@ -454,6 +519,15 @@ dialog.sheet[open] { animation: up .42s var(--ease) both; }
 <dialog class="sheet" id="brandModal" aria-labelledby="bmTitle">
   <button type="button" class="sheet-close" data-close aria-label="닫기"><svg viewBox="0 0 20 20" aria-hidden="true"><path d="M5 5l10 10M15 5 5 15" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></button>
   <div class="sheet-in" id="bmInner"></div>
+</dialog>
+
+<!-- 포스터 뷰어 -->
+<dialog class="viewer" id="viewer" aria-labelledby="vTitle">
+  <div class="vbar">
+    <h2 id="vTitle">이미지 보기</h2>
+    <button type="button" data-close aria-label="닫기"><svg viewBox="0 0 20 20" aria-hidden="true"><path d="M5 5l10 10M15 5 5 15" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></button>
+  </div>
+  <section class="vlist" id="vList" tabindex="0" aria-labelledby="vTitle"></section>
 </dialog>
 
 <!-- 완료 시트 (스크린샷용) -->
@@ -486,21 +560,40 @@ dialog.sheet[open] { animation: up .42s var(--ease) both; }
 
 <script>
 /* =========================================================
-   SITE_CONFIG — 링크·문구는 여기만 고치면 됩니다
+   SITE_CONFIG — 링크·문구·가격은 여기만 고치면 돼요
    ========================================================= */
 const SITE_CONFIG = {
   event: {
     name: "앵페스타",
     dates: "10월 17–18일",
     place: "서울 문래 올댓마인드",
+    detail: "서울 영등포구 문래로 55 올댓마인드, 10:00–18:00 (입장 마감 17:30)",
   },
-  // 저장 키: 행사 회차가 바뀌면 이름을 바꾸면 모든 방문객 스탬프가 새로 시작됩니다
+  // 저장 키: 행사 회차가 바뀌면 이름을 바꾸면 모든 방문객 스탬프가 새로 시작돼요
   storageKey: "aengfesta-2026-stamp",
+  // 플친 버튼을 누른 뒤 도장이 찍히기까지 기다리는 시간(밀리초). 5500 = 5.5초
+  stampDelayMs: 5500,
 
   messages: {
     boardNote: "여기 뜨는 스탬프를 스크린샷 찍어두고 직원에게 보여주시면 이벤트 참여를 도와드립니다!",
     doneModal: "🎉 두 브랜드 플친 스탬프가 모두 찍혔습니다! 여기 뜨는 스탬프 화면을 스크린샷(캡처) 찍어두고 현장 직원에게 보여주시면 이벤트 참여를 도와드립니다!", // taste-skill-ignore: 요청 원문
+    waiting: "확인하고 있어요",
     footer: "앵무새연구소 × 아마조나 앵페스타 합동 부스",
+  },
+
+  // 포스터 이미지 제목 (뷰어 상단과 캡션에 쓰여요)
+  posters: {
+    "p-lineup": "동결건조 5종 한눈에 비교",
+    "p-deals": "앵페스타에서 만나는 아마조나 특가",
+    "p-reasons": "아마조나 동결건조가 특별한 5가지 이유",
+    "p-green": "그린일레븐",
+    "p-tropical": "트로피칼나인",
+    "p-berry": "베리베리텐",
+    "p-allforone": "올포원 브라운 & 바이올렛",
+    "p-price-chop": "동결건조 50g·200g 현장 특가",
+    "p-price-allforone": "올포원 라인 현장 특가",
+    "p-tickets": "아마조나 입장권 현장 특가",
+    "p-closed": "가평 라운지 임시 휴무 안내",
   },
 
   brands: {
@@ -509,7 +602,7 @@ const SITE_CONFIG = {
       kakaoUrl: "https://pf.kakao.com/_NtIxjG",
       logo: "logo-amazona",
       title: "앵무새가 먼저 알아보는\n동결건조 자연식",
-      lead: "아마조나는 앵무새 전용 동결건조 간식을 만드는 브랜드입니다. 채소·과일·곡물을 동결건조해 원재료의 색과 식감을 그대로 살렸고, HACCP 인증 시설에서 국내 생산합니다.",
+      lead: "앵무새 전용 동결건조 간식을 만들어요. 채소·과일·콩을 그대로 얼려 말려서 색과 식감이 살아 있고, HACCP 인증 시설에서 국내 생산해요.",
       gallery: ["am-1", "am-2", "am-3", "am-4", "am-5", "am-6", "am-7", "am-8"],
       galleryAlt: [
         "올포원 브라운 큐브를 먹는 아마존 앵무새",
@@ -521,32 +614,47 @@ const SITE_CONFIG = {
         "올포원 브라운 큐브 클로즈업",
         "올포원 바이올렛 큐브 클로즈업",
       ],
+      // 제품 라인업: 누르면 posters 이미지가 뷰어로 열려요
       lineupTitle: "제품 라인업",
-      lineup: [
-        { name: "그린일레븐" },
-        { name: "트로피칼나인" },
-        { name: "베리베리텐" },
-        { name: "올포원 브라운", isNew: true },
-        { name: "올포원 바이올렛" },
+      lineupPosters: ["p-lineup", "p-deals", "p-reasons"],
+      products: [
+        { name: "그린일레븐", desc: "채소 듬뿍 기본식, 원물 11가지", pkg: "pkg-green",
+          prices: [{ size: "50g", was: 12500, now: 10000 }, { size: "200g", was: 35000, now: 28000 }],
+          posters: ["p-green", "p-price-chop"] },
+        { name: "트로피칼나인", desc: "달콤한 열대과일, 원물 9가지", pkg: "pkg-tropical",
+          prices: [{ size: "50g", was: 12500, now: 10000 }, { size: "200g", was: 37500, now: 30000 }],
+          posters: ["p-tropical", "p-price-chop"] },
+        { name: "베리베리텐", desc: "새콤달콤 베리 3종, 원물 10가지", pkg: "pkg-berry",
+          prices: [{ size: "50g", was: 12500, now: 10000 }, { size: "200g", was: 37500, now: 30000 }],
+          posters: ["p-berry", "p-price-chop"] },
+        { name: "올포원 브라운", flag: "NEW", desc: "씨앗 3종 품은 큐브, 원물 15가지", pkg: "pkg-brown",
+          prices: [{ size: "1팩", was: 18500, now: 14800 }],
+          posters: ["p-allforone", "p-price-allforone"] },
+        { name: "올포원 바이올렛", flag: "베스트", desc: "자색고구마 보랏빛 큐브, 원물 12가지", pkg: "pkg-violet",
+          prices: [{ size: "1팩", was: 18500, now: 14800 }],
+          posters: ["p-allforone", "p-price-allforone"] },
       ],
-      lineupNote: "동결건조 자연식 50g, 200g과 올포원 큐브 라인",
+      productsNote: "앵페스타 현장 구매 시 적용돼요",
+      benefit: "아마조나 제품을 5만 원 이상 사면 <b>네이버 스토어 3,000원 할인 쿠폰</b>을 드려요. 수량이 한정돼 있어요.",
       places: {
         title: "아마조나 패럿 라운지, 가평",
-        lead: "앵무새와 보호자가 함께 쉬어 가는 공간입니다. 통창 카페에서 쉬고, 유리 온실 활공장에서 앵무새가 마음껏 날아요.",
+        lead: "앵무새와 보호자가 함께 쉬어 가는 곳이에요. 통창 카페에서 쉬고, 유리 온실 활공장에서 앵무새가 마음껏 날아요.",
+        notice: { text: "10.16(금)–10.19(월) 임시 휴무, 10.20(화)부터 정상 운영해요.", poster: "p-closed" },
         items: [
-          { img: "lounge-cafe", name: "카페", desc: "산과 잔디 마당이 내다보이는 통창 라운지. 긴 테이블에서 앵무새와 함께 쉬어 갈 수 있어요." },
-          { img: "lounge-aviary", name: "활공장", desc: "천장까지 유리로 덮인 온실형 활공장. 잔디와 나무 사이를 앵무새가 자유롭게 날 수 있어요." },
+          { img: "lounge-cafe", name: "카페", desc: "산과 잔디 마당이 내다보이는 통창 라운지예요. 긴 테이블에서 앵무새와 함께 쉬어 갈 수 있어요." },
+          { img: "lounge-aviary", name: "활공장", desc: "천장까지 유리로 덮인 온실형 활공장이에요. 잔디와 나무 사이를 앵무새가 자유롭게 날아요." },
         ],
         info: [
           ["주소", "경기도 가평군 청평면 말래골길 59"],
           ["운영", "10:00 – 18:00"],
         ],
         ticketTitle: "앵페스타 현장 특가 입장권",
+        ticketPoster: "p-tickets",
         tickets: [
-          { name: "앵페스타 한정 티켓", who: "성인 1 + 앵무새 1마리", was: "15,000원", off: "20%", price: "12,000원" },
-          { name: "그린 티켓", who: "성인 1 + 앵무새 8마리", was: "50,000원", off: "60%", price: "20,000원" },
+          { name: "앵페스타 한정 티켓", who: "성인 1 + 앵무새 1마리", was: 15000, now: 12000 },
+          { name: "그린 티켓", who: "성인 1 + 앵무새 8마리", was: 50000, now: 20000 },
         ],
-        ticketNote: "앵페스타 현장 구매 시 적용, 그린 티켓은 1인 10장까지",
+        ticketNote: "앵페스타 현장에서 살 때만 적용돼요. 그린 티켓은 1인 10장까지 살 수 있어요.",
       },
     },
 
@@ -555,7 +663,7 @@ const SITE_CONFIG = {
       kakaoUrl: "https://pf.kakao.com/_jVCmb",
       logo: "logo-parrotlab",
       title: "부수고 뜯고 노는,\n앵무새 장난감",
-      lead: "앵무새연구소는 앵무새의 놀이 본능에 맞춘 장난감을 만드는 브랜드입니다. 부리로 쪼고 뜯기 좋은 발사 나무 칩부터 여러 장난감을 담은 샘플팩, 넉넉한 벌크팩까지 준비했어요.",
+      lead: "앵무새의 놀이 본능에 맞춘 장난감을 만들어요. 부리로 쪼고 뜯기 좋은 발사 나무 칩부터 여러 장난감을 담은 샘플팩, 넉넉한 벌크팩까지 준비했어요.",
       gallery: ["pl-2", "pl-1", "pl-3"],
       galleryAlt: [
         "여러 종류의 앵무새 장난감이 담긴 상자",
@@ -568,7 +676,6 @@ const SITE_CONFIG = {
         { name: "앵무새연구소 벌크팩" },
         { name: "발사 나무 칩" },
       ],
-      lineupNote: "",
       places: null,
     },
   },
@@ -681,6 +788,86 @@ const IMAGES = {
     "src": "img/thumb-pl.webp",
     "w": 120,
     "h": 120
+  },
+  "p-green": {
+    "src": "img/p-green.webp",
+    "w": 1080,
+    "h": 1350
+  },
+  "p-berry": {
+    "src": "img/p-berry.webp",
+    "w": 1080,
+    "h": 1350
+  },
+  "p-tropical": {
+    "src": "img/p-tropical.webp",
+    "w": 1080,
+    "h": 1350
+  },
+  "p-lineup": {
+    "src": "img/p-lineup.webp",
+    "w": 1080,
+    "h": 1440
+  },
+  "p-reasons": {
+    "src": "img/p-reasons.webp",
+    "w": 1080,
+    "h": 1350
+  },
+  "p-closed": {
+    "src": "img/p-closed.webp",
+    "w": 1080,
+    "h": 1440
+  },
+  "p-price-allforone": {
+    "src": "img/p-price-allforone.webp",
+    "w": 1080,
+    "h": 1440
+  },
+  "p-price-chop": {
+    "src": "img/p-price-chop.webp",
+    "w": 1080,
+    "h": 1440
+  },
+  "p-deals": {
+    "src": "img/p-deals.webp",
+    "w": 1080,
+    "h": 1440
+  },
+  "p-tickets": {
+    "src": "img/p-tickets.webp",
+    "w": 1080,
+    "h": 1440
+  },
+  "p-allforone": {
+    "src": "img/p-allforone.webp",
+    "w": 1080,
+    "h": 1350
+  },
+  "pkg-green": {
+    "src": "img/pkg-green.webp",
+    "w": 197,
+    "h": 300
+  },
+  "pkg-berry": {
+    "src": "img/pkg-berry.webp",
+    "w": 197,
+    "h": 300
+  },
+  "pkg-tropical": {
+    "src": "img/pkg-tropical.webp",
+    "w": 197,
+    "h": 300
+  },
+  "pkg-brown": {
+    "src": "img/pkg-brown.webp",
+    "w": 195,
+    "h": 300
+  },
+  "pkg-violet": {
+    "src": "img/pkg-violet.webp",
+    "w": 196,
+    "h": 300
   }
 };
 
@@ -692,17 +879,23 @@ const IMAGES = {
   const $$ = (s, r = document) => Array.from(r.querySelectorAll(s));
   const esc = (s) => String(s).replace(/[&<>"']/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]));
   const br = (s) => esc(s).replace(/\n/g, "<br>");
-  const img = (key, alt, lazy) => {
+  const won = (n) => n.toLocaleString("ko-KR") + "원";
+  const discountRate = (was, now) => Math.round((1 - now / was) * 100);
+  const img = (key, alt, opts = {}) => {
     const m = IMAGES[key] || { src: "", w: 1, h: 1 };
-    return `<img src="${m.src}" width="${m.w}" height="${m.h}" alt="${esc(alt)}"${lazy ? ' loading="lazy" decoding="async"' : ""}>`;
+    const cls = opts.cls ? ` class="${opts.cls}"` : "";
+    const lazy = opts.lazy ? ' loading="lazy" decoding="async"' : "";
+    return `<img${cls} src="${m.src}" width="${m.w}" height="${m.h}" alt="${esc(alt)}"${lazy}>`;
   };
 
   /* ---------- 저장 ---------- */
-  const empty = () => ({ amazona: null, parrotlab: null, completedAt: null, modalShown: false });
+  const empty = () => ({ amazona: null, parrotlab: null, pending: {}, completedAt: null, modalShown: false });
   function load() {
     try {
       const raw = localStorage.getItem(C.storageKey);
-      return raw ? Object.assign(empty(), JSON.parse(raw)) : empty();
+      const saved = raw ? Object.assign(empty(), JSON.parse(raw)) : empty();
+      saved.pending = saved.pending || {};
+      return saved;
     } catch {
       return empty(); // 저장소를 쓸 수 없는 환경(사생활 보호 모드 등)
     }
@@ -728,6 +921,7 @@ const IMAGES = {
   $("#boardNote").textContent = C.messages.boardNote;
   $("#doneMsg").textContent = C.messages.doneModal;
   $("#footText").textContent = C.messages.footer;
+  $("#footInfo").textContent = C.event.detail;
   BRAND_IDS.forEach((id) => { $("#btn-" + id).href = C.brands[id].kakaoUrl; });
   $("#events").innerHTML = C.events.map((ev, i) => `
     <article class="ev e${i + 1}">
@@ -739,54 +933,73 @@ const IMAGES = {
 
   /* ---------- 화면 반영 ---------- */
   const CHECK = '<svg viewBox="0 0 20 20" aria-hidden="true"><path d="M4.5 10.5 8.5 14.5 15.5 6.5" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/></svg>';
-  function render(justId) {
+  const isDone = (id) => !!state[id];
+  const isWaiting = (id) => !state[id] && !!state.pending[id];
+
+  function render(justIds = []) {
     let n = 0;
     BRAND_IDS.forEach((id) => {
-      const done = !!state[id];
+      const done = isDone(id);
+      const waiting = isWaiting(id);
       if (done) n++;
       const slot = $("#slot-" + id);
       slot.classList.toggle("done", done);
-      slot.classList.toggle("just", justId === id);
-      $$(`[data-st="${id}"]`).forEach((el) => { el.textContent = done ? fmtShort(state[id]) : "아직 안 받았어요"; });
+      slot.classList.toggle("waiting", waiting);
+      slot.classList.toggle("just", justIds.includes(id));
+      slot.setAttribute("aria-busy", String(waiting));
+      $$(`[data-st="${id}"]`).forEach((el) => {
+        el.textContent = done ? fmtShort(state[id]) : waiting ? C.messages.waiting : "아직 안 받았어요";
+      });
       const row = $("#btn-" + id);
       row.classList.toggle("is-done", done);
-      $(".act", row).innerHTML = done ? `${CHECK}완료` : "추가하기";
+      row.classList.toggle("is-waiting", waiting);
+      $(".act", row).innerHTML = done ? `${CHECK}완료` : waiting ? '<span class="spin" aria-hidden="true"></span>확인 중' : "추가하기";
     });
     $("#stampN").textContent = n;
     $("#barFill").style.width = (n / 2) * 100 + "%";
-    const all = n === 2;
-    $("#doneBanner").hidden = !all;
+    const allDone = n === BRAND_IDS.length;
+    $("#doneBanner").hidden = !allDone;
     $("#doneAt").textContent = state.completedAt ? fmtFull(state.completedAt) : "";
-    return all;
+    return allDone;
   }
 
-  /* ---------- 스탬프 ---------- */
-  let pending = null;
-  function giveStamp(id) {
-    if (state[id]) return;
-    state[id] = Date.now();
-    if (BRAND_IDS.every((b) => state[b])) state.completedAt = Math.max(state.amazona, state.parrotlab);
+  /* ---------- 스탬프: 누르고 stampDelayMs 뒤에 찍혀요 ---------- */
+  let settleTimer = null;
+  function requestStamp(id) {
+    if (isDone(id) || isWaiting(id)) return;
+    state.pending[id] = Date.now();
     save();
-    pending = id;
-    // 카톡으로 넘어갔다면 돌아왔을 때, 같은 화면이면 잠시 뒤에 반영
-    if (document.visibilityState === "visible") setTimeout(flushPending, 900);
+    render();
+    scheduleSettle();
   }
-  function flushPending() {
-    if (!pending) return;
-    const id = pending; pending = null;
-    const all = render(id);
-    $("#liveMsg").textContent = `${C.brands[id].name} 플친 스탬프를 받았어요.`;
-    if (navigator.vibrate) navigator.vibrate(30);
-    if (all && !state.modalShown) {
+  function scheduleSettle() {
+    clearTimeout(settleTimer);
+    const waits = BRAND_IDS.filter(isWaiting).map((id) => C.stampDelayMs - (Date.now() - state.pending[id]));
+    if (waits.length) settleTimer = setTimeout(settleStamps, Math.max(0, Math.min(...waits)) + 30);
+  }
+  function settleStamps() {
+    const now = Date.now();
+    const ready = BRAND_IDS.filter((id) => isWaiting(id) && now - state.pending[id] >= C.stampDelayMs);
+    ready.forEach((id) => { state[id] = now; delete state.pending[id]; });
+    const allDone = BRAND_IDS.every(isDone);
+    if (ready.length) {
+      if (allDone && !state.completedAt) state.completedAt = now;
+      save();
+      $("#liveMsg").textContent = ready.map((id) => `${C.brands[id].name} 플친 스탬프를 받았어요.`).join(" ");
+      if (navigator.vibrate) navigator.vibrate(30);
+    }
+    render(ready);
+    if (ready.length && allDone && !state.modalShown) {
       state.modalShown = true; save();
       setTimeout(openDone, 700);
     }
+    scheduleSettle();
   }
-  document.addEventListener("visibilitychange", () => { if (document.visibilityState === "visible") setTimeout(flushPending, 250); });
-  window.addEventListener("pageshow", () => { state = load(); render(); });
-  BRAND_IDS.forEach((id) => { $("#btn-" + id).addEventListener("click", () => giveStamp(id)); });
+  document.addEventListener("visibilitychange", () => { if (document.visibilityState === "visible") settleStamps(); });
+  window.addEventListener("pageshow", () => { state = load(); settleStamps(); });
+  BRAND_IDS.forEach((id) => { $("#btn-" + id).addEventListener("click", () => requestStamp(id)); });
 
-  /* ---------- 시트 ---------- */
+  /* ---------- 시트·뷰어 공통 ---------- */
   function openDialog(dlg) {
     if (typeof dlg.showModal === "function") dlg.showModal(); else dlg.setAttribute("open", "");
     const inner = $(".sheet-in", dlg); if (inner) inner.scrollTop = 0;
@@ -809,61 +1022,112 @@ const IMAGES = {
   $("#doneModal").addEventListener("close", () => clearInterval(clock));
   $("#doneBanner").addEventListener("click", openDone);
 
+  // 포스터 뷰어: 세로로 이어 보기, 누른 이미지부터 보여줘요
+  function openViewer(title, keys) {
+    const viewer = $("#viewer");
+    $("#vTitle").textContent = title;
+    $("#vList").innerHTML = keys.map((k, i) => `
+      <figure><figcaption>${esc(C.posters[k] || "")}</figcaption>${img(k, "", { lazy: i > 0 })}</figure>`).join("");
+    openDialog(viewer);
+    $("#vList").scrollTop = 0;
+  }
+  document.addEventListener("click", (e) => {
+    const trigger = e.target.closest("[data-posters]");
+    if (!trigger) return;
+    openViewer(trigger.dataset.title, trigger.dataset.posters.split(","));
+  });
+
+  /* ---------- 브랜드 소개 시트 ---------- */
   const KAKAO = '<svg viewBox="0 0 40 40" aria-hidden="true"><path d="M20 7C11.2 7 5 12.6 5 19.2c0 4.1 2.6 7.6 6.6 9.7L10.3 34l5.9-3.9c1.2.3 2.5.4 3.8.4 8.8 0 15-5.4 15-11.5C35 12.6 28.8 7 20 7Z" fill="currentColor"/></svg>';
   const PREV = '<svg viewBox="0 0 20 20" aria-hidden="true"><path d="M12.5 4.5 7 10l5.5 5.5" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>';
   const NEXT = '<svg viewBox="0 0 20 20" aria-hidden="true"><path d="M7.5 4.5 13 10l-5.5 5.5" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>';
+  const posterAttrs = (title, keys) => `data-title="${esc(title)}" data-posters="${keys.join(",")}" aria-haspopup="dialog"`;
+
+  function productsHTML(b) {
+    const rows = b.products.map((p) => `
+      <li><button type="button" class="prod press" ${posterAttrs(p.name, p.posters)}>
+        ${img(p.pkg, "", { cls: "pkg", lazy: true })}
+        <span class="tx">
+          <span class="t">${esc(p.name)}${p.flag ? `<span class="flag${p.flag === "NEW" ? "" : " best"}">${esc(p.flag)}</span>` : ""}</span>
+          <span class="d">${esc(p.desc)}</span>
+          <span class="prices">${p.prices.map((pr) => `
+            <span class="pl"><span class="sz">${esc(pr.size)}</span> <s>${won(pr.was)}</s> <span class="off">${discountRate(pr.was, pr.now)}%</span> <b>${won(pr.now)}</b></span>`).join("")}
+          </span>
+        </span>
+        ${NEXT.replace("<svg ", '<svg class="chev" ')}
+      </button></li>`).join("");
+    return `
+      <section class="bs-sec">
+        <div class="sec-head">
+          <h3>${esc(b.lineupTitle)}</h3>
+          <button type="button" class="textbtn" ${posterAttrs("제품 라인업 한눈에 보기", b.lineupPosters)}>한눈에 보기${NEXT}</button>
+        </div>
+        <ul class="prods">${rows}</ul>
+        <p class="note">${esc(b.productsNote)}</p>
+        <p class="benefit">${b.benefit}</p>
+      </section>`;
+  }
+
+  function placesHTML(P) {
+    return `
+      <section class="bs-sec">
+        <h3>${esc(P.title)}</h3>
+        <p class="lead">${esc(P.lead)}</p>
+        <p class="alert"><span>${esc(P.notice.text)}</span><button type="button" class="textbtn" ${posterAttrs(C.posters[P.notice.poster], [P.notice.poster])}>안내 보기</button></p>
+        <div class="places">${P.items.map((it) => `
+          <div class="place">${img(it.img, "", { lazy: true })}<strong>${esc(it.name)}</strong><p>${esc(it.desc)}</p></div>`).join("")}
+        </div>
+      </section>
+      <section class="bs-sec">
+        <dl class="kv">${P.info.map(([k, v]) => `<div><dt>${esc(k)}</dt><dd>${esc(v)}</dd></div>`).join("")}</dl>
+      </section>
+      <section class="bs-sec">
+        <div class="sec-head">
+          <h3>${esc(P.ticketTitle)}</h3>
+          <button type="button" class="textbtn" ${posterAttrs(C.posters[P.ticketPoster], [P.ticketPoster])}>이미지 보기${NEXT}</button>
+        </div>
+        <div class="tickets">${P.tickets.map((t) => `
+          <div class="ticket"><div class="tx"><b>${esc(t.name)}</b><small>${esc(t.who)}</small></div>
+          <div class="pr"><s>${won(t.was)}</s><span class="off">${discountRate(t.was, t.now)}%</span><em>${won(t.now)}</em></div></div>`).join("")}
+        </div>
+        <p class="note">${esc(P.ticketNote)}</p>
+      </section>`;
+  }
+
+  function chipsHTML(b) {
+    return `
+      <section class="bs-sec">
+        <h3>${esc(b.lineupTitle)}</h3>
+        <div class="chips">${b.lineup.map((p) => `<span>${esc(p.name)}</span>`).join("")}</div>
+      </section>`;
+  }
+
+  function sheetCtaHTML(id, b) {
+    if (isDone(id)) return `<button type="button" class="btn grey press" data-close>닫기</button>`;
+    if (isWaiting(id)) return `<button type="button" class="btn grey press" data-close>${esc(C.messages.waiting)}</button>`;
+    return `<a class="btn kakao press" href="${esc(b.kakaoUrl)}" target="_blank" rel="noopener" data-stamp="${id}">${KAKAO}${esc(b.name)} 채널 추가하기</a>`;
+  }
+
   function brandHTML(id) {
     const b = C.brands[id];
-    const imgs = b.gallery.map((k, i) => `<figure>${img(k, b.galleryAlt[i] || b.name, i > 0)}</figure>`).join("");
-    const lineup = b.lineup.map((p) => `<span class="${p.isNew ? "new" : ""}">${esc(p.name)}</span>`).join("");
-    let places = "";
-    if (b.places) {
-      const P = b.places;
-      places = `
-        <section class="bs-sec">
-          <h3>${esc(P.title)}</h3>
-          <p class="lead">${esc(P.lead)}</p>
-          <div class="places">${P.items.map((it) => `
-            <div class="place">${img(it.img, "아마조나 " + it.name, true)}<strong>${esc(it.name)}</strong><p>${esc(it.desc)}</p></div>`).join("")}
-          </div>
-        </section>
-        <section class="bs-sec">
-          <dl class="kv">${P.info.map(([k, v]) => `<div><dt>${esc(k)}</dt><dd>${esc(v)}</dd></div>`).join("")}</dl>
-        </section>
-        <section class="bs-sec">
-          <h3>${esc(P.ticketTitle)}</h3>
-          <div class="tickets">${P.tickets.map((t) => `
-            <div class="ticket"><div class="tx"><b>${esc(t.name)}</b><small>${esc(t.who)}</small></div>
-            <div class="pr"><s>${esc(t.was)}</s><span class="off">${esc(t.off)}</span><em>${esc(t.price)}</em></div></div>`).join("")}
-          </div>
-          <p class="note">${esc(P.ticketNote)}</p>
-        </section>`;
-    }
+    const imgs = b.gallery.map((k, i) => `<figure>${img(k, b.galleryAlt[i] || b.name, { lazy: i > 0 })}</figure>`).join("");
     return `
       <div class="handle" aria-hidden="true"></div>
       <div class="bs-head">
-        ${img(b.logo, b.name, false).replace("<img ", '<img class="logo" ')}
+        ${img(b.logo, b.name, { cls: "logo" })}
         <h2 id="bmTitle">${br(b.title)}</h2>
         <p>${esc(b.lead)}</p>
       </div>
-      <div class="carousel" tabindex="0" role="region" aria-label="${esc(b.name)} 사진 ${b.gallery.length}장">${imgs}</div>
+      <section class="carousel" tabindex="0" aria-label="${esc(b.name)} 사진 ${b.gallery.length}장">${imgs}</section>
       <div class="pager">
         <button type="button" class="prev" aria-label="이전 사진">${PREV}</button>
         <span class="num" aria-live="polite"><span class="cur">1</span> / ${b.gallery.length}</span>
         <button type="button" class="next" aria-label="다음 사진">${NEXT}</button>
       </div>
-      <section class="bs-sec">
-        <h3>${esc(b.lineupTitle)}</h3>
-        <div class="chips">${lineup}</div>
-        ${b.lineupNote ? `<p class="note">${esc(b.lineupNote)}</p>` : ""}
-      </section>
-      ${places}
+      ${b.products ? productsHTML(b) : chipsHTML(b)}
+      ${b.places ? placesHTML(b.places) : ""}
       <div class="sp"></div>
-      <div class="cta">
-        ${state[id]
-          ? `<button type="button" class="btn grey press" data-close>닫기</button>`
-          : `<a class="btn kakao press" href="${esc(b.kakaoUrl)}" target="_blank" rel="noopener" data-stamp="${id}">${KAKAO}${esc(b.name)} 채널 추가하기</a>`}
-      </div>`;
+      <div class="cta">${sheetCtaHTML(id, b)}</div>`;
   }
 
   $$("[data-open]").forEach((btn) => {
@@ -889,7 +1153,7 @@ const IMAGES = {
       prev.addEventListener("click", () => go(-1));
       next.addEventListener("click", () => go(1));
       const s = $("[data-stamp]", dlg);
-      if (s) s.addEventListener("click", () => { giveStamp(s.dataset.stamp); closeDialog(dlg); });
+      if (s) s.addEventListener("click", () => { requestStamp(s.dataset.stamp); closeDialog(dlg); });
       openDialog(dlg);
       sync(); // 시트가 열려 레이아웃이 잡힌 뒤에 계산
     });
@@ -902,13 +1166,14 @@ const IMAGES = {
     if (e.target.id === "resetAsk") {
       resetArea.innerHTML = `<div class="confirm"><span>스탬프를 모두 지울까요?</span><button type="button" class="yes" id="resetYes">지우기</button><button type="button" class="no" id="resetNo">취소</button></div>`;
     } else if (e.target.id === "resetYes") {
+      clearTimeout(settleTimer);
       state = empty(); save(); render(); resetArea.innerHTML = resetHTML;
     } else if (e.target.id === "resetNo") {
       resetArea.innerHTML = resetHTML;
     }
   });
 
-  render();
+  settleStamps();
 })();
 </script>
 </body>
