@@ -348,23 +348,36 @@ dialog.sheet[open] { animation: up .42s var(--ease) both; }
 .textbtn svg { width: 16px; height: 16px; }
 
 /* 제품 리스트 */
-.prods { list-style: none; margin: 0 -20px; padding: 0; display: flex; flex-direction: column; }
-.prod { width: 100%; display: flex; align-items: center; gap: 14px; padding: 16px 20px; text-align: left; }
-.prod:active { background: var(--tone); }
-.prod .pkg { flex: none; width: 56px; height: auto; border-radius: 8px; }
+/* 제품 목록: 제품마다 한 칸 (위: 사진·이름·설명 / 아래: 가격표) */
+.prods { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 10px; }
+.prod {
+  width: 100%; display: flex; flex-direction: column; gap: 12px;
+  padding: 16px; border-radius: 20px; background: var(--tone); text-align: left;
+}
+.prod:active { background: var(--bg); }
+.prod-top { display: flex; align-items: center; gap: 14px; }
+.prod .pkg { flex: none; width: 52px; height: auto; border-radius: 8px; }
 .prod .tx { flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 2px; }
 .prod .t { display: flex; align-items: center; gap: 6px; font-size: 17px; font-weight: 700; line-height: 1.35; }
 .prod .d { font-size: 14px; color: var(--muted); line-height: 1.4; }
 .prod .chev { flex: none; width: 20px; height: 20px; color: var(--muted); }
 .flag { flex: none; font-size: 12px; font-weight: 700; padding: 2px 6px; border-radius: 6px; color: #FFF; background: var(--red); }
 .flag.best { background: var(--ink-2); }
-.prices { margin: 6px 0 0; padding: 0; list-style: none; display: flex; flex-direction: column; gap: 2px; font-variant-numeric: tabular-nums; }
-.prices .pl { display: flex; align-items: baseline; gap: 6px; flex-wrap: wrap; font-size: 15px; line-height: 1.5; }
-.prices .sz { min-width: 44px; font-weight: 600; color: var(--ink-3); }
+.prices { display: flex; flex-direction: column; gap: 4px; padding: 8px 14px; border-radius: 14px; background: var(--surface); font-variant-numeric: tabular-nums; }
+.prices .pl { display: grid; grid-template-columns: 44px minmax(0, 1fr) auto auto; align-items: baseline; column-gap: 8px; padding: 4px 0; font-size: 15px; line-height: 1.5; }
+.prices .sz { font-weight: 600; color: var(--ink-3); }
 .prices s { color: var(--muted); font-size: 14px; }
-.prices b { font-size: 17px; }
 .prices .off { font-weight: 700; color: var(--red); }
-.prices b { font-weight: 700; color: var(--ink); }
+.prices b { font-size: 17px; font-weight: 700; color: var(--ink); text-align: right; }
+
+/* 아주 좁은 화면(360px 미만): 정가를 최종가 아래 줄로 */
+@media (max-width: 359px) {
+  .prices .pl { grid-template-columns: 40px minmax(0, 1fr) auto; grid-template-areas: "sz off fin" ". . was"; row-gap: 0; }
+  .prices .sz { grid-area: sz; }
+  .prices .off { grid-area: off; justify-self: end; }
+  .prices b { grid-area: fin; }
+  .prices s { grid-area: was; text-align: right; font-size: 13px; }
+}
 .benefit { margin: 12px 0 0; padding: 14px 16px; border-radius: 16px; background: var(--blue-weak); color: var(--ink-2); font-size: 15px; line-height: 1.5; }
 .benefit b { color: var(--blue); }
 .alert { margin: 0 0 12px; padding: 14px 16px; border-radius: 16px; background: #FFF4CC; color: #4D3800; font-size: 15px; line-height: 1.5; display: flex; align-items: center; gap: 10px; }
@@ -1069,15 +1082,17 @@ const IMAGES = {
   function productsHTML(b) {
     const rows = b.products.map((p) => `
       <li><button type="button" class="prod press" ${posterAttrs(p.name, p.posters)}>
-        ${img(p.pkg, "", { cls: "pkg", lazy: true })}
-        <span class="tx">
-          <span class="t">${esc(p.name)}${p.flag ? `<span class="flag${p.flag === "NEW" ? "" : " best"}">${esc(p.flag)}</span>` : ""}</span>
-          <span class="d">${esc(p.desc)}</span>
-          <span class="prices">${p.prices.map((pr) => `
-            <span class="pl"><span class="sz">${esc(pr.size)}</span> <span class="off">${discountRate(pr.was, pr.now)}%</span> <b>${won(pr.now)}</b> <s><span class="sr-only">정가 </span>${won(pr.was)}</s></span>`).join("")}
+        <span class="prod-top">
+          ${img(p.pkg, "", { cls: "pkg", lazy: true })}
+          <span class="tx">
+            <span class="t">${esc(p.name)}${p.flag ? `<span class="flag${p.flag === "NEW" ? "" : " best"}">${esc(p.flag)}</span>` : ""}</span>
+            <span class="d">${esc(p.desc)}</span>
           </span>
+          ${NEXT.replace("<svg ", '<svg class="chev" ')}
         </span>
-        ${NEXT.replace("<svg ", '<svg class="chev" ')}
+        <span class="prices">${p.prices.map((pr) => `
+          <span class="pl"><span class="sz">${esc(pr.size)}</span><s><span class="sr-only">정가 </span>${won(pr.was)}</s><span class="off">${discountRate(pr.was, pr.now)}%</span><b>${won(pr.now)}</b></span>`).join("")}
+        </span>
       </button></li>`).join("");
     return `
       <section class="bs-sec">
