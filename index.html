@@ -1044,7 +1044,6 @@ const DETAILS = {
       ["제조국가", "대한민국"],
       ["보관방법", "직사광선을 피해 밀봉 후 실온 보관 및 냉장 보관"],
       ["유통기한", "제조일로부터 24개월 (별도 표기)"],
-      ["제조원", "(주)그루비테이블 [경기도 안성시 양성면 한내로 53]"],
       ["판매원", "아마조나 [경기도 가평군 청평면 말래골길 59]"],
       ["소비자 상담실", "0507-1350-3434"],
       ["반품 및 교환 장소", "구입처"],
@@ -1866,7 +1865,6 @@ const IMAGES = {
     scale: "M6 8h12l2 12H4L6 8Z M9 8a3 3 0 0 1 6 0",
     flag: "M5 21V4 M5 4h12l-2 4 2 4H5",
     calendar: "M4 6h16v14H4Z M4 10h16 M8 3v4 M16 3v4",
-    factory: "M3 21V10l6 3v-3l6 3V5h6v16H3Z M7 17h2 M12 17h2",
     store: "M4 9l1-5h14l1 5 M4 9v11h16V9 M4 9h16 M10 20v-5h4v5",
     phone: "M5 4h4l2 5-2.5 1.5a11 11 0 0 0 5 5L15 13l5 2v4a1 1 0 0 1-1 1A16 16 0 0 1 4 5a1 1 0 0 1 1-1Z",
     zoom: "M11 4a7 7 0 1 1 0 14 7 7 0 0 1 0-14Z M20 20l-4-4 M11 8v6 M8 11h6",
@@ -2026,7 +2024,6 @@ const IMAGES = {
         <div class="pd-sub"><h4>등록 성분량</h4>
         <ul class="nutr">${nutr.map(([, n, v, c]) => `<li><span>${esc(n)}</span><b>${esc(v)}</b><small class="${c === "이상" ? "up" : "dn"}">${esc(c)}</small></li>`).join("")}</ul></div>
         <ul class="maker">
-          <li>${icon("factory")}<div><span>제조원</span><b>${esc(info["제조원"])}</b></div></li>
           <li>${icon("store")}<div><span>판매원</span><b>${esc(info["판매원"])}</b></div></li>
           <li>${icon("phone")}<div><span>소비자 상담실</span><a href="tel:${tel.replace(/-/g, "")}">${esc(tel)}</a></div></li>
         </ul>
